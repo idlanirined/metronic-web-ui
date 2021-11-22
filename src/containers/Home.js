@@ -240,47 +240,43 @@ export default function Home() {
               "created": "",
               "updated": null
             },
+          ],
+          "collapse": false,
+          "is_access": true,
+          "created": "",
+          "updated": null
+        },
+        {
+          "menu_id": 15,
+          "class_id": "daftar-user",
+          "menu_name": "Daftar User",
+          "type": "item",
+          "icon": "setup",
+          "reference": 1,
+          "sub_menu": [
             {
-              "menu_id": 34,
-              "class_id": "transaction",
-              "menu_name": "Transaction",
-              "type": "item",
+              "menu_id": 22,
+              "class_id": "akun-user",
+              "menu_name": "Akun User",
+              "type": "item ",
               "icon": " ",
-              "reference": 17,
+              "reference": 15,
               "sub_menu": [],
-
               "collapse": false,
               "is_access": true,
               "created": "",
               "updated": null
-            }
-          ],
-          "button": [
-            {
-              "button_id": 1,
-              "button_type": "read",
-              "status": true,
-              "created": "",
-              "updated": null
             },
             {
-              "button_id": 2,
-              "button_type": "create",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 3,
-              "button_type": "update",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 4,
-              "button_type": "delete",
-              "status": true,
+              "menu_id": 11,
+              "class_id": "level-user",
+              "menu_name": "Level User",
+              "type": "item",
+              "icon": "",
+              "reference": 15,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
               "created": "",
               "updated": null
             }
@@ -292,21 +288,20 @@ export default function Home() {
         },
         {
           "menu_id": 15,
-          "class_id": "setup",
-          "menu_name": "Setup",
+          "class_id": "daftar-supplier",
+          "menu_name": "Daftar Supplier",
           "type": "item",
           "icon": "setup",
           "reference": 1,
           "sub_menu": [
             {
               "menu_id": 22,
-              "class_id": "merchant-category-code",
-              "menu_name": "Merchant Category Code",
+              "class_id": "supplier",
+              "menu_name": "Supplier",
               "type": "item ",
               "icon": " ",
               "reference": 15,
               "sub_menu": [],
-
               "collapse": false,
               "is_access": true,
               "created": "",
@@ -314,144 +309,14 @@ export default function Home() {
             },
             {
               "menu_id": 11,
-              "class_id": "master-cost-type",
-              "menu_name": "Master Cost Type",
+              "class_id": "jenis-supplier",
+              "menu_name": "Jenis Supplier",
               "type": "item",
               "icon": "",
               "reference": 15,
               "sub_menu": [],
-
               "collapse": false,
               "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 14,
-              "class_id": "master-location",
-              "menu_name": "Master Location",
-              "type": "item",
-              "icon": "",
-              "reference": 15,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 23,
-              "class_id": "approval-matrix",
-              "menu_name": "Approval Matrix",
-              "type": "item",
-              "icon": " ",
-              "reference": 15,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 24,
-              "class_id": "risk-acceptance-criteria",
-              "menu_name": "Risk Acceptance Criteria",
-              "type": "item",
-              "icon": " ",
-              "reference": 15,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 25,
-              "class_id": "category-score",
-              "menu_name": "Category Score",
-              "type": "item",
-              "icon": " ",
-              "reference": 15,
-              "sub_menu": [],
-              "button": [
-                {
-                  "button_id": 1,
-                  "button_type": "read",
-                  "status": true,
-                  "created": "",
-                  "updated": null
-                },
-                {
-                  "button_id": 2,
-                  "button_type": "create",
-                  "status": true,
-                  "created": "",
-                  "updated": null
-                },
-                {
-                  "button_id": 4,
-                  "button_type": "delete",
-                  "status": true,
-                  "created": "",
-                  "updated": null
-                },
-                {
-                  "button_id": 3,
-                  "button_type": "update",
-                  "status": true,
-                  "created": "",
-                  "updated": null
-                }
-              ],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 26,
-              "class_id": "paremeter",
-              "menu_name": "Parameter",
-              "type": "item",
-              "icon": " ",
-              "reference": 15,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            }
-          ],
-          "button": [
-            {
-              "button_id": 1,
-              "button_type": "read",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 2,
-              "button_type": "create",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 3,
-              "button_type": "update",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 4,
-              "button_type": "delete",
-              "status": true,
               "created": "",
               "updated": null
             }
@@ -462,152 +327,36 @@ export default function Home() {
           "updated": null
         },
         {
-          "menu_id": 21,
-          "class_id": "monitoring",
-          "menu_name": "Monitoring",
+          "menu_id": 20,
+          "class_id": "daftar-akun",
+          "menu_name": "Daftar Akun",
           "type": "item",
-          "icon": "monitoring",
+          "icon": "setup",
           "reference": 1,
           "sub_menu": [
             {
-              "menu_id": 16,
-              "class_id": "monitoring-status",
-              "menu_name": "Monitoring Status",
+              "menu_id": 22,
+              "class_id": "account",
+              "menu_name": "Account",
+              "type": "item ",
+              "icon": " ",
+              "reference": 20,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 11,
+              "class_id": "kategori-account",
+              "menu_name": "Kategori Account",
               "type": "item",
               "icon": "",
-              "reference": 21,
+              "reference": 20,
               "sub_menu": [],
-
               "collapse": false,
               "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 27,
-              "class_id": "log-payment-transaction",
-              "menu_name": "Log Payment Transaction",
-              "type": "item",
-              "icon": " ",
-              "reference": 21,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 18,
-              "class_id": "payment-monitoring",
-              "menu_name": "Payment Monitoring",
-              "type": "item",
-              "icon": "",
-              "reference": 21,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 19,
-              "class_id": "settlement-monitoring",
-              "menu_name": "Settlement Monitoring",
-              "type": "item",
-              "icon": "",
-              "reference": 21,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 28,
-              "class_id": "monitoring-edc-location",
-              "menu_name": "Monitoring EDC Location",
-              "type": "item",
-              "icon": " ",
-              "reference": 21,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 31,
-              "class_id": "approval-monitoring",
-              "menu_name": "Approval Monitoring",
-              "type": "item",
-              "icon": " ",
-              "reference": 21,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 32,
-              "class_id": "fraud-detection-monitoring",
-              "menu_name": "Fraud Detection Monitoring",
-              "type": "item",
-              "icon": " ",
-              "reference": 21,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 33,
-              "class_id": "transaction-monitoring",
-              "menu_name": "Transaction Monitoring",
-              "type": "item",
-              "icon": " ",
-              "reference": 21,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            }
-          ],
-          "button": [
-            {
-              "button_id": 1,
-              "button_type": "read",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 2,
-              "button_type": "create",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 3,
-              "button_type": "update",
-              "status": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "button_id": 4,
-              "button_type": "delete",
-              "status": true,
               "created": "",
               "updated": null
             }
@@ -616,37 +365,7 @@ export default function Home() {
           "is_access": true,
           "created": "",
           "updated": null
-        }
-      ],
-      "button": [
-        {
-          "button_id": 1,
-          "button_type": "read",
-          "status": true,
-          "created": "System - 2021-10-14 14:54:20",
-          "updated": null
         },
-        {
-          "button_id": 2,
-          "button_type": "create",
-          "status": true,
-          "created": "System - 2021-10-14 14:54:21",
-          "updated": null
-        },
-        {
-          "button_id": 3,
-          "button_type": "update",
-          "status": true,
-          "created": "System - 2021-10-14 14:54:21",
-          "updated": null
-        },
-        {
-          "button_id": 4,
-          "button_type": "delete",
-          "status": true,
-          "created": "System - 2021-10-14 14:54:21",
-          "updated": null
-        }
       ]
     })
   const [selectedSubIndex, setSelectSub] = React.useState([]);
