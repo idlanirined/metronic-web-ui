@@ -36,6 +36,7 @@ import {
   useParams,
   useRouteMatch, useLocation, useHistory
 } from "react-router-dom";
+import HomeRoute from '../router/HomeRoutes'
 
 const drawerWidth = 240;
 
@@ -716,8 +717,8 @@ export default function Home() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar style={{ backgroundColor: "#f7faff" }}>
+      <AppBar position="fixed" open={open} style={{ boxShadow: '0px 1px 0px -13px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)' }}>
+        <Toolbar style={{ backgroundColor: "#FFFFFF" }}>
           <div style={{ display: "flex", justifyContent: "space-between", width: '-webkit-fill-available' }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <IconButton
@@ -855,37 +856,30 @@ export default function Home() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }} style={{ padding: 0 }}>
         <DrawerHeader />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        {menuid !== "" && (
+          <div style={{ height: '93vh', width: '-webkit-fill-available', backgroundColor: '#E9EBF3' }}>
+            <Switch>
+              {HomeRoute.map((route, index) => (
+                // You can render a <Route> in as many places
+                // as you want in your app. It will render along
+                // with any other <Route>s that also match the URL.
+                // So, a sidebar or breadcrumbs or anything else
+                // that requires you to render multiple things
+                // in multiple places at the same URL is nothing
+                // more than multiple <Route>s.
+                <Route
+                  key={index}
+                  path={route.path}
+                  // exact={route.exact}
+                  location={location}
+                  children={<route.main open={open} menuid={menuid} />}
+                />
+              ))}
+            </Switch>
+          </div>
+        )}
       </Box>
     </Box>
   );
