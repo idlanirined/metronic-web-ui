@@ -24,8 +24,13 @@ import ReturBarangRegionKeHead from "../containers/inventory/ReturBarangRegionKe
 import AddReturBarangHeadKeSupp from "../containers/inventory/AddReturBarangHeadKeSupp";
 import AddReturBarangRegionKeHead from "../containers/inventory/AddReturBarangRegionKeHead";
 import AddPO from "../containers/inventory/AddPO";
+import Dashboard from "../containers/Dashboard";
 
 const routes = [
+    {
+        path: "/dashboard",
+        main: Dashboard
+    },
     {
         path: "/barang",
         main: Barang

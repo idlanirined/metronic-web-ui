@@ -510,6 +510,20 @@ export default function Home() {
           "is_access": true,
           "created": "",
           "updated": null
+        },
+        {
+          "menu_id": 38,
+          "class_id": "reporting",
+          "menu_name": "Reporting",
+          "type": "item",
+          "icon": "general",
+          "reference": 1,
+          "sub_menu": [
+          ],
+          "collapse": false,
+          "is_access": true,
+          "created": "",
+          "updated": null
         }
       ]
     })
