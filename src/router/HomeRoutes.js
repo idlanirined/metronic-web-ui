@@ -25,6 +25,7 @@ import AddReturBarangHeadKeSupp from "../containers/inventory/AddReturBarangHead
 import AddReturBarangRegionKeHead from "../containers/inventory/AddReturBarangRegionKeHead";
 import AddPO from "../containers/inventory/AddPO";
 import Dashboard from "../containers/Dashboard";
+import AddAlokasiDana from "../containers/budgeting/AddAlokasiDana";
 
 const routes = [
     {
@@ -82,6 +83,10 @@ const routes = [
     {
         path: "/alokasi-dana",
         main: AlokasiDana
+    },
+    {
+        path: "/tambah-alokasi-dana",
+        main: AddAlokasiDana
     },
     {
         path: "/dana-non-rutin",
