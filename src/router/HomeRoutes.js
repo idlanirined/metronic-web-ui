@@ -2,6 +2,13 @@ import Account from "../containers/account/Account";
 import KategoriAccount from "../containers/account/KategoriAccount";
 import AlokasiDana from "../containers/budgeting/AlokasiDana";
 import DanaNonRutin from "../containers/budgeting/DanaNonRutin";
+import PenerimaanBarang from "../containers/inventory/PenerimaanBarang";
+import PenerimaanBarangHeadKeRegion from "../containers/inventory/PenerimaanBarangHeadKeRegion";
+import PenerimaanBarangSuppKeHead from "../containers/inventory/PenerimaanBarangSuppKeHead";
+import ReturBarang from "../containers/inventory/ReturBarang";
+import PO from "../containers/inventory/PO";
+import Quotation from "../containers/inventory/Quotation";
+import SuratJalan from "../containers/inventory/SuratJalan";
 import Barang from "../containers/masterData/Barang";
 import GolonganBarang from "../containers/masterData/GolonganBarang";
 import JenisBarang from "../containers/masterData/JenisBarang";
@@ -12,6 +19,9 @@ import JenisSupplier from "../containers/supplier/JenisSupplier";
 import Supplier from "../containers/supplier/Supplier";
 import AkunUser from "../containers/user/AkunUser";
 import Level from "../containers/user/Level";
+import ReturBarangHeadKeSupp from "../containers/inventory/ReturBarangHeadKeSupp";
+import ReturBarangRegionKeHead from "../containers/inventory/ReturBarangRegionKeHead";
+import AddReturBarangHeadKeSupp from "../containers/inventory/AddReturBarangHeadKeSupp";
 
 const routes = [
     {
@@ -69,6 +79,46 @@ const routes = [
     {
         path: "/dana-non-rutin",
         main: DanaNonRutin
+    },  
+    {
+        path: "/quotation",
+        main: Quotation
+    },  
+    {
+        path: "/po",
+        main: PO
+    },  
+    {
+        path: "/surat-jalan",
+        main: SuratJalan
+    },  
+    {
+        path: "/penerimaan-barang",
+        main: PenerimaanBarang
+    },  
+    {
+        path: "/penerimaan-barang-spc-head",
+        main: PenerimaanBarangSuppKeHead
+    },  
+    {
+        path: "/penerimaan-barang-head-region",
+        main: PenerimaanBarangHeadKeRegion
+    },  
+    {
+        path: "/retur-barang",
+        main: ReturBarang
+    }, 
+    {
+        path: "/retur-barang-head-spc",
+        main: ReturBarangHeadKeSupp
+    }, 
+    {
+        path: "/tambah-retur-barang-head-spc",
+        main: AddReturBarangHeadKeSupp
+    }, 
+    {
+        path: "/retur-barang-region-head",
+        main: ReturBarangRegionKeHead
     },  
 ]
 

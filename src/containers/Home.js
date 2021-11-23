@@ -142,7 +142,7 @@ export default function Home() {
               "reference": 3,
               "sub_menu": [
                 {
-                  "menu_id": 7,
+                  "menu_id": 17,
                   "class_id": "barang",
                   "menu_name": "Barang",
                   "type": "item",
@@ -156,7 +156,7 @@ export default function Home() {
                   "updated": null
                 },
                 {
-                  "menu_id": 8,
+                  "menu_id": 18,
                   "class_id": "jenis-barang",
                   "menu_name": "Jenis Barang",
                   "type": "item",
@@ -169,7 +169,7 @@ export default function Home() {
                   "updated": null
                 },
                 {
-                  "menu_id": 9,
+                  "menu_id": 19,
                   "class_id": "satuan-barang",
                   "menu_name": "Satuan Barang",
                   "type": "item",
@@ -182,14 +182,13 @@ export default function Home() {
                   "updated": null
                 },
                 {
-                  "menu_id": 13,
+                  "menu_id": 20,
                   "class_id": "golongan-barang",
                   "menu_name": "Golongan Barang",
                   "type": "item",
                   "icon": "",
                   "reference": 6,
                   "sub_menu": [],
-
                   "collapse": false,
                   "is_access": true,
                   "created": "",
@@ -202,7 +201,7 @@ export default function Home() {
               "updated": null
             },
             {
-              "menu_id": 17,
+              "menu_id": 21,
               "class_id": "daftar-regional",
               "menu_name": "Daftar Regional",
               "type": "item",
@@ -215,7 +214,7 @@ export default function Home() {
                   "menu_name": "Regional",
                   "type": "item",
                   "icon": " ",
-                  "reference": 17,
+                  "reference": 21,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -228,7 +227,7 @@ export default function Home() {
                   "menu_name": "Wilayah",
                   "type": "item",
                   "icon": " ",
-                  "reference": 17,
+                  "reference": 21,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -242,7 +241,7 @@ export default function Home() {
               "updated": null
             },
             {
-              "menu_id": 15,
+              "menu_id": 22,
               "class_id": "daftar-user",
               "menu_name": "Daftar User",
               "type": "item",
@@ -250,12 +249,12 @@ export default function Home() {
               "reference": 3,
               "sub_menu": [
                 {
-                  "menu_id": 22,
+                  "menu_id": 23,
                   "class_id": "akun-user",
                   "menu_name": "Akun User",
                   "type": "item ",
                   "icon": " ",
-                  "reference": 15,
+                  "reference": 22,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -263,12 +262,12 @@ export default function Home() {
                   "updated": null
                 },
                 {
-                  "menu_id": 11,
+                  "menu_id": 24,
                   "class_id": "level-user",
                   "menu_name": "Level User",
                   "type": "item",
                   "icon": "",
-                  "reference": 15,
+                  "reference": 22,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -282,7 +281,7 @@ export default function Home() {
               "updated": null
             },
             {
-              "menu_id": 15,
+              "menu_id": 25,
               "class_id": "daftar-supplier",
               "menu_name": "Daftar Supplier",
               "type": "item",
@@ -290,12 +289,12 @@ export default function Home() {
               "reference": 3,
               "sub_menu": [
                 {
-                  "menu_id": 22,
+                  "menu_id": 26,
                   "class_id": "supplier",
                   "menu_name": "Supplier",
                   "type": "item ",
                   "icon": " ",
-                  "reference": 15,
+                  "reference": 25,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -303,12 +302,12 @@ export default function Home() {
                   "updated": null
                 },
                 {
-                  "menu_id": 11,
+                  "menu_id": 27,
                   "class_id": "jenis-supplier",
                   "menu_name": "Jenis Supplier",
                   "type": "item",
                   "icon": "",
-                  "reference": 15,
+                  "reference": 25,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -322,7 +321,7 @@ export default function Home() {
               "updated": null
             },
             {
-              "menu_id": 20,
+              "menu_id": 28,
               "class_id": "daftar-akun",
               "menu_name": "Daftar Akun",
               "type": "item",
@@ -330,12 +329,12 @@ export default function Home() {
               "reference": 3,
               "sub_menu": [
                 {
-                  "menu_id": 22,
+                  "menu_id": 29,
                   "class_id": "account",
                   "menu_name": "Account",
                   "type": "item ",
                   "icon": " ",
-                  "reference": 20,
+                  "reference": 28,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -343,12 +342,12 @@ export default function Home() {
                   "updated": null
                 },
                 {
-                  "menu_id": 11,
+                  "menu_id": 30,
                   "class_id": "kategori-account",
                   "menu_name": "Kategori Account",
                   "type": "item",
                   "icon": "",
-                  "reference": 20,
+                  "reference": 28,
                   "sub_menu": [],
                   "collapse": false,
                   "is_access": true,
@@ -368,7 +367,7 @@ export default function Home() {
           "updated": null
         },
         {
-          "menu_id": 4,
+          "menu_id": 29,
           "class_id": "budgeting",
           "menu_name": "Budgeting",
           "type": "item",
@@ -376,12 +375,12 @@ export default function Home() {
           "reference": 1,
           "sub_menu": [
             {
-              "menu_id": 6,
+              "menu_id": 30,
               "class_id": "alokasi-dana",
               "menu_name": "Alokasi Dana",
               "type": "item",
               "icon": "master-data",
-              "reference": 4,
+              "reference": 29,
               "sub_menu": [],
               "collapse": false,
               "is_access": true,
@@ -389,12 +388,117 @@ export default function Home() {
               "updated": null
             },
             {
-              "menu_id": 7,
+              "menu_id": 31,
               "class_id": "dana-non-rutin",
               "menu_name": "Dana Non Rutin",
               "type": "item",
               "icon": "master-data",
-              "reference": 4,
+              "reference": 29,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            }
+          ],
+          "collapse": false,
+          "is_access": true,
+          "created": "",
+          "updated": null
+        },
+        {
+          "menu_id": 32,
+          "class_id": "inventory",
+          "menu_name": "Inventory",
+          "type": "item",
+          "icon": "general",
+          "reference": 1,
+          "sub_menu": [
+            {
+              "menu_id": 33,
+              "class_id": "quotation",
+              "menu_name": "Quotation",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 34,
+              "class_id": "po",
+              "menu_name": "PO",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 37,
+              "class_id": "surat-jalan",
+              "menu_name": "Surat Jalan",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 35,
+              "class_id": "penerimaan-barang",
+              "menu_name": "Penerimaan Barang",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 35,
+              "class_id": "invoice-supplier",
+              "menu_name": "Invoice Supplier",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 36,
+              "class_id": "retur-barang",
+              "menu_name": "Retur Barang",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 37,
+              "class_id": "retur-service-barang",
+              "menu_name": "Retur/ Service Barang",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
               "sub_menu": [],
               "collapse": false,
               "is_access": true,
