@@ -22,6 +22,8 @@ import Level from "../containers/user/Level";
 import ReturBarangHeadKeSupp from "../containers/inventory/ReturBarangHeadKeSupp";
 import ReturBarangRegionKeHead from "../containers/inventory/ReturBarangRegionKeHead";
 import AddReturBarangHeadKeSupp from "../containers/inventory/AddReturBarangHeadKeSupp";
+import AddReturBarangRegionKeHead from "../containers/inventory/AddReturBarangRegionKeHead";
+import AddPO from "../containers/inventory/AddPO";
 
 const routes = [
     {
@@ -89,6 +91,10 @@ const routes = [
         main: PO
     },  
     {
+        path: "/tambah-po",
+        main: AddPO
+    },  
+    {
         path: "/surat-jalan",
         main: SuratJalan
     },  
@@ -119,6 +125,10 @@ const routes = [
     {
         path: "/retur-barang-region-head",
         main: ReturBarangRegionKeHead
+    }, 
+    {
+        path: "/tambah-retur-barang-region-head",
+        main: AddReturBarangRegionKeHead
     },  
 ]
 
