@@ -132,148 +132,269 @@ export default function Home() {
           "type": "item",
           "icon": "general",
           "reference": 1,
-          "sub_menu": [],
+          "sub_menu": [
+            {
+              "menu_id": 6,
+              "class_id": "daftar-barang",
+              "menu_name": "Daftar Barang",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 3,
+              "sub_menu": [
+                {
+                  "menu_id": 7,
+                  "class_id": "barang",
+                  "menu_name": "Barang",
+                  "type": "item",
+                  "icon": "",
+                  "reference": 6,
+                  "sub_menu": [],
+
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+                {
+                  "menu_id": 8,
+                  "class_id": "jenis-barang",
+                  "menu_name": "Jenis Barang",
+                  "type": "item",
+                  "icon": "",
+                  "reference": 6,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+                {
+                  "menu_id": 9,
+                  "class_id": "satuan-barang",
+                  "menu_name": "Satuan Barang",
+                  "type": "item",
+                  "icon": "",
+                  "reference": 6,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+                {
+                  "menu_id": 13,
+                  "class_id": "golongan-barang",
+                  "menu_name": "Golongan Barang",
+                  "type": "item",
+                  "icon": "",
+                  "reference": 6,
+                  "sub_menu": [],
+
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                }
+              ],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 17,
+              "class_id": "daftar-regional",
+              "menu_name": "Daftar Regional",
+              "type": "item",
+              "icon": "transaction",
+              "reference": 3,
+              "sub_menu": [
+                {
+                  "menu_id": 29,
+                  "class_id": "regional",
+                  "menu_name": "Regional",
+                  "type": "item",
+                  "icon": " ",
+                  "reference": 17,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+                {
+                  "menu_id": 30,
+                  "class_id": "wilayah",
+                  "menu_name": "Wilayah",
+                  "type": "item",
+                  "icon": " ",
+                  "reference": 17,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+              ],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 15,
+              "class_id": "daftar-user",
+              "menu_name": "Daftar User",
+              "type": "item",
+              "icon": "setup",
+              "reference": 3,
+              "sub_menu": [
+                {
+                  "menu_id": 22,
+                  "class_id": "akun-user",
+                  "menu_name": "Akun User",
+                  "type": "item ",
+                  "icon": " ",
+                  "reference": 15,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+                {
+                  "menu_id": 11,
+                  "class_id": "level-user",
+                  "menu_name": "Level User",
+                  "type": "item",
+                  "icon": "",
+                  "reference": 15,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                }
+              ],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 15,
+              "class_id": "daftar-supplier",
+              "menu_name": "Daftar Supplier",
+              "type": "item",
+              "icon": "setup",
+              "reference": 3,
+              "sub_menu": [
+                {
+                  "menu_id": 22,
+                  "class_id": "supplier",
+                  "menu_name": "Supplier",
+                  "type": "item ",
+                  "icon": " ",
+                  "reference": 15,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+                {
+                  "menu_id": 11,
+                  "class_id": "jenis-supplier",
+                  "menu_name": "Jenis Supplier",
+                  "type": "item",
+                  "icon": "",
+                  "reference": 15,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                }
+              ],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 20,
+              "class_id": "daftar-akun",
+              "menu_name": "Daftar Akun",
+              "type": "item",
+              "icon": "setup",
+              "reference": 3,
+              "sub_menu": [
+                {
+                  "menu_id": 22,
+                  "class_id": "account",
+                  "menu_name": "Account",
+                  "type": "item ",
+                  "icon": " ",
+                  "reference": 20,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                },
+                {
+                  "menu_id": 11,
+                  "class_id": "kategori-account",
+                  "menu_name": "Kategori Account",
+                  "type": "item",
+                  "icon": "",
+                  "reference": 20,
+                  "sub_menu": [],
+                  "collapse": false,
+                  "is_access": true,
+                  "created": "",
+                  "updated": null
+                }
+              ],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+          ],
           "collapse": false,
           "is_access": true,
           "created": "",
           "updated": null
         },
         {
-          "menu_id": 6,
-          "class_id": "daftar-barang",
-          "menu_name": "Daftar Barang",
+          "menu_id": 4,
+          "class_id": "budgeting",
+          "menu_name": "Budgeting",
           "type": "item",
-          "icon": "master-data",
+          "icon": "general",
           "reference": 1,
           "sub_menu": [
+            {
+              "menu_id": 6,
+              "class_id": "alokasi-dana",
+              "menu_name": "Alokasi Dana",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 4,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
             {
               "menu_id": 7,
-              "class_id": "barang",
-              "menu_name": "Barang",
+              "class_id": "dana-non-rutin",
+              "menu_name": "Dana Non Rutin",
               "type": "item",
-              "icon": "",
-              "reference": 6,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 8,
-              "class_id": "jenis-barang",
-              "menu_name": "Jenis Barang",
-              "type": "item",
-              "icon": "",
-              "reference": 6,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 9,
-              "class_id": "satuan-barang",
-              "menu_name": "Satuan Barang",
-              "type": "item",
-              "icon": "",
-              "reference": 6,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 13,
-              "class_id": "golongan-barang",
-              "menu_name": "Golongan Barang",
-              "type": "item",
-              "icon": "",
-              "reference": 6,
-              "sub_menu": [],
-
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            }
-          ],
-          "collapse": false,
-          "is_access": true,
-          "created": "",
-          "updated": null
-        },
-        {
-          "menu_id": 17,
-          "class_id": "daftar-regional",
-          "menu_name": "Daftar Regional",
-          "type": "item",
-          "icon": "transaction",
-          "reference": 1,
-          "sub_menu": [
-            {
-              "menu_id": 29,
-              "class_id": "regional",
-              "menu_name": "Regional",
-              "type": "item",
-              "icon": " ",
-              "reference": 17,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 30,
-              "class_id": "wilayah",
-              "menu_name": "Wilayah",
-              "type": "item",
-              "icon": " ",
-              "reference": 17,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-          ],
-          "collapse": false,
-          "is_access": true,
-          "created": "",
-          "updated": null
-        },
-        {
-          "menu_id": 15,
-          "class_id": "daftar-user",
-          "menu_name": "Daftar User",
-          "type": "item",
-          "icon": "setup",
-          "reference": 1,
-          "sub_menu": [
-            {
-              "menu_id": 22,
-              "class_id": "akun-user",
-              "menu_name": "Akun User",
-              "type": "item ",
-              "icon": " ",
-              "reference": 15,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 11,
-              "class_id": "level-user",
-              "menu_name": "Level User",
-              "type": "item",
-              "icon": "",
-              "reference": 15,
+              "icon": "master-data",
+              "reference": 4,
               "sub_menu": [],
               "collapse": false,
               "is_access": true,
@@ -285,87 +406,7 @@ export default function Home() {
           "is_access": true,
           "created": "",
           "updated": null
-        },
-        {
-          "menu_id": 15,
-          "class_id": "daftar-supplier",
-          "menu_name": "Daftar Supplier",
-          "type": "item",
-          "icon": "setup",
-          "reference": 1,
-          "sub_menu": [
-            {
-              "menu_id": 22,
-              "class_id": "supplier",
-              "menu_name": "Supplier",
-              "type": "item ",
-              "icon": " ",
-              "reference": 15,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 11,
-              "class_id": "jenis-supplier",
-              "menu_name": "Jenis Supplier",
-              "type": "item",
-              "icon": "",
-              "reference": 15,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            }
-          ],
-          "collapse": false,
-          "is_access": true,
-          "created": "",
-          "updated": null
-        },
-        {
-          "menu_id": 20,
-          "class_id": "daftar-akun",
-          "menu_name": "Daftar Akun",
-          "type": "item",
-          "icon": "setup",
-          "reference": 1,
-          "sub_menu": [
-            {
-              "menu_id": 22,
-              "class_id": "account",
-              "menu_name": "Account",
-              "type": "item ",
-              "icon": " ",
-              "reference": 20,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
-              "menu_id": 11,
-              "class_id": "kategori-account",
-              "menu_name": "Kategori Account",
-              "type": "item",
-              "icon": "",
-              "reference": 20,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            }
-          ],
-          "collapse": false,
-          "is_access": true,
-          "created": "",
-          "updated": null
-        },
+        }
       ]
     })
   const [selectedSubIndex, setSelectSub] = React.useState([]);
@@ -390,6 +431,24 @@ export default function Home() {
     arr[index].collapse = !arr[index].collapse
     setData({ ...data, data: arr })
   }
+
+  function handleCollapseSub(item) {
+    setOpen(true);
+    console.log(item, data.array);
+    let idx = data.array.findIndex((val) => val.menu_id === item.reference)
+    if (idx > -1) {
+      let index = data.array[idx].sub_menu.findIndex((val) => val.menu_id === item.menu_id)
+      data.array[idx].sub_menu[index].collapse = !data.array[idx].sub_menu[index].collapse
+      forceUpdate()
+    }
+    console.log(data.array);
+    // let arr = data.array
+    // let index = arr.findIndex((val) => val.menu_name === item.menu_name)
+    // arr[index].collapse = !arr[index].collapse
+    // setData({ ...data, data: arr })
+  }
+
+  const forceUpdate = React.useReducer(bool => !bool)[1];
 
   const logout = () => {
     window.location.reload();
@@ -549,19 +608,84 @@ export default function Home() {
                     <List component="div" disablePadding>
                       {item.sub_menu.map((sub, indexs) => {
                         return (
-                          <Link to={sub.menu_name === "Logout" ? `/` : `${url}${sub.class_id}`}>
-                            <a data-tip={sub.menu_name} data-for={sub.menu_name}>
-                              <div
-                                style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === sub.class_id ? "active" : ""}
-                                onClick={() => sub.menu_name === "Logout" ? logout() : selectSub(sub)}>
-                                <ListItem button style={{ padding: '10px 0', marginLeft: 20 }}>
-                                  <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
-                                </ListItem>
-                              </div>
-                            </a>
-                            {/* {!open && (<ReactTooltip border={true} id={sub.menu_name} place="bottom" type="light" effect="solid" />)} */}
-                          </Link>
+                          <div>
+                            {sub.sub_menu.length > 0 ?
+                              <a data-tip={sub.menu_name} data-for={sub.menu_name}>
+                                <div style={{ justifyContent: 'space-between', flexDirection: 'row', display: 'flex', paddingLeft: open ? 20 : 0, paddingRight: open ? 10 : 5, cursor: 'pointer' }} onClick={() => { handleCollapseSub(sub) }}>
+                                  <ListItem key={sub.menu_name} style={{ padding: '10px 0', marginLeft: 20 }}>
+                                    <ListItemIcon style={{ minWidth: open ? 40 : 56 }}>
+                                      <div style={{ backgroundColor: !open ? pathname === sub.class_id ? "white" : "transparent" : 'transparent', padding: 5, borderRadius: 10 }}>
+                                        {/* <img
+                                          src={setting
+                                          }
+                                          style={{ width: 20, height: 20 }} /> */}
+                                      </div>
+                                    </ListItemIcon>
+                                    <Typography style={{ fontFamily: 'Poppins', color: '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                                  </ListItem>
+                                  {sub.sub_menu.length > 0 ? (sub.collapse ? <ExpandLess style={{ color: "#d5e0dc", alignSelf: 'center' }} /> : <ExpandMore style={{ color: "#d5e0dc", alignSelf: 'center' }} />) : null}
+                                  {/* {!open && (<ReactTooltip border={true} id={sub.menu_name} place="bottom" type="light" effect="solid" />)} */}
+                                </div>
+                              </a>
+                              :
+                              <Link to={`${url}${sub.class_id}`}>
+                                <div style={{ paddingLeft: open ? 20 : 0 }} className={pathname === sub.class_id ? "active" : ""}>
+                                  <a data-tip={sub.menu_name} data-for={sub.menu_name}>
+                                    <ListItem button key={sub.menu_name}
+                                      onClick={() => selectIndex(sub)}
+                                      style={{ padding: '10px 0', marginLeft: 20 }}>
+                                      <ListItemIcon style={{ minWidth: open ? 40 : 56 }}>
+                                        <div style={{ backgroundColor: !open ? pathname === sub.class_id ? "#white" : "transparent" : 'transparent', padding: 5, borderRadius: 10 }}>
+                                          {/* <img
+                                            src={
+                                              setting
+                                            }
+                                            style={{ width: 20, height: 20 }} /> */}
+                                        </div>
+                                      </ListItemIcon>
+                                      <Typography style={{ fontFamily: 'Poppins', color: pathname === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                                    </ListItem>
+                                  </a>
+                                  {/* {!open && (<ReactTooltip border={true} id={item.menu_name} place="bottom" type="light" effect="solid" />)} */}
+                                </div>
+                              </Link>
+                            }
+                            {sub.sub_menu.length > 0 &&
+                              <Collapse in={sub.collapse} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                  {sub.sub_menu.map((subs, indexs) => {
+                                    return (
+                                      <Link to={subs.menu_name === "Logout" ? `/` : `${url}${subs.class_id}`}>
+                                        <a data-tip={subs.menu_name} data-for={subs.menu_name}>
+                                          <div
+                                            style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === subs.class_id ? "active" : ""}
+                                            onClick={() => subs.menu_name === "Logout" ? logout() : selectSub(sub)}>
+                                            <ListItem button style={{ padding: '10px 0', marginLeft: 20 }}>
+                                              <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === subs.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{subs.menu_name}</Typography>
+                                            </ListItem>
+                                          </div>
+                                        </a>
+                                      </Link>
+                                    )
+                                  })}
+                                </List>
+                              </Collapse>
+                            }
+                          </div>
                         )
+                        // return (
+                        //   <Link to={sub.menu_name === "Logout" ? `/` : `${url}${sub.class_id}`}>
+                        //     <a data-tip={sub.menu_name} data-for={sub.menu_name}>
+                        //       <div
+                        //         style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === sub.class_id ? "active" : ""}
+                        //         onClick={() => sub.menu_name === "Logout" ? logout() : selectSub(sub)}>
+                        //         <ListItem button style={{ padding: '10px 0', marginLeft: 20 }}>
+                        //           <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                        //         </ListItem>
+                        //       </div> 
+                        //     </a>
+                        //   </Link>
+                        // )
                       })}
                     </List>
                   </Collapse>

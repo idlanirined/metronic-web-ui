@@ -1,5 +1,7 @@
 import Account from "../containers/account/Account";
 import KategoriAccount from "../containers/account/KategoriAccount";
+import AlokasiDana from "../containers/budgeting/AlokasiDana";
+import DanaNonRutin from "../containers/budgeting/DanaNonRutin";
 import Barang from "../containers/masterData/Barang";
 import GolonganBarang from "../containers/masterData/GolonganBarang";
 import JenisBarang from "../containers/masterData/JenisBarang";
@@ -60,6 +62,14 @@ const routes = [
         path: "/kategori-account",
         main: KategoriAccount
     },
+    {
+        path: "/alokasi-dana",
+        main: AlokasiDana
+    },
+    {
+        path: "/dana-non-rutin",
+        main: DanaNonRutin
+    },  
 ]
 
 export default routes;
