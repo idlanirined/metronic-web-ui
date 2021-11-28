@@ -1,16 +1,16 @@
 import React from 'react';
 import Route from './router'
 import './App.css';
-import 'rsuite/styles/index.less'; 
+import 'rsuite/styles/index.less';
 import { ThemeProvider, createTheme } from '@mui/material'
 
 const theme = createTheme({
   typography: {
-    "fontFamily": "Poppins", 
+    "fontFamily": "Poppins",
     "fontWeightLight": 300,
     "fontWeightRegular": 400,
     "fontWeightMedium": 500
-   }
+  }
 });
 
 

@@ -6,7 +6,7 @@ exports.customTable = function () {
         typography: {
             useNextVariants: true,
         },
-        overrides: {
+        components: {
             MUIDataTable: {
                 paper: {
                     // position: 'relativ3p;[e',
