@@ -3,23 +3,50 @@ import React, { useState } from 'react'
 // import { ThemeProvider } from "@mui/styles";
 // import { createTheme } from "@mui/material/styles";
 import MUIDataTable from "mui-datatables";
-import { makeStyles } from '@mui/styles';
-import { createTheme } from '@mui/system';
+import { createTheme } from "@mui/material/styles";
 
-const ct = require("../../library/CustomTable");
-const getMuiTheme = () => createTheme(ct.customTable());
+const theme = createTheme({
+    components: {
+        // Name of the component
+        MuiPaper: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    // Some CSS
+                    boxShadow: 'none !important',
+                    // fontSize: '1rem',
+                },
+            },
+        },
+        MUIDataTableHeadCell: {
+            styleOverrides: {
+                fixedHeader: {
+                    backgroundColor: '#3699ff',
+                    border: '3px solid #FFF',
+                    padding: '10px 20px'
+                },
+                data: {
+                    color: 'white',
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            }
+        },
+        MuiTableHead: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: '#1BC5BD'
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        "& .MuiPaper-root": {
-            borderRadius: "4px",
-            boxShadow: "none !important"
+                }
+                // root: {
+                // }
+            }
         }
-    }
-}));
+    },
+});
+
 
 export default function AddAlokasiDana() {
-    const classes = useStyles();
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("40vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -114,7 +141,7 @@ export default function AddAlokasiDana() {
                 </div>
             </div>
             <div style={{ margin: '0px 20px', padding: '20px', borderRadius: 20, backgroundColor: '#FEFEFE' }}>
-                <ThemeProvider className={getMuiTheme()}>
+                <ThemeProvider theme={theme}>
                     <MUIDataTable
                         // title={"ACME Employee list"}
                         data={data}
