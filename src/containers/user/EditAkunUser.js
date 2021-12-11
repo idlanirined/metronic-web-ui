@@ -1,9 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseImage from '../../assets/ic_close.png';
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import { headOffice } from '../../library/Service';
+import moment from 'moment';
 
 export default function EditAkunUser(props) {
-    const [listWilayah, setListWilayah] = useState([])
+    const [listLevel, setListLevel] = useState(props.dataHeadOffice.level_user)
+    const [pickLevel, setpickLevel] = useState(null)
+
+    const [newData, setNewData] = useState({
+        id: '',
+        name: '',
+        level: '',
+        createdBy: "Head Office",
+        createdDate: '',
+        active: 1
+    })
+
+    useEffect(() => {
+        console.log(props);
+        let data = props.dataSelected
+        setNewData({
+            ...newData,
+            id: data.id,
+            name: data.name,
+            level: data.level,
+            createdBy: "Head Office",
+            createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
+            active: 1
+        })
+        let idxLevel = listLevel.findIndex((val) => val.name === data.level)
+        if (idxLevel > -1) {
+            setpickLevel(listLevel[idxLevel])
+        }
+    }, [])
+
+    const handleEdit = () => {
+        headOffice('editUser', newData)
+        props.getData()
+        props.onClose()
+    }
 
     return (
         <div className="App app-popup-show">
@@ -30,7 +66,13 @@ export default function EditAkunUser(props) {
                         <TextField
                             style={{ width: '100%' }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            onChange={(e) => {
+                                setNewData({
+                                    ...newData,
+                                    name: e.target.value
+                                })
+                            }}
+                            value={newData.name}
                             inputProps={{
                                 style: {
                                     fontSize: 14,
@@ -51,8 +93,16 @@ export default function EditAkunUser(props) {
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={listWilayah}
-                            getOptionLabel={(option) => option.value}
+                            options={listLevel}
+                            getOptionLabel={(option) => option.name}
+                            value={pickLevel}
+                            onChange={(e, newInputValue) => {
+                                setNewData({
+                                    ...newData,
+                                    level: newInputValue.name,
+                                })
+                                setpickLevel(newInputValue)
+                            }}
                             sx={{ width: 'inherit' }}
                             style={{
                                 width: '-webkit-fill-available',
@@ -69,7 +119,10 @@ export default function EditAkunUser(props) {
 
                     </div>
                     <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
-                        <div style={{ height: 60, width: 250, backgroundColor: '#05b721', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                        <div
+                            style={{ height: 60, width: 250, backgroundColor: '#05b721', display: 'flex', justifyContent: 'center', borderRadius: 10, cursor: 'pointer' }}
+                            onClick={() => handleEdit()}
+                        >
                             <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>EDIT</Typography>
                         </div>
                     </div>

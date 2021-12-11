@@ -7,11 +7,11 @@ exports.customTable = function () {
             useNextVariants: true,
         },
         components: {
-            MUIDataTable: {
-                paper: {
+            MuiPaper: {
+                root: {
                     // position: 'relativ3p;[e',
                     // width: '100% !important',
-                      boxShadow: 'none !important',
+                    boxShadow: 'none !important',
                     //   boxShadow: "0 0 0 0 rgba(154,161,171,.15)",
                     // border: "1px rgba(0,0,0,0.1) solid",
                     // borderRadius: "30px",
@@ -20,9 +20,9 @@ exports.customTable = function () {
                     // marginTop: 10,
                 },
                 responsiveScroll: {
-                  position: 'relative',
-                  maxHeight: '600 !important',
-                  minHeight: '600 !important',
+                    position: 'relative',
+                    maxHeight: '600 !important',
+                    minHeight: '600 !important',
                 },
                 responsiveScrollMaxHeight: {
                     // backgroundColor: 'red'
@@ -268,7 +268,7 @@ exports.customTableMasterJadwal = function () {
                 paper: {
                     // position: 'relativ3p;[e',
                     // width: '100% !important',
-                      boxShadow: 'none !important',
+                    boxShadow: 'none !important',
                     //   boxShadow: "0 0 0 0 rgba(154,161,171,.15)",
                     // border: "1px rgba(0,0,0,0.1) solid",
                     // borderRadius: "30px",
@@ -524,7 +524,7 @@ exports.customTable5 = function () {
                 paper: {
                     // position: 'relativ3p;[e',
                     // width: '100% !important',
-                      boxShadow: 'none !important',
+                    boxShadow: 'none !important',
                     //   boxShadow: "0 0 0 0 rgba(154,161,171,.15)",
                     // border: "1px rgba(0,0,0,0.1) solid",
                     // borderRadius: "30px",
@@ -771,7 +771,7 @@ exports.customTable2 = function () {
                 paper: {
                     // position: 'relativ3p;[e',
                     // width: '100% !important',
-                      boxShadow: 'none !important',
+                    boxShadow: 'none !important',
                     //   boxShadow: "0 0 0 0 rgba(154,161,171,.15)",
                     // border: "1px rgba(0,0,0,0.1) solid",
                     // borderRadius: "30px",
@@ -1017,7 +1017,7 @@ exports.customTable3 = function () {
                 paper: {
                     // position: 'relativ3p;[e',
                     // width: '100% !important',
-                      boxShadow: 'none !important',
+                    boxShadow: 'none !important',
                     //   boxShadow: "0 0 0 0 rgba(154,161,171,.15)",
                     // border: "1px rgba(0,0,0,0.1) solid",
                     borderRadius: "30px",
@@ -1263,7 +1263,7 @@ exports.customTablePemanggilan = function () {
                 paper: {
                     // position: 'relativ3p;[e',
                     // width: '100% !important',
-                      boxShadow: 'none !important',
+                    boxShadow: 'none !important',
                     //   boxShadow: "0 0 0 0 rgba(154,161,171,.15)",
                     // border: "1px rgba(0,0,0,0.1) solid",
                     // borderRadius: "30px",
@@ -1510,7 +1510,7 @@ exports.customTableHistory = function () {
                 paper: {
                     // position: 'relativ3p;[e',
                     // width: '100% !important',
-                      boxShadow: 'none !important',
+                    boxShadow: 'none !important',
                     //   boxShadow: "0 0 0 0 rgba(154,161,171,.15)",
                     // border: "1px rgba(0,0,0,0.1) solid",
                     // borderRadius: "30px",
@@ -1774,37 +1774,37 @@ exports.customOptions = function () {
         responsive: 'scrollMaxHeight',
         textLabels: {
             body: {
-              noMatch: "Tidak ada data yang tersedia",
-              toolTip: "Sort",
-              columnHeaderTooltip: column => `Sort for ${column.label}`
+                noMatch: "Tidak ada data yang tersedia",
+                toolTip: "Sort",
+                columnHeaderTooltip: column => `Sort for ${column.label}`
             },
             pagination: {
                 next: "Next Page",
                 previous: "Previous Page",
                 rowsPerPage: "Rows per page:",
                 displayRows: "of",
-              },
-              toolbar: {
+            },
+            toolbar: {
                 search: "Search",
                 downloadCsv: "Download CSV",
                 print: "Print",
                 viewColumns: "View Columns",
                 filterTable: "Filter Table",
-              },
-              filter: {
+            },
+            filter: {
                 all: "All",
                 title: "FILTERS",
                 reset: "RESET",
-              },
-              viewColumns: {
+            },
+            viewColumns: {
                 title: "Show Columns",
                 titleAria: "Show/Hide Table Columns",
-              },
-              selectedRows: {
+            },
+            selectedRows: {
                 text: "row(s) selected",
                 delete: "Delete",
                 deleteAria: "Delete Selected Rows",
-              },
+            },
         }
     }
 }

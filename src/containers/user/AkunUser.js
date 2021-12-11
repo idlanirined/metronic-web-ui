@@ -48,7 +48,7 @@ export default function AkunUser() {
                 filter: false,
                 customHeadRender: (columnMeta) => (
                     <TableCell key={columnMeta.index} style={{}}>
-                        <Typography style={{ color: '#2a9c6c', fontSize: 14, fontWeight: 'bold', textAlign: 'center' }}>{columnMeta.label}</Typography>
+                        <Typography style={{ color: '#2E84D6', fontSize: 14, fontWeight: 'bold', textAlign: 'center' }}>{columnMeta.label}</Typography>
                     </TableCell>
                 ),
                 customBodyRender: (val, tableMeta) => {
@@ -59,9 +59,10 @@ export default function AkunUser() {
                                     setDataSelected({
                                         id: tableMeta.rowData[0],
                                         name: tableMeta.rowData[1],
-                                        createdBy: tableMeta.rowData[6],
-                                        createdDate: tableMeta.rowData[7],
-                                        active: tableMeta.rowData[8]
+                                        level: tableMeta.rowData[2],
+                                        createdBy: tableMeta.rowData[3],
+                                        createdDate: tableMeta.rowData[4],
+                                        active: tableMeta.rowData[5]
                                     })
                                     setVisibleEdit(true)
                                 }}
@@ -73,9 +74,10 @@ export default function AkunUser() {
                                     setDataSelected({
                                         id: tableMeta.rowData[0],
                                         name: tableMeta.rowData[1],
-                                        createdBy: tableMeta.rowData[6],
-                                        createdDate: tableMeta.rowData[7],
-                                        active: tableMeta.rowData[8]
+                                        level: tableMeta.rowData[2],
+                                        createdBy: tableMeta.rowData[3],
+                                        createdDate: tableMeta.rowData[4],
+                                        active: tableMeta.rowData[5]
                                     })
                                     setVisibleDelete(true)
                                 }}
@@ -168,6 +170,9 @@ export default function AkunUser() {
             {visibleEdit && (
                 <EditAkunUser
                     dataSelected={dataSelected}
+                    dataUser={dataUser}
+                    dataHeadOffice={dataHeadOffice}
+                    getData={getData}
                     onClose={() => setVisibleEdit(false)}
                 />
             )}

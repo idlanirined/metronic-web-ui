@@ -1,18 +1,27 @@
-import { createMuiTheme, Menu, TableCell, Typography } from '@mui/material'
+import { ThemeProvider, Menu, TableCell, Typography } from '@mui/material'
 import MUIDataTable from "mui-datatables";
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
 import { useHistory } from 'react-router-dom';
 
-const ct = require("../../library/CustomTable");
-const getMuiTheme = () => createTheme(ct.customTable());
+// const ct = require("../../library/CustomTable");
+// const getMuiTheme = () => createTheme(ct.customTable());
+const theme = createTheme({
+    components: {
+        // Name of the component
+        MuiPaper: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    // Some CSS
+                    boxShadow: 'none !important',
+                    // fontSize: '1rem',
+                },
+            },
+        },
+    },
+});
 
 export default function AlokasiDana() {
     const history = useHistory()
@@ -134,7 +143,7 @@ export default function AlokasiDana() {
                             </div>
                         </div>
                     </div>
-                    <ThemeProvider theme={getMuiTheme()}>
+                    <ThemeProvider theme={theme}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
                             data={data}

@@ -52,7 +52,7 @@ export default function Barang() {
                 filter: false,
                 customHeadRender: (columnMeta) => (
                     <TableCell key={columnMeta.index} style={{}}>
-                        <Typography style={{ color: '#2a9c6c', fontSize: 14, fontWeight: 'bold', textAlign: 'left' }}>{columnMeta.label}</Typography>
+                        <Typography style={{ color: '#2E84D6', fontSize: 14, fontWeight: 'bold', textAlign: 'left' }}>{columnMeta.label}</Typography>
                     </TableCell>
                 ),
                 customBodyRender: (val, tableMeta) => {
@@ -184,7 +184,9 @@ export default function Barang() {
             {visibleEdit && (
                 <EditBarang
                     dataSelected={dataSelected}
+                    dataHeadOffice={dataHeadOffice}
                     onClose={() => setVisibleEdit(false)}
+                    getData={getData}
                 />
             )}
 

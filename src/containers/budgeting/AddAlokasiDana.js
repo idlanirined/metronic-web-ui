@@ -170,7 +170,7 @@ export default function AddAlokasiDana() {
                             <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: '500' }}>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et</Typography>
                         </div>
                     </div>
-                    <div style={{ marginTop: 20, backgroundColor: '#1BC5BD', width: '100%', padding: 15, borderRadius: 10 }}>
+                    <div style={{ marginTop: 20, backgroundColor: '#3699ff', width: '100%', padding: 15, borderRadius: 10 }}>
                         <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SUBMIT</Typography>
                     </div>
                 </div>

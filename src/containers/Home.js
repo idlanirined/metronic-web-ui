@@ -369,6 +369,33 @@ export default function Home() {
           "updated": null
         },
         {
+          "menu_id": 40,
+          "class_id": "master-anggaran",
+          "menu_name": "Master Anggaran",
+          "type": "item",
+          "icon": "general",
+          "reference": 1,
+          "sub_menu": [
+            {
+              "menu_id": 41,
+              "class_id": "anggaran-regional",
+              "menu_name": "Anggaran Regional",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 40,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+          ],
+          "collapse": false,
+          "is_access": true,
+          "created": "",
+          "updated": null
+        },
+        {
           "menu_id": 29,
           "class_id": "budgeting",
           "menu_name": "Budgeting",

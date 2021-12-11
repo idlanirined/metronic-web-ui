@@ -1,19 +1,67 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseImage from '../../assets/ic_close.png';
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import { headOffice } from '../../library/Service';
+import moment from 'moment';
 
 export default function EditBarang(props) {
-    const [listGolongan, setlistGolongan] = React.useState([
-        { id: 1, value: 'OPEX' },
-        { id: 2, value: 'CAPEX' },
-    ])
-    const [listPerlengkapan, setListPerlengkapan] = React.useState([
-        { id: 1, value: 'Perlengkapan Kantor' },
-        { id: 2, value: 'ATK' },
-    ])
-    const [listSatuan, setListSatuan] = React.useState([
-        { id: 1, value: 'RIM' }
-    ])
+    const [listGolongan, setlistGolongan] = React.useState(props.dataHeadOffice.gol_barang)
+    const [pickGolongan, setPickGolongan] = useState(null)
+    const [listSatuan, setListSatuan] = React.useState(props.dataHeadOffice.satuan_barang)
+    const [pickSatuan, setPickSatuan] = useState(null)
+    const [listJenis, setListJenis] = React.useState(props.dataHeadOffice.jenis_barang)
+    const [pickJenis, setPickJenis] = useState(null)
+    const [listAccount, setListAccount] = React.useState(props.dataHeadOffice.account)
+
+    const [newData, setNewData] = useState({
+        id: "",
+        name: "",
+        jenis: "",
+        satuan: "",
+        golongan: "",
+        merk: "",
+        stok: "",
+        createdBy: "",
+        createdDate: "",
+        active: ""
+    })
+
+    useEffect(() => {
+        let data = props.dataSelected
+        setNewData({
+            ...newData,
+            id: data.id,
+            name: data.name,
+            jenis: data.jenis,
+            satuan: data.satuan,
+            golongan: data.golongan,
+            merk: data.merk,
+            stok: data.stok,
+            createdBy: "deni",
+            createdDate: data.createdDate,
+            active: data.active
+        })
+        console.log(props);
+        let idxGol = listGolongan.findIndex((val) => val.name === data.golongan)
+        if (idxGol > -1) {
+            setPickGolongan(listGolongan[idxGol])
+        }
+
+        let idxJenis = listJenis.findIndex((val) => val.name === data.jenis)
+        if (idxJenis > -1) {
+            setPickJenis(listJenis[idxJenis])
+        }
+        let idxSatuan = listSatuan.findIndex((val) => val.name === data.satuan)
+        if (idxSatuan > -1) {
+            setPickSatuan(listSatuan[idxSatuan])
+        }
+    }, [])
+
+    const handleEdit = () => {
+        headOffice('editBarang', newData)
+        props.getData()
+        props.onClose()
+    }
 
     return (
         <div className="App app-popup-show">
@@ -41,13 +89,19 @@ export default function EditBarang(props) {
                         <TextField
                             style={{ width: '100%' }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            onChange={(e) => {
+                                setNewData({
+                                    ...newData,
+                                    name: e.target.value
+                                })
+                            }}
                             inputProps={{
                                 style: {
                                     fontSize: 14,
                                     backgroundColor: '#e5e5e5'
                                 }
                             }}
+                            value={newData.name}
                             size="medium"
                             InputLabelProps={{
                                 style: {
@@ -63,8 +117,16 @@ export default function EditBarang(props) {
                             disablePortal
                             id="combo-box-demo"
                             options={listGolongan}
-                            getOptionLabel={(option) => option.value}
+                            getOptionLabel={(option) => option.name}
                             sx={{ width: 'inherit' }}
+                            value={pickGolongan}
+                            onChange={(e, newInputValue) => {
+                                setNewData({
+                                    ...newData,
+                                    golongan: newInputValue.name,
+                                })
+                                setPickGolongan(newInputValue)
+                            }}
                             style={{
                                 fontSize: 14,
                                 backgroundColor: '#e5e5e5'
@@ -78,9 +140,17 @@ export default function EditBarang(props) {
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={listPerlengkapan}
-                            getOptionLabel={(option) => option.value}
+                            options={listJenis}
+                            getOptionLabel={(option) => option.name}
                             sx={{ width: 'inherit' }}
+                            value={pickJenis}
+                            onChange={(e, newInputValue) => {
+                                setNewData({
+                                    ...newData,
+                                    jenis: newInputValue.name,
+                                })
+                                setPickJenis(newInputValue)
+                            }}
                             style={{
                                 fontSize: 14,
                                 backgroundColor: '#e5e5e5'
@@ -95,7 +165,15 @@ export default function EditBarang(props) {
                             disablePortal
                             id="combo-box-demo"
                             options={listSatuan}
-                            getOptionLabel={(option) => option.value}
+                            getOptionLabel={(option) => option.name}
+                            value={pickSatuan}
+                            onChange={(e, newInputValue) => {
+                                setNewData({
+                                    ...newData,
+                                    satuan: newInputValue.name,
+                                })
+                                setPickSatuan(newInputValue)
+                            }}
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
@@ -117,6 +195,13 @@ export default function EditBarang(props) {
                                     backgroundColor: '#e5e5e5'
                                 }
                             }}
+                            value={newData.merk}
+                            onChange={(e) => {
+                                setNewData({
+                                    ...newData,
+                                    merk: e.target.value
+                                })
+                            }}
                             size="medium"
                             InputLabelProps={{
                                 style: {
@@ -131,8 +216,9 @@ export default function EditBarang(props) {
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={listPerlengkapan}
-                            getOptionLabel={(option) => option.value}
+                            options={listAccount}
+                            disabled
+                            getOptionLabel={(option) => option.name}
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
@@ -148,7 +234,10 @@ export default function EditBarang(props) {
 
                     </div>
                     <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
-                        <div style={{ height: 60, width: 250, backgroundColor: '#05b721', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                        <div
+                            onClick={() => handleEdit()}
+                            style={{ height: 60, width: 250, backgroundColor: '#05b721', display: 'flex', justifyContent: 'center', borderRadius: 10, cursor: 'pointer' }}
+                        >
                             <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>EDIT</Typography>
                         </div>
                     </div>

@@ -9,16 +9,17 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
-import AddRegional from './AddRegional';
-import EditRegional from './EditRegional';
 import Constant from '../../library/Constants';
 import { headOffice } from '../../library/Service';
+import AddAnggaranRegional from './AddAnggaranRegional';
+import { useHistory } from 'react-router-dom';
 
 
 const ct = require("../../library/CustomTable");
 const getMuiTheme = () => createTheme(ct.customTable());
 
-export default function Regional() {
+export default function AnggaranRegional() {
+    const history = useHistory()
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("60vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -35,9 +36,10 @@ export default function Regional() {
     const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
-        { name: "ID REG", options: { filterOptions: { fullWidth: true } } },
-        "NAMA REGIONAL",
+        { name: "NO", options: { filterOptions: { fullWidth: true } } },
+        "TAHUN",
         // "WILAYAH",
+        "ALOKASI (Rp)",
         "PEMBUAT",
         "TIMESTAMP",
         {
@@ -110,15 +112,15 @@ export default function Regional() {
     }, [])
 
     const getData = () => {
-        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
-        if (dataHeadOffice != null) {
-            let newDataRegion = dataHeadOffice.region.map((item, index) => {
-                return [item.id, item.name, item.createdBy, item.createdDate, item.active]
-            })
-            setDataHeadOffice(dataHeadOffice)
-            setDataRegion(newDataRegion)
-            console.log(dataHeadOffice)
-        }
+        // let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        // if (dataHeadOffice != null) {
+        //     let newDataRegion = dataHeadOffice.region.map((item, index) => {
+        //         return [item.id, item.name, item.createdBy, item.createdDate, item.active]
+        //     })
+        //     setDataHeadOffice(dataHeadOffice)
+        //     setDataRegion(newDataRegion)
+        //     console.log(dataHeadOffice)
+        // }
     }
 
     return (
@@ -140,9 +142,9 @@ export default function Regional() {
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleAdd(true)}
+                                onClick={() => history.push('/tambah-anggaran-regional')}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
-                                <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Tambah Regional</Typography>
+                                <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Tambah Anggaran</Typography>
                             </div>
                         </div>
                     </div>
@@ -158,22 +160,22 @@ export default function Regional() {
             </div>
 
             {visibleAdd && (
-                <AddRegional
-                    dataRegion={dataRegion}
-                    dataHeadOffice={dataHeadOffice}
+                <AddAnggaranRegional
+                    // dataRegion={dataRegion}
+                    // dataHeadOffice={dataHeadOffice}
                     getData={getData}
                     onClose={() => setVisibleAdd(false)}
                 />
             )}
 
-            {visibleEdit && (
+            {/* {visibleEdit && (
                 <EditRegional
                     dataSelected={dataSelected}
                     dataHeadOffice={dataHeadOffice}
                     getData={getData}
                     onClose={() => setVisibleEdit(false)}
                 />
-            )}
+            )} */}
 
             {visibleDelete && (
                 <div className="App app-popup-show">
@@ -181,7 +183,7 @@ export default function Regional() {
                         <div className="popup-panel grid grid-2x" style={{ height: 64 }}>
                             <div className="col-1" style={{ maxWidth: "inherit", display: 'flex', alignItems: 'center' }}>
                                 <div className="popup-title">
-                                    <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Hapus Regional</span>
+                                    <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Hapus Anggaran</span>
                                 </div>
                             </div>
                             <div className="col-2 content-right" style={{ maxWidth: "inherit", alignSelf: 'center' }}>

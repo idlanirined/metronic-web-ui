@@ -58,9 +58,9 @@ export default function KategoriAccount() {
                                     setDataSelected({
                                         id: tableMeta.rowData[0],
                                         name: tableMeta.rowData[1],
-                                        createdBy: tableMeta.rowData[6],
-                                        createdDate: tableMeta.rowData[7],
-                                        active: tableMeta.rowData[8]
+                                        createdBy: tableMeta.rowData[2],
+                                        createdDate: tableMeta.rowData[3],
+                                        active: tableMeta.rowData[4]
                                     })
                                     setVisibleEdit(true)
                                 }}
@@ -72,9 +72,9 @@ export default function KategoriAccount() {
                                     setDataSelected({
                                         id: tableMeta.rowData[0],
                                         name: tableMeta.rowData[1],
-                                        createdBy: tableMeta.rowData[6],
-                                        createdDate: tableMeta.rowData[7],
-                                        active: tableMeta.rowData[8]
+                                        createdBy: tableMeta.rowData[2],
+                                        createdDate: tableMeta.rowData[3],
+                                        active: tableMeta.rowData[4]
                                     })
                                     setVisibleDelete(true)
                                 }}
@@ -95,8 +95,8 @@ export default function KategoriAccount() {
         viewColumns: false,
         filter: false,
         filterType: "dropdown",
-        checklist: 
-        responsive,
+        checklist:
+            responsive,
         selectableRows: false,
         tableBodyHeight,
         tableBodyMaxHeight,
@@ -120,7 +120,7 @@ export default function KategoriAccount() {
                 return [item.id, item.name, item.createdBy, item.createdDate, item.active]
             })
             setDataHeadOffice(dataHeadOffice)
-            setDataCategoryAccount(newDataCategoryAccount) 
+            setDataCategoryAccount(newDataCategoryAccount)
         }
     }
 
@@ -162,7 +162,7 @@ export default function KategoriAccount() {
 
             {visibleAdd && (
                 <AddKategoriAccount
-                dataCategoryAccount={dataCategoryAccount}
+                    dataCategoryAccount={dataCategoryAccount}
                     dataHeadOffice={dataHeadOffice}
                     getData={getData}
                     onClose={() => setVisibleAdd(false)}
@@ -171,7 +171,10 @@ export default function KategoriAccount() {
 
             {visibleEdit && (
                 <EditKategoriAccount
-                dataSelected={dataSelected}
+                    dataSelected={dataSelected}
+                    dataCategoryAccount={dataCategoryAccount}
+                    dataHeadOffice={dataHeadOffice}
+                    getData={getData}
                     onClose={() => setVisibleEdit(false)}
                 />
             )}

@@ -26,6 +26,8 @@ import AddReturBarangRegionKeHead from "../containers/inventory/AddReturBarangRe
 import AddPO from "../containers/inventory/AddPO";
 import Dashboard from "../containers/Dashboard";
 import AddAlokasiDana from "../containers/budgeting/AddAlokasiDana";
+import AnggaranRegional from "../containers/masterAnggaran/AnggaranRegional";
+import AddAnggaranRegional from "../containers/masterAnggaran/AddAnggaranRegional";
 
 const routes = [
     {
@@ -139,6 +141,14 @@ const routes = [
     {
         path: "/tambah-retur-barang-region-head",
         main: AddReturBarangRegionKeHead
+    },  
+    {
+        path: "/anggaran-regional",
+        main: AnggaranRegional
+    }, 
+    {
+        path: "/tambah-anggaran-regional",
+        main: AddAnggaranRegional
     },  
 ]
 
