@@ -1,8 +1,24 @@
 import React from 'react'
 import CloseImage from '../../assets/ic_close.png';
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import moment from 'moment';
+import { headOffice } from '../../library/Service';
 
 export default function AddGolonganBarang(props) {
+    const [nama, setNama] = React.useState("")
+
+    const handleAddGolongan = () => {
+        let newData = {
+            id: `GB-${props.dataGolongan.length + 1}`,
+            name: nama,
+            createdBy: "Head Office",
+            createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
+            active: 1
+        }
+        headOffice('addGolongan', newData)
+        props.getData()
+        props.onClose()
+    }
 
     return (
         <div className="App app-popup-show">
@@ -28,7 +44,8 @@ export default function AddGolonganBarang(props) {
                     <TextField
                         style={{ width: '100%' }}
                         variant="outlined"
-                        onChange={(e) => null}
+                        onChange={(e) => setNama(e.target.value)}
+                        value={nama}
                         inputProps={{
                             style: {
                                 fontSize: 14,
@@ -49,7 +66,7 @@ export default function AddGolonganBarang(props) {
 
                     </div>
                     <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
-                        <div style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                        <div onClick={() => handleAddGolongan()} style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                             <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>TAMBAH</Typography>
                         </div>
                     </div>

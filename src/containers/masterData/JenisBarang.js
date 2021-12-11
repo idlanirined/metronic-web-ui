@@ -11,6 +11,8 @@ import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
 import AddJenisBarang from './AddJenisBarang';
 import EditJenisBarang from './EditJenisBarang';
+import Constant from '../../library/Constants';
+import { headOffice } from '../../library/Service';
 
 
 const ct = require("../../library/CustomTable");
@@ -28,6 +30,9 @@ export default function JenisBarang() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
+    const [dataJenis, setDataJenis] = useState([])
+    const [dataSelected, setDataSelected] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
         { name: "NO", options: { filterOptions: { fullWidth: true } } },
@@ -49,12 +54,30 @@ export default function JenisBarang() {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
-                                onClick={() => setVisibleEdit(true)}
+                                onClick={() => {
+                                    setDataSelected({
+                                        id: tableMeta.rowData[0],
+                                        name: tableMeta.rowData[1],
+                                        createdBy: tableMeta.rowData[6],
+                                        createdDate: tableMeta.rowData[7],
+                                        active: tableMeta.rowData[8]
+                                    })
+                                    setVisibleEdit(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleDelete(true)}
+                                onClick={() => {
+                                    setDataSelected({
+                                        id: tableMeta.rowData[0],
+                                        name: tableMeta.rowData[1],
+                                        createdBy: tableMeta.rowData[6],
+                                        createdDate: tableMeta.rowData[7],
+                                        active: tableMeta.rowData[8]
+                                    })
+                                    setVisibleDelete(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Delete</Typography>
                             </div>
@@ -81,9 +104,20 @@ export default function JenisBarang() {
         }
     };
 
-    const data = [
-        ["1", "JENIS BARANG A", "NAMA USER 1", "2021-11-01 12:00:00", "1"],
-    ];
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        if (dataHeadOffice != null) {
+            let newDataJenis = dataHeadOffice.jenis_barang.map((item, index) => {
+                return [item.id, item.name, item.createdBy, item.createdDate, item.active]
+            })
+            setDataHeadOffice(dataHeadOffice)
+            setDataJenis(newDataJenis)
+        }
+    }
 
     return (
         <div>
@@ -113,7 +147,7 @@ export default function JenisBarang() {
                     <ThemeProvider theme={getMuiTheme()}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={data}
+                            data={dataJenis}
                             columns={columns}
                             options={options}
                         />
@@ -123,12 +157,16 @@ export default function JenisBarang() {
 
             {visibleAdd && (
                 <AddJenisBarang
+                    dataJenis={dataJenis}
+                    dataHeadOffice={dataHeadOffice}
+                    getData={getData}
                     onClose={() => setVisibleAdd(false)}
                 />
             )}
 
             {visibleEdit && (
                 <EditJenisBarang
+                    dataSelected={dataSelected}
                     onClose={() => setVisibleEdit(false)}
                 />
             )}
@@ -162,7 +200,11 @@ export default function JenisBarang() {
                                 </div>
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
-                                <div style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <div onClick={() => {
+                                    headOffice('deleteJenis', dataSelected)
+                                    getData()
+                                    setVisibleDelete(false)
+                                }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>HAPUS</Typography>
                                 </div>
                             </div>

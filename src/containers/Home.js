@@ -37,6 +37,8 @@ import {
   useRouteMatch, useLocation, useHistory
 } from "react-router-dom";
 import HomeRoute from '../router/HomeRoutes'
+import Constant from "../library/Constants";
+import database from "../library/Databases";
 
 const drawerWidth = 240;
 
@@ -221,19 +223,19 @@ export default function Home() {
                   "created": "",
                   "updated": null
                 },
-                {
-                  "menu_id": 30,
-                  "class_id": "wilayah",
-                  "menu_name": "Wilayah",
-                  "type": "item",
-                  "icon": " ",
-                  "reference": 21,
-                  "sub_menu": [],
-                  "collapse": false,
-                  "is_access": true,
-                  "created": "",
-                  "updated": null
-                },
+                // {
+                //   "menu_id": 30,
+                //   "class_id": "wilayah",
+                //   "menu_name": "Wilayah",
+                //   "type": "item",
+                //   "icon": " ",
+                //   "reference": 21,
+                //   "sub_menu": [],
+                //   "collapse": false,
+                //   "is_access": true,
+                //   "created": "",
+                //   "updated": null
+                // },
               ],
               "collapse": false,
               "is_access": true,
@@ -280,46 +282,46 @@ export default function Home() {
               "created": "",
               "updated": null
             },
-            {
-              "menu_id": 25,
-              "class_id": "daftar-supplier",
-              "menu_name": "Daftar Supplier",
-              "type": "item",
-              "icon": "setup",
-              "reference": 3,
-              "sub_menu": [
-                {
-                  "menu_id": 26,
-                  "class_id": "supplier",
-                  "menu_name": "Supplier",
-                  "type": "item ",
-                  "icon": " ",
-                  "reference": 25,
-                  "sub_menu": [],
-                  "collapse": false,
-                  "is_access": true,
-                  "created": "",
-                  "updated": null
-                },
-                {
-                  "menu_id": 27,
-                  "class_id": "jenis-supplier",
-                  "menu_name": "Jenis Supplier",
-                  "type": "item",
-                  "icon": "",
-                  "reference": 25,
-                  "sub_menu": [],
-                  "collapse": false,
-                  "is_access": true,
-                  "created": "",
-                  "updated": null
-                }
-              ],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
+            // {
+            //   "menu_id": 25,
+            //   "class_id": "daftar-supplier",
+            //   "menu_name": "Daftar Supplier",
+            //   "type": "item",
+            //   "icon": "setup",
+            //   "reference": 3,
+            //   "sub_menu": [
+            //     {
+            //       "menu_id": 26,
+            //       "class_id": "supplier",
+            //       "menu_name": "Supplier",
+            //       "type": "item ",
+            //       "icon": " ",
+            //       "reference": 25,
+            //       "sub_menu": [],
+            //       "collapse": false,
+            //       "is_access": true,
+            //       "created": "",
+            //       "updated": null
+            //     },
+            //     {
+            //       "menu_id": 27,
+            //       "class_id": "jenis-supplier",
+            //       "menu_name": "Jenis Supplier",
+            //       "type": "item",
+            //       "icon": "",
+            //       "reference": 25,
+            //       "sub_menu": [],
+            //       "collapse": false,
+            //       "is_access": true,
+            //       "created": "",
+            //       "updated": null
+            //     }
+            //   ],
+            //   "collapse": false,
+            //   "is_access": true,
+            //   "created": "",
+            //   "updated": null
+            // },
             {
               "menu_id": 28,
               "class_id": "daftar-akun",
@@ -539,6 +541,11 @@ export default function Home() {
 
   React.useEffect(() => {
     let path = String(location.pathname).split('/')
+    // localStorage.clear()
+    let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+    if (dataHeadOffice == null) {
+      localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
+    }
     setPathname(path[1])
   })
 
@@ -629,7 +636,7 @@ export default function Home() {
               >
                 <MenuIcon style={{ color: "#1d56db" }} />
               </IconButton>
-              <Typography variant="h6" noWrap component="div">
+              {/* <Typography variant="h6" noWrap component="div">
                 <Button size="medium" variant="outlined" style={{ backgroundColor: '#F3F6F9' }}>
                   <Typography>Pages</Typography>
                 </Button>
@@ -639,11 +646,11 @@ export default function Home() {
                 <Button size="medium">
                   <Typography>Apps</Typography>
                 </Button>
-              </Typography>
+              </Typography> */}
             </div>
-            <Avatar sx={{ bgcolor: green[50] }} variant="square">
-              <Typography style={{ color: green[500] }}>S</Typography>
-            </Avatar>
+            {/* <Avatar sx={{ bgcolor: green[50] }} variant="square"> */}
+              <Typography style={{ color: green[500] }}>Head Office / Region</Typography>
+            {/* </Avatar> */}
           </div>
         </Toolbar>
       </AppBar>
@@ -778,7 +785,7 @@ export default function Home() {
                                           <div
                                             style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === subs.class_id ? "active" : ""}
                                             onClick={() => subs.menu_name === "Logout" ? logout() : selectSub(sub)}>
-                                            <ListItem button style={{ padding: '10px 0', marginLeft: 20 }}>
+                                            <ListItem button style={{ padding: '10px 0', marginLeft: 40 }}>
                                               <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === subs.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{subs.menu_name}</Typography>
                                             </ListItem>
                                           </div>
