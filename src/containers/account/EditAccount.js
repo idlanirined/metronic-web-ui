@@ -1,9 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CloseImage from '../../assets/ic_close.png';
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import { headOffice } from '../../library/Service';
 
 export default function EditAccount(props) {
-    const [listWilayah, setListWilayah] = useState([])
+    const [listAccount, setListAccount] = useState(props.dataHeadOffice.account)
+    const [newData, setNewData] = useState({
+        id: "",
+        name: "",
+        level: "",
+        reference: null,
+        createdBy: "",
+        createdDate: "",
+        active: ""
+    })
+
+    useEffect(() => {
+        let data = props.dataSelected
+        let idxRef = listAccount.findIndex((val) => val.id === data.refID)
+        setNewData({
+            ...newData,
+            id: data.id,
+            name: data.name,
+            level: data.level,
+            reference: idxRef == -1? null : listAccount[idxRef],
+            createdBy: data.createdBy,
+            createdDate: data.createdDate,
+            active: data.active
+        })
+    }, [])
+
+    const handleEdit = () => {
+        let payload = {
+            ...newData,
+            refID: newData.reference.id,
+            level: Number(newData.reference.level) + 1
+        }
+        headOffice('editAccount', payload)
+        props.getData()
+        props.onClose()
+    }
 
     return (
         <div className="App app-popup-show">
@@ -26,11 +62,12 @@ export default function EditAccount(props) {
                 </div>
                 <div style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
                     <div style={{ display: 'flex' }}>
-                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Nama Account</Typography>
+                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Nama GL</Typography>
                         <TextField
                             style={{ width: '100%' }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            onChange={(e) => setNewData({reference: e.target.value})}
+                            value={newData.name}
                             inputProps={{
                                 style: {
                                     fontSize: 14,
@@ -47,12 +84,16 @@ export default function EditAccount(props) {
                         />
                     </div>
                     <div style={{ display: 'flex', marginTop: 20 }}>
-                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Kategori Account</Typography>
+                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Parent GL</Typography>
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={listWilayah}
-                            getOptionLabel={(option) => option.value}
+                            options={listAccount}
+                            getOptionLabel={(option) => option.name}
+                            value={newData.reference}
+                            onChange={(event, newInputValue) => {
+                                setNewData({...newData, reference: newInputValue})
+                            }}
                             sx={{ width: 'inherit' }}
                             style={{
                                 width: '-webkit-fill-available',
@@ -69,7 +110,7 @@ export default function EditAccount(props) {
 
                     </div>
                     <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
-                        <div style={{ height: 60, width: 250, backgroundColor: '#05b721', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                        <div onClick={() => handleEdit()} style={{ height: 60, width: 250, backgroundColor: '#05b721', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                             <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>EDIT</Typography>
                         </div>
                     </div>

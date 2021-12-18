@@ -31,15 +31,46 @@ export default function AnggaranRegional() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
-    const [dataRegion, setDataRegion] = useState([])
+    const [dataRegion, setDataAnggaran] = useState([])
     const [dataSelected, setDataSelected] = useState(null)
     const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
-        { name: "NO", options: { filterOptions: { fullWidth: true } } },
+        { name: "NO", options: {  display: false, filterOptions: { fullWidth: true } } },
         "TAHUN",
         // "WILAYAH",
-        "ALOKASI (Rp)",
+        {
+            name: "ALOKASI (Rp)",
+            label: "ALOKASI (Rp)",
+            options: {
+                sort: false,
+                filter: false,
+                customHeadRender: (columnMeta) => (
+                    <TableCell key={columnMeta.index} style={{}}>
+                        <Typography style={{ color: '#2E84D6', fontSize: 14, fontWeight: 'bold' }}>{columnMeta.label}</Typography>
+                    </TableCell>
+                ),
+                customBodyRender: (val, tableMeta) => {
+                    return (
+                        <div style={{ display: 'flex' }}>
+                            {/* <NumberFormat
+                                // value={val}
+                                key={tableMeta.rowData[0]}
+                                customInput={TextField}
+                                style={{ width: '100%' }}
+                                prefix={'Rp. '}
+                                type="text"
+                                thousandSeparator={true}
+                                onValueChange={({ value: v }) => handleValue(v, tableMeta.rowIndex, tableMeta.columnIndex, tableMeta)}
+                                // onBlur={() => handleTotal()}
+                            /> */}
+                            <Typography style={{  fontSize: 14, fontWeight: '500'  }}>{val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
+                        </div>
+                    )
+                }
+            }
+        },
+        // "ALOKASI (Rp)",
         "PEMBUAT",
         "TIMESTAMP",
         {
@@ -112,15 +143,16 @@ export default function AnggaranRegional() {
     }, [])
 
     const getData = () => {
-        // let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
-        // if (dataHeadOffice != null) {
-        //     let newDataRegion = dataHeadOffice.region.map((item, index) => {
-        //         return [item.id, item.name, item.createdBy, item.createdDate, item.active]
-        //     })
-        //     setDataHeadOffice(dataHeadOffice)
-        //     setDataRegion(newDataRegion)
-        //     console.log(dataHeadOffice)
-        // }
+        // alert('yahu')
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        if (dataHeadOffice != null) {
+            let newDataAnggaran = dataHeadOffice.anggaran.map((item, index) => {
+                return [item.id, item.name, item.totalAnggaranPusat, item.createdBy, item.createdDate, item.active]
+            })
+            setDataHeadOffice(dataHeadOffice)
+            setDataAnggaran(newDataAnggaran)
+            console.log(dataHeadOffice)
+        }
     }
 
     return (
@@ -142,7 +174,7 @@ export default function AnggaranRegional() {
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
                             <div
-                                onClick={() => history.push('/tambah-anggaran-regional')}
+                                onClick={() => history.push({pathname: '/tambah-anggaran-regional' })}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
                                 <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Tambah Anggaran</Typography>
                             </div>
@@ -163,6 +195,7 @@ export default function AnggaranRegional() {
                 <AddAnggaranRegional
                     // dataRegion={dataRegion}
                     // dataHeadOffice={dataHeadOffice}
+                    kontol={'kontol'}
                     getData={getData}
                     onClose={() => setVisibleAdd(false)}
                 />

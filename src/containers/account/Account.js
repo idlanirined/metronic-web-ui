@@ -11,6 +11,8 @@ import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
 import AddAccount from './AddAccount';
 import EditAccount from './EditAccount';
+import Constant from '../../library/Constants';
+import { headOffice } from '../../library/Service';
 
 
 const ct = require("../../library/CustomTable");
@@ -28,11 +30,14 @@ export default function Account() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
+    const [dataAccount, setDataAccount] = useState([])
+    const [dataSelected, setDataSelected] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    const [checked, setChecked] = useState(false)
 
     const columns = [
-        { name: "ID ACCOUNT", options: { filterOptions: { fullWidth: true } } },
-        "NAMA ACCOUNT",
-        "JENIS ACCOUNT",
+        { name: "No GL", options: { filterOptions: { fullWidth: true } } },
+        "NAMA GL",
         "PEMBUAT",
         "TIMESTAMP",
         {
@@ -50,12 +55,34 @@ export default function Account() {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
-                                onClick={() => setVisibleEdit(true)}
+                                onClick={() => {
+                                    setDataSelected({
+                                        id: tableMeta.rowData[0],
+                                        name: tableMeta.rowData[1],
+                                        createdBy: tableMeta.rowData[2],
+                                        createdDate: tableMeta.rowData[3],
+                                        active: tableMeta.rowData[4],
+                                        refID: tableMeta.rowData[5],
+                                        level: tableMeta.rowData[6]
+                                    })
+                                    setVisibleEdit(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleDelete(true)}
+                                onClick={() => {
+                                    setDataSelected({
+                                        id: tableMeta.rowData[0],
+                                        name: tableMeta.rowData[1],
+                                        createdBy: tableMeta.rowData[2],
+                                        createdDate: tableMeta.rowData[3],
+                                        active: tableMeta.rowData[4],
+                                        refID: tableMeta.rowData[5],
+                                        level: tableMeta.rowData[6]
+                                    })
+                                    setVisibleDelete(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Delete</Typography>
                             </div>
@@ -64,10 +91,12 @@ export default function Account() {
                 }
             }
         },
+        {name: "", options: {display: false}},
+        {name: "", options: {display: false}}
     ];
 
     const options = {
-        search: false,
+        search: true,
         download: false,
         print: false,
         viewColumns: false,
@@ -77,14 +106,32 @@ export default function Account() {
         tableBodyHeight,
         tableBodyMaxHeight,
         onTableChange: (action, state) => {
+            
             console.log(action);
             console.dir(state);
         }
     };
 
-    const data = [
-        ["1", "JENIS BARANG A", "NAMA USER 1", "2021-11-01 12:00:00", "1"],
-    ];
+    React.useEffect(() => {
+        // localStorage.clear()
+        // localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
+        console.log("========")
+        getData()
+    }, [])
+    
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log("========")
+        console.log(dataHeadOffice)
+        if (dataHeadOffice != null) {
+            let newDataAccount = dataHeadOffice.account.map((item, index) => {
+                return [item.id, item.name, item.createdBy, item.createdDate, item.active, item.refID, item.level]
+            })
+            setDataHeadOffice(dataHeadOffice)
+            setDataAccount(newDataAccount)
+            console.log(newDataAccount)
+        }
+    }
 
     return (
         <div>
@@ -114,7 +161,7 @@ export default function Account() {
                     <ThemeProvider theme={getMuiTheme()}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={data}
+                            data={dataAccount}
                             columns={columns}
                             options={options}
                         />
@@ -124,12 +171,19 @@ export default function Account() {
 
             {visibleAdd && (
                 <AddAccount
+                    dataAccount={dataAccount}
+                    dataHeadOffice={dataHeadOffice}
+                    getData={getData}
                     onClose={() => setVisibleAdd(false)}
                 />
             )}
 
             {visibleEdit && (
                 <EditAccount
+                    dataSelected={dataSelected}
+                    dataAccount={dataAccount}
+                    dataHeadOffice={dataHeadOffice}
+                    getData={getData}
                     onClose={() => setVisibleEdit(false)}
                 />
             )}
@@ -158,12 +212,16 @@ export default function Account() {
                         </div>
                         <div className="grid grid-2x grid-mobile-none gap-15px" style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
-                                <div style={{ height: 60, width: '100%', backgroundColor: '#c4c4c4', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <div onClick={() => setVisibleDelete(false)} style={{ height: 60, width: '100%', backgroundColor: '#c4c4c4', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: '#464e5f', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>BATAL</Typography>
                                 </div>
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
-                                <div style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <div onClick={() => {
+                                    headOffice('deleteAccount', dataSelected)
+                                    getData()
+                                    setVisibleDelete(false)
+                                }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>HAPUS</Typography>
                                 </div>
                             </div>

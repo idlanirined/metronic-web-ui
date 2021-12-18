@@ -16,7 +16,7 @@ export default function AddAkunUser(props) {
             level: level,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
-            active: 1
+            active: true
         }
         headOffice('addUser', newData)
         props.getData()

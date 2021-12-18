@@ -14,7 +14,7 @@ export default function EditAkunUser(props) {
         level: '',
         createdBy: "Head Office",
         createdDate: '',
-        active: 1
+        active: true
     })
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export default function EditAkunUser(props) {
             level: data.level,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
-            active: 1
+            active: true
         })
         let idxLevel = listLevel.findIndex((val) => val.name === data.level)
         if (idxLevel > -1) {

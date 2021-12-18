@@ -13,7 +13,7 @@ export default function AddLevel(props) {
             name: nama,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
-            active: 1
+            active: true
         }
         headOffice('addLevelUser', newData)
         props.getData()

@@ -69,7 +69,8 @@ export default function Barang() {
                                         merk: tableMeta.rowData[5],
                                         createdBy: tableMeta.rowData[6],
                                         createdDate: tableMeta.rowData[7],
-                                        active: tableMeta.rowData[8]
+                                        active: tableMeta.rowData[8],
+                                        harga: tableMeta.rowData[9]
                                     })
                                     setVisibleEdit(true)
                                 }}
@@ -87,7 +88,8 @@ export default function Barang() {
                                         merk: tableMeta.rowData[5],
                                         createdBy: tableMeta.rowData[6],
                                         createdDate: tableMeta.rowData[7],
-                                        active: tableMeta.rowData[8]
+                                        active: tableMeta.rowData[8],
+                                        harga: tableMeta.rowData[9]
                                     })
                                     setVisibleDelete(true)
                                 }}
@@ -98,7 +100,7 @@ export default function Barang() {
                     )
                 }
             }
-        },
+        }, {name: '', options: {display: false}}
     ];
 
     const options = {
@@ -128,7 +130,7 @@ export default function Barang() {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         if (dataHeadOffice != null) {
             let newDataBarang = dataHeadOffice.barang.map((item, index) => {
-                return [item.id, item.name, item.jenis, item.satuan, item.golongan, item.merk, item.createdBy, item.createdDate, item.active]
+                return [item.id, item.name, item.jenis, item.satuan, item.golongan, item.merk, item.createdBy, item.createdDate, item.active, item.harga]
             })
             setDataHeadOffice(dataHeadOffice)
             setDataBarang(newDataBarang) 

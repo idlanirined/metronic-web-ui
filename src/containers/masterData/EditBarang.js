@@ -37,7 +37,8 @@ export default function EditBarang(props) {
             golongan: data.golongan,
             merk: data.merk,
             stok: data.stok,
-            createdBy: "deni",
+            harga: data.harga,
+            createdBy: data.createdBy,
             createdDate: data.createdDate,
             active: data.active
         })

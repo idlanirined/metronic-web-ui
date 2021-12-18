@@ -17,6 +17,7 @@ import {
   MenuItem,
   Avatar,
   Collapse,
+  Switch as SwitchMui
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -26,7 +27,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Logout, PersonAdd, Settings } from "@mui/icons-material";
-import { deepOrange, green } from "@mui/material/colors";
+import { deepOrange, green, grey, lightBlue } from "@mui/material/colors";
 import setting from '../assets/ic_web_setting.png';
 import {
   BrowserRouter as Router,
@@ -115,6 +116,7 @@ export default function Home() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const openAvatar = Boolean(anchorEl);
+  const [checked, setChecked] = React.useState(false)
   const [data, setData] = React.useState(
     {
       array: [
@@ -563,12 +565,15 @@ export default function Home() {
   const [menu, setMenu] = React.useState("")
   const [selectedIndex, setSelectedIndex] = React.useState("Dashboard");
   const [selectedPath, setSelectedPath] = React.useState("dashboard");
+  const [access, setAccess] = React.useState("")
 
   let { path, url } = useRouteMatch();
 
   React.useEffect(() => {
     let path = String(location.pathname).split('/')
     // localStorage.clear()
+    let access = localStorage.getItem(Constant.ACCESS_TOKEN)
+    setAccess(access)
     let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
     if (dataHeadOffice == null) {
       localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
@@ -644,6 +649,48 @@ export default function Home() {
     setOpen(false);
   };
 
+  const AntSwitch = styled(SwitchMui)(({ theme }) => ({
+    width: 28,
+    height: 16,
+    padding: 0,
+    display: 'flex',
+    '&:active': {
+      '& .MuiSwitch-thumb': {
+        width: 15,
+      },
+      '& .MuiSwitch-switchBase.Mui-checked': {
+        transform: 'translateX(9px)',
+      },
+    },
+    '& .MuiSwitch-switchBase': {
+      padding: 2,
+      '&.Mui-checked': {
+        transform: 'translateX(12px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          opacity: 1,
+          backgroundColor: theme.palette.mode === 'dark' ? '#177ddc' : '#1890ff',
+        },
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+      width: 12,
+      height: 12,
+      borderRadius: 6,
+      transition: theme.transitions.create(['width'], {
+        duration: 200,
+      }),
+    },
+    '& .MuiSwitch-track': {
+      borderRadius: 16 / 2,
+      opacity: 1,
+      backgroundColor:
+        theme.palette.mode === 'dark' ? 'rgba(255,255,255,.35)' : 'rgba(0,0,0,.25)',
+      boxSizing: 'border-box',
+    },
+  }));
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -676,7 +723,15 @@ export default function Home() {
               </Typography> */}
             </div>
             {/* <Avatar sx={{ bgcolor: green[50] }} variant="square"> */}
-              <Typography style={{ color: green[500] }}>Head Office / Region</Typography>
+            <div style={{ flexDirection: 'row', display: 'flex', alignItems:'center'}}>
+              <Typography style={{color: !checked? green[500] : grey[500], marginRight: 5, backgroundColor: !checked? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>Head Office</Typography>
+              <SwitchMui inputProps={{ 'aria-label': 'ant design' }} checked={checked} onChange={(e) => {
+                setChecked(e.target.checked)
+                localStorage.setItem('checked', checked)
+              }}/>
+              <Typography style={{color: checked? green[500] : grey[500], marginLeft: 5, backgroundColor: checked? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>Region</Typography>
+            </div>
+            {/* <Typography style={{ color: green[500] }}>{access == 'region'? 'Region' : 'Head Office'}</Typography> */}
             {/* </Avatar> */}
           </div>
         </Toolbar>
@@ -698,7 +753,7 @@ export default function Home() {
                 alignSelf: "center",
               }}
             >
-              METRONIC
+              INVENTORY MANDIRI
             </Typography>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "rtl" ? (

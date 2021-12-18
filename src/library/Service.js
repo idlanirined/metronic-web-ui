@@ -247,6 +247,8 @@ export const headOffice = (type, value) => {
         let newData = {
             id: value.id,
             name: value.name,
+            level: value.level,
+            refID: value.refID,
             createdBy: value.createdBy,
             createdDate: value.createdDate,
             active: value.active
@@ -258,6 +260,8 @@ export const headOffice = (type, value) => {
         let newData = {
             id: value.id,
             name: value.name,
+            level: value.level,
+            refID: value.refID,
             createdBy: value.createdBy,
             createdDate: value.createdDate,
             active: value.active
@@ -268,7 +272,7 @@ export const headOffice = (type, value) => {
             account[index] = newData
             dataHeadOffice = { ...dataHeadOffice, account }
         }
-    } else if (type == 'deleteAccout') {
+    } else if (type == 'deleteAccount') {
         let account = dataHeadOffice.account
         let index = account.findIndex((val) => val.id == value.id)
         if (index != -1) {
@@ -307,13 +311,48 @@ export const headOffice = (type, value) => {
             category_account.splice(index, 1)
             dataHeadOffice = { ...dataHeadOffice, category_account }
         }
+    } else if (type == 'addAnggaran') {
+        let newData = {
+            id: value.id,
+            name: value.name,
+            totalAnggaranPusat: value.totalAnggaranPusat,
+            totalAnggaranRutin: value.totalAnggaranRutin,
+            dataAnggaran: value.dataAnggaran,
+            sisaAnggaran: value.sisaAnggaran,
+            createdBy: value.createdBy,
+            createdDate: value.createdDate,
+            active: value.active
+        }
+        let anggaran = dataHeadOffice.anggaran
+        anggaran.push(newData)
+        dataHeadOffice = { ...dataHeadOffice, anggaran }
+    } else if (type == 'editAnggaran') {
+        let newData = {
+            id: value.id,
+            name: value.name,
+            totalAnggaranPusat: value.totalAnggaranPusat,
+            totalAnggaranRutin: value.totalAnggaranRutin,
+            dataAnggaran: value.dataAnggaran,
+            sisaAnggaran: value.sisaAnggaran,
+            createdBy: value.createdBy,
+            createdDate: value.createdDate,
+            active: value.active
+        }
+        let anggaran = dataHeadOffice.anggaran
+        let index = anggaran.findIndex((val) => val.id == newData.id)
+        if (index != -1) {
+            anggaran[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, anggaran }
+        }
+    } else if (type == 'deleteAnggaran') {
+        let anggaran = dataHeadOffice.anggaran
+        let index = anggaran.findIndex((val) => val.id == value.id)
+        if (index != -1) {
+            anggaran.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, anggaran }
+        }
     }
-    // console.log('berhasil', dataHeadOffice)
-    // console.log('berhasil', `${[dataHeadOffice]}`)
-    // console.log('string', JSON.stringify(dataHeadOffice))
-    // console.log('string2', String(dataHeadOffice))
     localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(dataHeadOffice))
-    // console.log(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
 }
 
 export function region(type, value) {

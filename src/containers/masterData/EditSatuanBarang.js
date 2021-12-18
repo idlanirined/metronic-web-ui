@@ -10,7 +10,7 @@ export default function EditSatuanBarang(props) {
         name: '',
         createdBy: "Head Office",
         createdDate: '',
-        active: 1
+        active: true
     })
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function EditSatuanBarang(props) {
             name: data.name,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
-            active: 1
+            active: true
         })
     }, [])
 

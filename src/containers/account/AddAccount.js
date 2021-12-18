@@ -1,9 +1,31 @@
 import React, { useState } from 'react'
 import CloseImage from '../../assets/ic_close.png';
 import { Autocomplete, TextField, Typography } from "@mui/material";
+import moment from 'moment';
+import { headOffice } from '../../library/Service';
+import { makeStyles } from '@mui/styles';
 
 export default function AddAccount(props) {
-    const [listWilayah, setListWilayah] = useState([])
+    const [listAccount, setListAccount] = useState(props.dataHeadOffice.account)
+    const [nama, setNama] = useState("")
+    const [reference, setReferance] = useState(null)
+
+    const handleAddAccount = () => {
+        let newData = {
+            id: `${Number(props.dataAccount[props.dataAccount.length-1][0]) + 1}`,
+            name: nama,
+            refID: reference == null? null : reference.id,
+            level: Number(props.dataAccount[props.dataAccount.length-1][6]) + 1,
+            createdBy: "Head Office",
+            createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
+            active: true
+        }
+        // console.log(props.dataAccount[props.dataAccount.length-1][0])
+        // console.log(newData)
+        headOffice('addAccount', newData)
+        props.getData()
+        props.onClose()
+    }
 
     return (
         <div className="App app-popup-show">
@@ -30,7 +52,8 @@ export default function AddAccount(props) {
                         <TextField
                             style={{ width: '100%' }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            onChange={(e) => setNama(e.target.value)}
+                            value={nama}
                             inputProps={{
                                 style: {
                                     fontSize: 14,
@@ -51,8 +74,9 @@ export default function AddAccount(props) {
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
-                            options={listWilayah}
-                            getOptionLabel={(option) => option.value}
+                            options={listAccount}
+                            getOptionLabel={(option) => option.name}
+                            onChange={(event, newInputValue) => newInputValue == null? setReferance(null) : setReferance(newInputValue)}
                             sx={{ width: 'inherit' }}
                             style={{
                                 width: '-webkit-fill-available',
@@ -60,7 +84,7 @@ export default function AddAccount(props) {
                                 backgroundColor: '#e5e5e5'
                             }}
                             renderInput={(params) =>
-                                <TextField {...params} />}
+                                <TextField {...params}/>}
                         />
                     </div>
                 </div>
@@ -69,7 +93,7 @@ export default function AddAccount(props) {
 
                     </div>
                     <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
-                        <div style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                        <div onClick={() => handleAddAccount()} style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                             <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>TAMBAH</Typography>
                         </div>
                     </div>

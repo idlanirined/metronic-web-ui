@@ -27,9 +27,10 @@ export default function AddBarang(props) {
             golongan: golongan,
             merk: merk,
             stok: stok,
-            createdBy: "didam",
+            harga: 0,
+            createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
-            active: 1
+            active: true
         }
         headOffice('addBarang', newData)
         props.getData()
