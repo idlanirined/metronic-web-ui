@@ -9,7 +9,7 @@ import NumberFormat from 'react-number-format';
 import { green, grey, lightBlue } from '@mui/material/colors';
 import { headOffice } from '../../library/Service';
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const theme = createTheme({
     components: {
@@ -57,8 +57,9 @@ const style = {
 };
 
 
-export default function AddAlokasiDana() {
+export default function EditAlokasiDana() {
     let history = useHistory()
+    const location = useLocation()
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("40vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -74,6 +75,8 @@ export default function AddAlokasiDana() {
     const [grandTotal, setGrandTotal] = useState(0)
     const [batasMax, setBatasMax] = useState(0)
     const [keterangan, setKeterangan] = useState("")
+    const [totalSisa, setTotalSisa] = useState(null)
+    const [totalTerpakai, settotalTerpakai] = useState(null)
     const [hideTable, setHideTable] = useState(false)
 
     const handleValue = (value, row, column, tableMeta, updateValue) => {
@@ -156,23 +159,30 @@ export default function AddAlokasiDana() {
 
     const getData = () => {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
-        console.log(dataHeadOffice)
+        console.log(location)
         if (dataHeadOffice != null) {
-            let newDataAccount = dataHeadOffice.account.map((item, index) => {
-                return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
-            })
-            let newDataShadow = dataHeadOffice.account.map((item, index) => {
-                return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
-            })
+            let idx = dataHeadOffice.alokasi_dana.findIndex((val) => val.id === location.state.selected[2])
+            setDataAccount(dataHeadOffice.alokasi_dana[idx].dataAlokasi)
+            setDataShadow(dataHeadOffice.alokasi_dana[idx].dataAlokasi)
             let listRegion = dataHeadOffice.region
-            setDataHeadOffice(dataHeadOffice)
             setListRegion(listRegion)
-            setRegion(listRegion[0])
-            setDataAccount(newDataAccount.sort((a, b) => a[0] - b[0]))
-            setDataShadow(newDataShadow.sort((a, b) => a[0] - b[0]))
+            let idxReg = listRegion.findIndex((val) => val.name === location.state.selected[3])
+            setRegion(listRegion[idxReg])
+            setGrandTotal(dataHeadOffice.alokasi_dana[idx].totalAlokaiDana)
+            setKeterangan(dataHeadOffice.alokasi_dana[idx].keterangan)
+            setTotalSisa(dataHeadOffice.alokasi_dana[idx].totalSisa)
+            settotalTerpakai(dataHeadOffice.alokasi_dana[idx].totalTerpakai)
+
+            // let newDataAccount = dataHeadOffice.account.map((item, index) => {
+            //     return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
+            // })
+            // let newDataShadow = dataHeadOffice.account.map((item, index) => {
+            //     return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
+            // })
+            // setDataHeadOffice(dataHeadOffice)
             if (dataHeadOffice.anggaran.length > 0) {
                 // console.log(region)
-                getBatasMax(dataHeadOffice, listRegion[0])
+                getBatasMax(dataHeadOffice, listRegion[idxReg])
             }
         }
     }
@@ -195,11 +205,14 @@ export default function AddAlokasiDana() {
         let arrayTahun = []
         for (var i = 2000; i <= 2021; i++) {
             arrayTahun.push({ value: i })
-            if (i == new Date().getFullYear()) {
-                setTahun({ value: i })
-            }
+            // if (i == new Date().getFullYear()) {
+            //     setTahun({ value: i })
+            // }
         }
+        console.log(arrayTahun);
         setListTahun(arrayTahun.reverse())
+        let idx = arrayTahun.findIndex((val) => val.value === location.state.selected[2])
+        setTahun(arrayTahun[idx])
     }
 
     const handleAlokasiDana = () => {
@@ -209,13 +222,15 @@ export default function AddAlokasiDana() {
             tahun: tahun.value,
             dataAlokasi: dataShadow,
             totalAlokaiDana: grandTotal,
+            totalSisa: totalSisa,
+            totalTerpakai: totalTerpakai,
             batasMax: batasMax,
             keterangan: keterangan,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
             active: true
         }
-        headOffice('addAlokasiDana', payload)
+        headOffice('editAlokasiDana', payload)
         console.log(payload)
         history.goBack()
     }
