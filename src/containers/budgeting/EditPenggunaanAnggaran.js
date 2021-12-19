@@ -123,7 +123,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 ?
+                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ?
                                 <Typography style={{}}>{val}</Typography>
                                 :
                                 <Typography style={{ fontWeight: 'bold', textAlign: 'left' }}>{val}</Typography>
@@ -146,7 +146,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 && val}
+                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -166,7 +166,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 && val}
+                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -186,7 +186,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 && val}
+                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -206,7 +206,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 && val}
+                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -226,7 +226,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            {tableMeta.rowData[7] === 1 && (
+                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? (
                                 <div
                                     onClick={() => {
                                         setVisibleAdd(true)
@@ -237,14 +237,14 @@ export default function EditPenggunaanAnggaran() {
                                     <Typography style={{ color: '#1bc5bd', fontSize: 12, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Penggunaan</Typography>
                                 </div>
 
-                            )}
-                            {tableMeta.rowData[7] === 1 && (
+                            ) : null}
+                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? (
                                 <div
 
                                     id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
                                     <Typography style={{ color: '#1bc5bd', fontSize: 12, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Detail Upload</Typography>
                                 </div>
-                            )}
+                            ) : null}
                         </div>
                     )
                 }
@@ -283,11 +283,17 @@ export default function EditPenggunaanAnggaran() {
         if (idx > -1) {
             let dataTable = []
             let currentCode = 0
+            let child = 0
             dataHeadOffice.alokasi_dana[idx].dataAlokasi.map((item, index) => {
                 let char = ""
                 if (item[8] === 1) {
                     currentCode++;
                     char = `${String.fromCharCode(64 + currentCode).toLowerCase()}. `;
+                    child = 0
+                } else if (item[8] === 2) {
+                    currentCode = 0
+                    char = ""
+                    child++;
                 } else {
                     char = ""
                     currentCode = 0
@@ -295,7 +301,7 @@ export default function EditPenggunaanAnggaran() {
                 dataTable.push([
                     item[0],
                     String(char).toLowerCase(),
-                    item[1],
+                    item[8] === 2 ? `${child}). ${item[1]}` : item[1],
                     item[2],
                     item[3],
                     0,
