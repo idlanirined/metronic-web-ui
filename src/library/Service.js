@@ -418,30 +418,30 @@ export const headOffice = (type, value) => {
     } else if (type == 'editDanaNonRutin') {
         let newData = {
             id: value.id,
-            name: value.tahun,
             region: value.region,
-            dataAlokasi: value.dataAlokasi,
-            totalAlokaiDana: value.totalAlokaiDana,
-            totalTerpakai: value.totalTerpakai,
-            totalSisa: value.totalSisa,
+            files: null,
+            tahun: value.tahun,
+            dataNonRutin: value.dataNonRutin,
+            totalNonRutin: value.totalNonRutin,
             batasMax: value.batasMax,
             keterangan: value.keterangan,
+            status: 'draft',
             createdBy: value.createdBy,
             createdDate: value.createdDate,
             active: value.active
         }
-        let alokasi_dana = dataHeadOffice.alokasi_dana
-        let index = alokasi_dana.findIndex((val) => val.id == newData.id)
+        let dana_non_rutin = dataHeadOffice.dana_non_rutin
+        let index = dana_non_rutin.findIndex((val) => val.id == newData.id)
         if (index != -1) {
-            alokasi_dana[index] = newData
-            dataHeadOffice = { ...dataHeadOffice, alokasi_dana }
+            dana_non_rutin[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, dana_non_rutin }
         }
     } else if (type == 'deleteDanaNonRutin') {
-        let alokasi_dana = dataHeadOffice.alokasi_dana
-        let index = alokasi_dana.findIndex((val) => val.id == value.id && val.region.id == value.regionID)
+        let dana_non_rutin = dataHeadOffice.dana_non_rutin
+        let index = dana_non_rutin.findIndex((val) => val.id == value.id && val.region.id == value.regionID)
         if (index != -1) {
-            alokasi_dana.splice(index, 1)
-            dataHeadOffice = { ...dataHeadOffice, alokasi_dana }
+            dana_non_rutin.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, dana_non_rutin }
         }
     }
     localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(dataHeadOffice))

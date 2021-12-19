@@ -34,6 +34,7 @@ import AddDananNonRutin from "../containers/budgeting/AddDanaNonRutin";
 import AddQuotation from "../containers/inventory/AddQuotation";
 import EditAlokasiDana from "../containers/budgeting/EditAlokasiDana";
 import EditPenggunaanAnggaran from "../containers/budgeting/EditPenggunaanAnggaran";
+import EditDananNonRutin from "../containers/budgeting/EditDanaNonRutin";
 
 const routes = [
     {
@@ -175,6 +176,10 @@ const routes = [
     {
         path: "/tambah-non-rutin",
         main: AddDananNonRutin
+    }, 
+    {
+        path: "/edit-non-rutin",
+        main: EditDananNonRutin
     },  
     {
         path: "/tambah-quotation",
