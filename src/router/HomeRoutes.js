@@ -29,6 +29,8 @@ import AddAlokasiDana from "../containers/budgeting/AddAlokasiDana";
 import AnggaranRegional from "../containers/masterAnggaran/AnggaranRegional";
 import AddAnggaranRegional from "../containers/masterAnggaran/AddAnggaranRegional";
 import PenggunaanAnggaran from "../containers/budgeting/PenggunaanAnggaran";
+import EditAnggaranRegional from "../containers/masterAnggaran/EditAnggaranRegional";
+import AddDananNonRutin from "../containers/budgeting/AddDanaNonRutin";
 
 const routes = [
     {
@@ -154,6 +156,14 @@ const routes = [
     {
         path: "/tambah-anggaran-regional",
         main: AddAnggaranRegional
+    },  
+    {
+        path: "/edit-anggaran-regional",
+        main: EditAnggaranRegional
+    },  
+    {
+        path: "/tambah-non-rutin",
+        main: AddDananNonRutin
     },  
 ]
 

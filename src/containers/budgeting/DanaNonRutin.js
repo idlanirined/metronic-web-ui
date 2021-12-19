@@ -1,6 +1,6 @@
 import { createMuiTheme, Menu, TableCell, Typography } from '@mui/material'
 import MUIDataTable from "mui-datatables";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
@@ -9,12 +9,15 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
+import { useHistory } from 'react-router-dom';
+import Constant from '../../library/Constants';
 
 
 const ct = require("../../library/CustomTable");
 const getMuiTheme = () => createTheme(ct.customTable());
 
 export default function DanaNonRutin() {
+    const history = useHistory()
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("60vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -26,6 +29,7 @@ export default function DanaNonRutin() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
         { name: "NO PRAB", options: { filterOptions: { fullWidth: true } } },
@@ -108,6 +112,14 @@ export default function DanaNonRutin() {
         ["1", "JENIS BARANG A", "NAMA USER 1", "2021-11-01 12:00:00", "", "1"],
     ];
 
+    useEffect(() => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        if (dataHeadOffice != null) {
+            
+            setDataHeadOffice(dataHeadOffice)
+        }
+    }, [])
+
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
@@ -127,7 +139,12 @@ export default function DanaNonRutin() {
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleAdd(true)}
+                                onClick={() => history.push({ 
+                                    pathname: '/tambah-non-rutin',
+                                    state:  {
+                                        dataHeadOffice: dataHeadOffice
+                                    }
+                                })}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
                                 <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Add Non Rutin</Typography>
                             </div>

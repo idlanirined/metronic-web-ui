@@ -13,6 +13,7 @@ import Constant from '../../library/Constants';
 import { headOffice } from '../../library/Service';
 import AddAnggaranRegional from './AddAnggaranRegional';
 import { useHistory } from 'react-router-dom';
+import EditAnggaranRegional from './EditAnggaranRegional';
 
 
 const ct = require("../../library/CustomTable");
@@ -36,7 +37,7 @@ export default function AnggaranRegional() {
     const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
-        { name: "NO", options: {  display: false, filterOptions: { fullWidth: true } } },
+        { name: "NO", options: { display: false, filterOptions: { fullWidth: true } } },
         "TAHUN",
         // "WILAYAH",
         {
@@ -64,7 +65,7 @@ export default function AnggaranRegional() {
                                 onValueChange={({ value: v }) => handleValue(v, tableMeta.rowIndex, tableMeta.columnIndex, tableMeta)}
                                 // onBlur={() => handleTotal()}
                             /> */}
-                            <Typography style={{  fontSize: 14, fontWeight: '500'  }}>{val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
+                            <Typography style={{ fontSize: 14, fontWeight: '500' }}>{val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                         </div>
                     )
                 }
@@ -96,9 +97,15 @@ export default function AnggaranRegional() {
                                         createdDate: tableMeta.rowData[3],
                                         active: tableMeta.rowData[4]
                                     })
-                                    setVisibleEdit(true)
+                                    history.push({
+                                        pathname: '/edit-anggaran-regional',
+                                        state: {
+                                            dataSelected: tableMeta.rowData,
+                                            dataHeadOffice: dataHeadOffice
+                                        }
+                                    })
                                 }}
-                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
+                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10, cursor: 'pointer' }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
                             </div>
                             <div
@@ -174,7 +181,7 @@ export default function AnggaranRegional() {
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
                             <div
-                                onClick={() => history.push({pathname: '/tambah-anggaran-regional' })}
+                                onClick={() => history.push({ pathname: '/tambah-anggaran-regional' })}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
                                 <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Tambah Anggaran</Typography>
                             </div>
@@ -201,14 +208,14 @@ export default function AnggaranRegional() {
                 />
             )}
 
-            {/* {visibleEdit && (
-                <EditRegional
+            {visibleEdit && (
+                <EditAnggaranRegional
                     dataSelected={dataSelected}
                     dataHeadOffice={dataHeadOffice}
                     getData={getData}
                     onClose={() => setVisibleEdit(false)}
                 />
-            )} */}
+            )}
 
             {visibleDelete && (
                 <div className="App app-popup-show">
@@ -240,7 +247,7 @@ export default function AnggaranRegional() {
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
                                 <div onClick={() => {
-                                    headOffice('deleteRegion', dataSelected)
+                                    headOffice('deleteAnggaran', dataSelected)
                                     getData()
                                     setVisibleDelete(false)
                                 }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
