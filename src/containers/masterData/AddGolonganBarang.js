@@ -49,7 +49,7 @@ export default function AddGolonganBarang(props) {
                         inputProps={{
                             style: {
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }
                         }}
                         size="medium"

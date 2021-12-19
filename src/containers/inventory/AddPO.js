@@ -84,7 +84,7 @@ export default function AddPO() {
                                 style: {
                                     padding: 10,
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             size="medium"
@@ -108,7 +108,7 @@ export default function AddPO() {
                                 style: {
                                     padding: 10,
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             size="medium"
@@ -128,7 +128,7 @@ export default function AddPO() {
                                 style: {
                                     padding: 10,
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             size="medium"
@@ -150,7 +150,7 @@ export default function AddPO() {
                                 style: {
                                     padding: 10,
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             size="medium"

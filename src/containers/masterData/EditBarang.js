@@ -99,7 +99,7 @@ export default function EditBarang(props) {
                             inputProps={{
                                 style: {
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             value={newData.name}
@@ -130,7 +130,7 @@ export default function EditBarang(props) {
                             }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}
@@ -154,7 +154,7 @@ export default function EditBarang(props) {
                             }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}
@@ -178,7 +178,7 @@ export default function EditBarang(props) {
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}
@@ -193,7 +193,7 @@ export default function EditBarang(props) {
                             inputProps={{
                                 style: {
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             value={newData.merk}
@@ -223,7 +223,7 @@ export default function EditBarang(props) {
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}

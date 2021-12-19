@@ -57,7 +57,7 @@ export default function AddAccount(props) {
                             inputProps={{
                                 style: {
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             size="medium"
@@ -81,7 +81,7 @@ export default function AddAccount(props) {
                             style={{
                                 width: '-webkit-fill-available',
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params}/>}

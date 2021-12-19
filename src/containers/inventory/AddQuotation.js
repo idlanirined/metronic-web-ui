@@ -11,6 +11,7 @@ import Constant from '../../library/Constants';
 import moment from 'moment';
 import { headOffice } from '../../library/Service';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { DesktopDatePicker } from '@mui/lab';
 
 const theme = createTheme({
     components: {
@@ -83,7 +84,15 @@ export default function AddQuotation() {
     const [result, setresult] = useState("")
     const [file, setFile] = useState(null)
     const [nameFile, setNameFile] = useState(null)
-
+    const [listStatus, setListStatus] = useState([
+        {value: 'draft'}, {value: 'confirm'}
+    ])
+    const [status, setStatus] = useState(null)
+    const [dataBarang, setDataBarang] = useState([])
+    const [barang, setBarang] = useState(null)
+    const [jumlah, setJumlah] = useState(0)
+    const [qty, setQty] = useState(0)
+    const [disc, setDisc] = useState(0)
     const forceUpdate = React.useReducer(bool => !bool)[1];
 
     const columns = [
@@ -106,11 +115,13 @@ export default function AddQuotation() {
                 }
             }
         },
-        "NAMA GL/ Buku Besar",
-        "Nomor GL",
-        "TOTAL",
+        "Barang",
+        "Merk",
+        "Qty",
+        "Harga Satuan",
+        "Jumlah",
         {
-            label: "DELETE",
+            label: "DEL",
             options: {
                 sort: false,
                 filter: false,
@@ -126,8 +137,8 @@ export default function AddQuotation() {
                                 onClick={() => {
                                     dataTable.splice(tableMeta.rowIndex, 1)
                                     let totalz = 0
-                                    dataTable.map((item,index) => {
-                                        totalz += Number(item[3])
+                                    dataTable.map((item, index) => {
+                                        totalz += Number(item[5])
                                     })
                                     setGrandTotal(Number(totalz))
                                     forceUpdate()
@@ -166,20 +177,31 @@ export default function AddQuotation() {
     ]
 
     React.useEffect(() => {
-        // getTahun()
-        // getData()
-        // setListAccount(location.state.dataHeadOffice.account)
+        // localStorage.clear()
+        // localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
+
+        getData()
     }, [])
 
     const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        if (dataHeadOffice != null) {
+            setDataHeadOffice(dataHeadOffice)
+            setDataBarang(dataHeadOffice.barang) 
+            console.log(dataBarang)
+            console.log(dataHeadOffice)
+        }
+    }
+
+    const getDatas = () => {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         console.log(dataHeadOffice)
         if (dataHeadOffice != null) {
             let listRegion = dataHeadOffice.region
             setDataHeadOffice(dataHeadOffice)
             let newListRegion = []
-            listRegion.map((item,index) => {
-                if(item.id !== 'HO-1') {
+            listRegion.map((item, index) => {
+                if (item.id !== 'HO-1') {
                     newListRegion.push(item)
                 }
             })
@@ -250,72 +272,131 @@ export default function AddQuotation() {
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
-                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tambah Dana Non Rutin</Typography>
+                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Add Quotation</Typography>
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '15%', alignSelf: 'center' }}>Region</Typography>
-                        <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={listRegion}
-                            getOptionLabel={(option) => option.name}
-                            value={region}
-                            onChange={(event, newInputValue) => {
-                                setRegion(newInputValue)
-                                getBatasMax(dataHeadOffice, newInputValue)
-                            }}
-                            sx={{ width: 'inherit' }}
-                            style={{
-                                width: 320,
-                                fontSize: 14,
-                                backgroundColor: '#e5e5e5'
-                            }}
-                            renderInput={(params) =>
-                                <TextField
-                                    {...params}
-                                    InputProps={{
-                                        ...params.InputProps,
-                                        style: { padding: '0 39px 0 0' }
-                                    }}
-                                />}
-                        />
-                        <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '15%', alignSelf: 'center' }}>Tahun</Typography>
-                        <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={listTahun}
-                            getOptionLabel={(option) => option.value}
-                            value={tahun}
-                            onChange={(event, newInputValue) => setTahun(newInputValue)}
-                            sx={{ width: 'inherit' }}
-                            style={{
-                                width: 320,
-                                fontSize: 14,
-                                backgroundColor: '#e5e5e5'
-                            }}
-                            renderInput={(params) =>
-                                <TextField
-                                    {...params}
-                                    InputProps={{
-                                        ...params.InputProps,
-                                        style: { padding: '0 39px 0 0' }
-                                    }}
-                                />}
-                        />
-                    </div>
-                    <div style={{ display: 'flex', marginTop: 20, width: '50%', justifyContent: 'space-between' }}>
-                        <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '21.5%', alignSelf: 'center' }}>Upload File</Typography>
-                        <div style={{ width: 320, backgroundColor: '#e5e5e5', border: 'solid 1px gray', borderRadius: 3, display: 'flex', justifyContent: 'space-between', marginRight: '10%' }}>
-                            <Typography maxWidth={'70%'} style={{ whiteSpace: 'nowrap', overflow: 'overlay' }}>{nameFile}</Typography>
-                            <div
-                                onClick={() => {
-                                    setVisibleUpload(true)
+                    <div className="grid grid-2x grid-mobile-none gap-15px" style={{ padding: 20 }}>
+                        <div className="column-1" style={{ display: 'flex' }}>
+                            <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 130 }}>No Memo</Typography>
+                            <TextField
+                                style={{ width: '100%' }}
+                                variant="outlined"
+                                // value={nama}
+                                // onChange={(e) => setNama(e.target.value)}
+                                inputProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        backgroundColor: 'white'
+                                    }
                                 }}
-                                style={{ height: 40, width: '30%', display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#434349', borderRadius: 5 }}>
-                                <Typography style={{ color: 'white', fontWeight: 16, textAlign: 'center' }}>Browse</Typography>
-                            </div>
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div className="column-2" style={{ display: 'flex' }}>
+                            <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 130 }}>Nama Memo</Typography>
+                            <TextField
+                                style={{ width: '100%' }}
+                                variant="outlined"
+                                // value={nama}
+                                // onChange={(e) => setNama(e.target.value)}
+                                inputProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        backgroundColor: 'white'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div className="column-1" style={{ display: 'flex' }}>
+                            <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 130 }}>Tanggal Memo</Typography>
+                            <TextField
+                                style={{ width: '100%' }}
+                                variant="outlined"
+                                // value={nama}
+                                // onChange={(e) => setNama(e.target.value)}
+                                type={"date"}
+                                inputProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        backgroundColor: 'white'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div className="column-2" style={{ display: 'flex' }}>
+                            <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 130 }}>Tanggal Quotation</Typography>
+                            <TextField
+                                style={{ width: '100%' }}
+                                variant="outlined"
+                                // value={nama}
+                                // onChange={(e) => setNama(e.target.value)}
+                                type={"date"}
+                                inputProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        backgroundColor: 'white'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                            {/* <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={listSatuan}
+                                getOptionLabel={(option) => option.name}
+                                sx={{ width: 'inherit' }}
+                                style={{
+                                    fontSize: 14,
+                                    backgroundColor: 'white'
+                                }}
+                                renderInput={(params) =>
+                                    <TextField {...params} />}
+                                onChange={(event, newInputValue) => newInputValue == null ? setSatuan("") : setSatuan(newInputValue.name)}
+                            /> */}
+                        </div>
+                        <div className="column-2" style={{ display: 'flex' }}>
+                            <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 130 }}>Status</Typography>
+                            <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={listStatus}
+                                getOptionLabel={(option) => option.value}
+                                sx={{ width: 'inherit' }}
+                                style={{
+                                    fontSize: 14,
+                                    backgroundColor: 'white'
+                                }}
+                                renderInput={(params) =>
+                                    <TextField {...params} />}
+                                // onChange={(event, newInputValue) => newInputValue == null ? setAccount("") : setAccount(newInputValue.name)}
+                            />
                         </div>
                     </div>
                 </div>
@@ -327,7 +408,7 @@ export default function AddQuotation() {
                             setVisibleAdd(true)
                         }}
                         style={{ marginTop: 20, backgroundColor: '#3699ff', width: '20%', padding: 15, borderRadius: 10, cursor: 'pointer' }}>
-                        <Typography style={{ alignSelf: 'center', fontSize: 18, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Add GL</Typography>
+                        <Typography style={{ alignSelf: 'center', fontSize: 18, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Add Barang</Typography>
                     </div>
                 </div>
                 <ThemeProvider theme={theme}>
@@ -339,7 +420,7 @@ export default function AddQuotation() {
                     />
                 </ThemeProvider>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px 20px 0px', }}>
-                    <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Grand Total (Rp)</Typography>
+                    <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Total (Rp)</Typography>
                     <div style={{ backgroundColor: '#D8D8D8', padding: 10, borderRadius: 5 }}>
                         <Typography>{grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                     </div>
@@ -347,12 +428,6 @@ export default function AddQuotation() {
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Batas Maksimum</Typography>
-                        <div style={{ width: '75%', backgroundColor: '#D8D8D8', padding: 10, borderRadius: 5 }}>
-                            <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: '500' }}>{'Rp. ' + batasMax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
-                        </div>
-                    </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
                         <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Keterangan</Typography>
                         <div style={{ width: '75%', backgroundColor: '#D8D8D8', padding: 10, borderRadius: 5 }}>
@@ -364,7 +439,7 @@ export default function AddQuotation() {
                                 inputProps={{
                                     style: {
                                         fontSize: 14,
-                                        backgroundColor: '#e5e5e5'
+                                        backgroundColor: 'white'
                                     }
                                 }}
                                 size="medium"
@@ -404,25 +479,132 @@ export default function AddQuotation() {
                         </div>
                         <div style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
                             <div style={{ display: 'flex' }}>
-                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Account Detail</Typography>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Nama Barang</Typography>
                                 <Autocomplete
                                     disablePortal
                                     id="combo-box-demo"
-                                    options={listAccount}
+                                    options={dataBarang}
                                     getOptionLabel={(option) => option.name}
                                     onChange={(e, newInputValue) => {
-                                        setPickAccount(newInputValue)
+                                        setBarang(newInputValue)
+                                        console.log(newInputValue)
                                     }}
                                     // onChange={(event, newInputValue) => newInputValue == null ? setReferance(null) : setReferance(newInputValue)}
                                     sx={{ width: 'inherit' }}
                                     style={{
                                         width: '-webkit-fill-available',
                                         fontSize: 14,
-                                        backgroundColor: '#e5e5e5'
+                                        backgroundColor: 'white'
                                     }}
                                     renderInput={(params) =>
                                         <TextField {...params} />}
                                 />
+                            </div>
+                            <div className="grid grid-2x grid-mobile-none gap-15px" style={{ marginTop: 20 }}>
+                                <div className="column-1" style={{ display: 'flex' }}>
+                                    <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: '45%' }}>Harga Satuan</Typography>
+                                    <TextField
+                                        style={{ width: '55%' }}
+                                        variant="outlined"
+                                        value={barang == null? '' : barang.harga}
+                                        // onChange={(e) => setNama(e.target.value)}
+                                        inputProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                backgroundColor: 'white'
+                                            }
+                                        }}
+                                        disabled
+                                        size="medium"
+                                        InputLabelProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                color: '#7e8085',
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                <div className="column-2" style={{ display: 'flex' }}>
+                                    <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: '45%' }}>Qty (Pcs)</Typography>
+                                    <TextField
+                                        style={{ width: '55%' }}
+                                        variant="outlined"
+                                        value={qty}
+                                        onChange={(e) => {
+                                            let calc = barang.harga * e.target.value 
+                                            let calcTotal = calc - ((disc > 0? disc/100 : 1) * calc)
+                                            // console.log(calc)
+                                            setQty(e.target.value)
+                                            setJumlah(calc)
+                                            setTotal(calcTotal)
+                                        }}
+                                        inputProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                backgroundColor: 'white'
+                                            }
+                                        }}
+                                        size="medium"
+                                        InputLabelProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                color: '#7e8085',
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                <div className="column-1" style={{ display: 'flex' }}>
+                                    <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: '45%' }}>Jumlah (Rp)</Typography>
+                                    <TextField
+                                        style={{ width: '55%' }}
+                                        variant="outlined"
+                                        // value={nama}
+                                        value={jumlah}
+                                        // onChange={(e) => setNama(e.target.value)}
+                                        inputProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                backgroundColor: 'white'
+                                            }
+                                        }}
+                                        disabled
+                                        size="medium"
+                                        InputLabelProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                color: '#7e8085',
+                                            }
+                                        }}
+                                    />
+                                </div>
+                                <div className="column-2" style={{ display: 'flex' }}>
+                                    <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: '45%' }}>Disc (%)</Typography>
+                                    <TextField
+                                        style={{ width: '55%' }}
+                                        variant="outlined"
+                                        value={disc}
+                                        onChange={(e) => {
+                                            setDisc(e.target.value)
+                                            let calc = barang.harga * qty
+                                            let calcTotal = calc - ((e.target.value > 0? e.target.value/100 : 1) * calc)
+                                            setJumlah(calc)
+                                            setTotal(calcTotal)
+                                        }}
+                                        inputProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                backgroundColor: 'white'
+                                            }
+                                        }}
+                                        size="medium"
+                                        InputLabelProps={{
+                                            style: {
+                                                fontSize: 14,
+                                                color: '#7e8085',
+                                            }
+                                        }}
+                                    />
+                                </div>
                             </div>
                             <div style={{ display: 'flex', marginTop: 20 }}>
                                 <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Total (Rp)</Typography>
@@ -435,7 +617,7 @@ export default function AddQuotation() {
                                     inputProps={{
                                         style: {
                                             fontSize: 14,
-                                            backgroundColor: '#e5e5e5'
+                                            backgroundColor: 'white'
                                         }
                                     }}
                                     size="medium"
@@ -455,19 +637,26 @@ export default function AddQuotation() {
                             <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
                                 <div onClick={() => {
                                     dataTable.push([
-                                        dataTable.length+1,
-                                        pickAccount.name,
-                                        pickAccount.id,
+                                        dataTable.length + 1,
+                                        barang.name,
+                                        barang.merk,
+                                        qty,
+                                        barang.harga,
                                         total,
                                         "X",
                                     ])
                                     let totalz = 0
-                                    dataTable.map((item,index) => {
-                                        totalz += Number(item[3])
+                                    dataTable.map((item, index) => {
+                                        totalz += Number(item[5])
                                     })
                                     setGrandTotal(Number(totalz))
                                     setVisibleAdd(false)
                                     setTotal(0)
+                                    setDisc(0)
+                                    setJumlah(0)
+                                    setTotal(0)
+                                    setBarang(null)
+                                    setQty(0)
                                 }} style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>TAMBAH</Typography>
                                 </div>

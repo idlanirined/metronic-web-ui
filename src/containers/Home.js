@@ -658,7 +658,7 @@ export default function Home() {
     setSelectedPath(e.class_id)
     if (e.class_id == 'logout') {
       localStorage.removeItem(Constant.ACCESS_TOKEN)
-      logout()
+      // logout()
     }
     // alert(e)
     // if (open === false) {
@@ -852,7 +852,7 @@ export default function Home() {
                             // (access.includes('admin') && sub.menu_name == 'Daftar Barang') || 
                             (access.includes('region') && sub.menu_name == 'Daftar Regional') ||
                             (access.includes('region') && sub.menu_name == 'Daftar User') ||
-                            (access.includes('region') && sub.menu_name == 'Daftar Akun') ||
+                            (access.includes('region') && sub.menu_name == 'Daftar GL') ||
                             (access.includes('region') && sub.menu_name == 'PO') ||
                             (access.includes('region') && sub.menu_name == 'Surat Jalan') ||
                             (access.includes('head') && sub.menu_name == 'Quotation')

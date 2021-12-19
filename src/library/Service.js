@@ -16,6 +16,7 @@ export const headOffice = (type, value) => {
             golongan: value.golongan,
             merk: value.merk,
             stok: value.stok,
+            harga: value.harga,
             createdBy: value.createdBy,
             createdDate: value.createdDate,
             active: value.active
