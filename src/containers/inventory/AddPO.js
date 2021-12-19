@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
+import CloseImage from '../../assets/ic_close.png';
 
 const ct = require("../../library/CustomTable");
 const getMuiTheme = () => createTheme(ct.customTable());
@@ -12,6 +13,8 @@ export default function AddPO() {
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("20vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
+    const [visibleProduk, setVisibleProduk] = useState(false)
+    const [visiblePengajuan, setVisiblePengajuan] = useState(false)
 
     const columns = [
         "NO",
@@ -166,12 +169,12 @@ export default function AddPO() {
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20, marginTop: 20, minHeight: '60vh', display: 'grid' }}>
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <div
-                            onClick={() => null}
+                            onClick={() => setVisibleProduk(true)}
                             style={{ height: 50, backgroundColor: '#FAC745', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer', padding: '0 10px', marginRight: 20 }}>
                             <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>+ Add Stock</Typography>
                         </div>
                         <div
-                            onClick={() => null}
+                            onClick={() => setVisiblePengajuan(true)}
                             style={{ height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer', padding: '0 10px' }}>
                             <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>+ Region Requested</Typography>
                         </div>
@@ -196,6 +199,289 @@ export default function AddPO() {
 
                 </div>
             </div>
+            {visibleProduk && (
+                <div className="App app-popup-show">
+                    <div className="popup-content-full background-white" style={{ borderRadius: 8, backgroundColor: 'white', width: 1000 }}>
+                        <div className="popup-panel grid grid-2x" style={{ height: 64 }}>
+                            <div className="col-1" style={{ maxWidth: "inherit", display: 'flex', alignItems: 'center' }}>
+                                <div className="popup-title">
+                                    <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Tambah Produk</span>
+                                </div>
+                            </div>
+                            <div className="col-2 content-right" style={{ maxWidth: "inherit", alignSelf: 'center' }}>
+                                <button
+                                    type="button"
+                                    className="btn btn-circle btn-white"
+                                    onClick={() => setVisibleProduk(false)}
+                                >
+                                    <img src={CloseImage} style={{ width: 20, height: 20 }} />
+                                </button>
+                            </div>
+                        </div>
+                        <div style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
+                            <div style={{ display: 'flex' }}>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Nama Barang</Typography>
+                                <TextField
+                                    style={{ width: '100%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', marginTop: 20 }}>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Harga Satuan (Rp)</Typography>
+                                <TextField
+                                    style={{ width: '37%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200, marginLeft: 20 }}>Qty (Pcs)</Typography>
+                                <TextField
+                                    style={{ width: '37%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', marginTop: 20 }}>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Jumlah (Rp)</Typography>
+                                <TextField
+                                    style={{ width: '37%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200, marginLeft: 20 }}>Disc (%)</Typography>
+                                <TextField
+                                    style={{ width: '37%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', marginTop: 20 }}>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Total (Rp)</Typography>
+                                <TextField
+                                    style={{ width: '100%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className="grid grid-2x grid-mobile-none gap-15px" style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
+                            <div>
+
+                            </div>
+                            <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
+                                <div onClick={() => setVisibleProduk(false)} style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                    <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>ADD</Typography>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+{visiblePengajuan && (
+                <div className="App app-popup-show">
+                    <div className="popup-content-full background-white" style={{ borderRadius: 8, backgroundColor: 'white', width: 1000 }}>
+                        <div className="popup-panel grid grid-2x" style={{ height: 64 }}>
+                            <div className="col-1" style={{ maxWidth: "inherit", display: 'flex', alignItems: 'center' }}>
+                                <div className="popup-title">
+                                    <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Tambah Produk</span>
+                                </div>
+                            </div>
+                            <div className="col-2 content-right" style={{ maxWidth: "inherit", alignSelf: 'center' }}>
+                                <button
+                                    type="button"
+                                    className="btn btn-circle btn-white"
+                                    onClick={() => setVisiblePengajuan(false)}
+                                >
+                                    <img src={CloseImage} style={{ width: 20, height: 20 }} />
+                                </button>
+                            </div>
+                        </div>
+                        <div style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
+                            <div style={{ display: 'flex' }}>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Nama Barang</Typography>
+                                <TextField
+                                    style={{ width: '100%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', marginTop: 20 }}>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Harga Satuan (Rp)</Typography>
+                                <TextField
+                                    style={{ width: '37%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200, marginLeft: 20 }}>Qty (Pcs)</Typography>
+                                <TextField
+                                    style={{ width: '37%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                            </div>
+                            <div style={{ display: 'flex', marginTop: 20 }}>
+                                <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Total (Rp)</Typography>
+                                <TextField
+                                    style={{ width: '100%' }}
+                                    variant="outlined"
+                                    // onChange={(e) => setNama(e.target.value)}
+                                    // value={nama}
+                                    inputProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            backgroundColor: 'white'
+                                        }
+                                    }}
+                                    size="medium"
+                                    InputLabelProps={{
+                                        style: {
+                                            fontSize: 14,
+                                            color: '#7e8085',
+                                        }
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <div className="grid grid-2x grid-mobile-none gap-15px" style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
+                            <div>
+
+                            </div>
+                            <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
+                                <div onClick={() => setVisiblePengajuan(false)} style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                    <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>ADD</Typography>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

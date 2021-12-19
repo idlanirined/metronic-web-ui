@@ -146,7 +146,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -166,7 +166,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -186,7 +186,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -206,7 +206,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
                         </div>
                     )
                 }
@@ -226,7 +226,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? (
+                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? (
                                 <div
                                     onClick={() => {
                                         setVisibleAdd(true)
@@ -238,7 +238,7 @@ export default function EditPenggunaanAnggaran() {
                                 </div>
 
                             ) : null}
-                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ? (
+                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? (
                                 <div
 
                                     id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
@@ -306,7 +306,8 @@ export default function EditPenggunaanAnggaran() {
                     item[3],
                     0,
                     0,
-                    item[8]
+                    item[8],
+                    item[7]
                 ])
             })
             setDataAccount(dataTable)
