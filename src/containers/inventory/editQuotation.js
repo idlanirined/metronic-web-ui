@@ -54,7 +54,7 @@ const theme = createTheme({
 });
 
 
-export default function AddQuotation() {
+export default function EditQuotation() {
     const location = useLocation()
     const history = useHistory()
     const [responsive, setResponsive] = useState("vertical");
@@ -256,7 +256,6 @@ export default function AddQuotation() {
     }
 
     const handleSubmit = () => {
-        let nameRegion = localStorage.getItem(Constant.ACCESS_TOKEN)
         let payload = {
             id: noMemo,
             name: namaMemo,
@@ -265,7 +264,6 @@ export default function AddQuotation() {
             status: status,
             dataQuotation: dataTable,
             totalQuotation: grandTotal,
-            region: nameRegion.includes("1")? dataHeadOffice.region[1] : (nameRegion.includes("2")? dataHeadOffice.region[2] : dataHeadOffice.region[3]),
             keterangan: keterangan,
             createdBy: 'region',
             createdDate: `${moment(new Date()).format('DD MMM YYYY HH:mm:ss')}`,

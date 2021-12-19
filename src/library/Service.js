@@ -358,7 +358,7 @@ export const headOffice = (type, value) => {
             name: value.tahun,
             region: value.region,
             dataAlokasi: value.dataAlokasi,
-            totalAlokaiDana: value.totalAlokaiDana,
+            totalAlokasiDana: value.totalAlokasiDana,
             totalTerpakai: 0,
             totalSisa: 0,
             batasMax: value.batasMax,
@@ -376,7 +376,7 @@ export const headOffice = (type, value) => {
             name: value.tahun,
             region: value.region,
             dataAlokasi: value.dataAlokasi,
-            totalAlokaiDana: value.totalAlokaiDana,
+            totalAlokasiDana: value.totalAlokasiDana,
             totalTerpakai: value.totalTerpakai,
             totalSisa: value.totalSisa,
             batasMax: value.batasMax,
@@ -398,7 +398,7 @@ export const headOffice = (type, value) => {
             alokasi_dana.splice(index, 1)
             dataHeadOffice = { ...dataHeadOffice, alokasi_dana }
         }
-    }  else if (type == 'addDanaNonRutin') {
+    } else if (type == 'addDanaNonRutin') {
         let newData = {
             id: value.id,
             region: value.region,
@@ -443,6 +443,52 @@ export const headOffice = (type, value) => {
         if (index != -1) {
             dana_non_rutin.splice(index, 1)
             dataHeadOffice = { ...dataHeadOffice, dana_non_rutin }
+        }
+    }else if (type == 'addQuotation') {
+        let newData = {
+            id: value.id,
+            name: value.name,
+            tglMemo: value.tglMemo,
+            tglQuotation: value.tglQuotation,
+            status: value.status,
+            dataQuotation: value.dataQuotation,
+            totalQuotation: value.totalQuotation,
+            region: value.region,
+            keterangan: value.keterangan,
+            createdBy: value.createdBy,
+            createdDate: value.createdDate,
+            active: value.active
+        }
+        let quotation = dataHeadOffice.quotation
+        quotation.push(newData)
+        dataHeadOffice = { ...dataHeadOffice, quotation }
+    } else if (type == 'editQuotation') {
+        let newData = {
+            id: value.id,
+            name: value.name,
+            tglMemo: value.tglMemo,
+            tglQuotation: value.tglQuotation,
+            status: value.status,
+            dataQuotation: value.dataQuotation,
+            totalQuotation: value.totalQuotation,
+            keterangan: value.keterangan,
+            region: value.region,
+            createdBy: value.createdBy,
+            createdDate: value.createdDate,
+            active: value.active
+        }
+        let quotation = dataHeadOffice.quotation
+        let index = quotation.findIndex((val) => val.id == newData.id)
+        if (index != -1) {
+            quotation[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, quotation }
+        }
+    } else if (type == 'deleteQuotation') {
+        let quotation = dataHeadOffice.quotation
+        let index = quotation.findIndex((val) => val.id == value.id)
+        if (index != -1) {
+            quotation.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, quotation }
         }
     }
     localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(dataHeadOffice))

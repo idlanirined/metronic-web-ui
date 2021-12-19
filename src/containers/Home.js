@@ -593,6 +593,7 @@ export default function Home() {
   const [selectedIndex, setSelectedIndex] = React.useState("Dashboard");
   const [selectedPath, setSelectedPath] = React.useState("dashboard");
   const [access, setAccess] = React.useState("")
+  const [dataHeadOffice, setDataHeadOffice] = React.useState(null)
 
   let { path, url } = useRouteMatch();
 
@@ -605,6 +606,7 @@ export default function Home() {
     let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
     if (dataHeadOffice == null) {
       localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
+      setDataHeadOffice(dataHeadOffice)
     }
     setPathname(path[1])
   })
@@ -756,12 +758,12 @@ export default function Home() {
             </div>
             {/* <Avatar sx={{ bgcolor: green[50] }} variant="square"> */}
             <div style={{ flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
-              <Typography style={{ color: !checked ? green[500] : grey[500], marginRight: 5, backgroundColor: !checked ? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>Head Office</Typography>
-              <SwitchMui inputProps={{ 'aria-label': 'ant design' }} checked={checked} onChange={(e) => {
+              <Typography style={{ color: green[500], marginRight: 5, backgroundColor: lightBlue[50], paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>{access.includes('Head') ? 'Head Office' : (access.includes('1') ? 'Region Jakarta' : (access.includes('2') ? 'Region Bekasi' : 'Region Bandung'))}</Typography>
+              {/* <SwitchMui inputProps={{ 'aria-label': 'ant design' }} checked={checked} onChange={(e) => {
                 setChecked(e.target.checked)
                 localStorage.setItem('checked', checked)
               }} />
-              <Typography style={{ color: checked ? green[500] : grey[500], marginLeft: 5, backgroundColor: checked ? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>Region</Typography>
+              <Typography style={{ color: checked ? green[500] : grey[500], marginLeft: 5, backgroundColor: checked ? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>Region</Typography> */}
             </div>
             {/* <Typography style={{ color: green[500] }}>{access == 'region'? 'Region' : 'Head Office'}</Typography> */}
             {/* </Avatar> */}

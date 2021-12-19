@@ -346,7 +346,7 @@ export default function EditPenggunaanAnggaran() {
             region: region,
             tahun: tahun.value,
             dataAlokasi: dataShadow,
-            totalAlokaiDana: grandTotal,
+            totalAlokasiDana: grandTotal,
             batasMax: batasMax,
             keterangan: keterangan,
             createdBy: "Head Office",
@@ -361,7 +361,7 @@ export default function EditPenggunaanAnggaran() {
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
-                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tambah Alokasi Dana</Typography>
+                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Detail Penggunaan Anggaran</Typography>
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20 }}>

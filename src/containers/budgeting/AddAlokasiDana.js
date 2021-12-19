@@ -208,7 +208,7 @@ export default function AddAlokasiDana() {
             region: region,
             tahun: tahun.value,
             dataAlokasi: dataShadow,
-            totalAlokaiDana: grandTotal,
+            totalAlokasiDana: grandTotal,
             batasMax: batasMax,
             keterangan: keterangan,
             createdBy: "Head Office",
