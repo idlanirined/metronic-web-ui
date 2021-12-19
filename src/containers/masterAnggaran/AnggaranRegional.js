@@ -247,7 +247,7 @@ export default function AnggaranRegional() {
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
                                 <div onClick={() => {
-                                    headOffice('deleteRegion', dataSelected)
+                                    headOffice('deleteAnggaran', dataSelected)
                                     getData()
                                     setVisibleDelete(false)
                                 }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
