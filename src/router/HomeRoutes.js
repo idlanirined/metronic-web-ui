@@ -35,6 +35,7 @@ import AddQuotation from "../containers/inventory/AddQuotation";
 import EditAlokasiDana from "../containers/budgeting/EditAlokasiDana";
 import EditPenggunaanAnggaran from "../containers/budgeting/EditPenggunaanAnggaran";
 import EditDananNonRutin from "../containers/budgeting/EditDanaNonRutin";
+import EditQuotation from "../containers/inventory/editQuotation";
 import AddSuratJalan from "../containers/inventory/AddSuratJalan";
 import AddPenerimaanBarangSuppKeHead from "../containers/inventory/AddPenerimaanBarangSuppKeHead";
 import AddPenerimaanBarangHeadKeRegion from "../containers/inventory/AddPenerimaanBarangHeadKeRegion";
@@ -199,6 +200,10 @@ const routes = [
     {
         path: "/tambah-quotation",
         main: AddQuotation
+    },
+    {
+        path: "/edit-quotation",
+        main: EditQuotation
     },
 ]
 

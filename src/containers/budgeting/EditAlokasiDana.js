@@ -169,7 +169,7 @@ export default function EditAlokasiDana() {
             setListRegion(listRegion)
             let idxReg = listRegion.findIndex((val) => val.name === location.state.selected[3])
             setRegion(listRegion[idxReg])
-            setGrandTotal(dataHeadOffice.alokasi_dana[idx].totalAlokaiDana)
+            setGrandTotal(dataHeadOffice.alokasi_dana[idx].totalAlokasiDana)
             setKeterangan(dataHeadOffice.alokasi_dana[idx].keterangan)
             setTotalSisa(dataHeadOffice.alokasi_dana[idx].totalSisa)
             settotalTerpakai(dataHeadOffice.alokasi_dana[idx].totalTerpakai)
@@ -222,7 +222,7 @@ export default function EditAlokasiDana() {
             region: region,
             tahun: tahun.value,
             dataAlokasi: dataShadow,
-            totalAlokaiDana: grandTotal,
+            totalAlokasiDana: grandTotal,
             totalSisa: totalSisa,
             totalTerpakai: totalTerpakai,
             batasMax: batasMax,

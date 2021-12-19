@@ -91,7 +91,7 @@ export default function PenggunaanAnggaran() {
                                 onClick={() => {
                                     setDataSelected({
                                         id: tableMeta.rowData[2],
-                                        regionID: tableMeta.rowData[6]
+                                        // regionID: tableMeta.rowData[6]
                                     })
                                     setVisibleDelete(true)
                                 }}
@@ -132,7 +132,7 @@ export default function PenggunaanAnggaran() {
         console.log(dataHeadOffice)
         if (dataHeadOffice != null) {
             let newDataAlokasi = dataHeadOffice.alokasi_dana.map((item, index) => {
-                return [index + 1, item.name, item.region.name, String(item.totalAlokaiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalTerpakai).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalSisa).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.createdDate, item.active, item.region.id]
+                return [index + 1, item.name, item.region.name, String(item.totalAlokasiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalTerpakai).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalSisa).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.createdDate, item.active, item.region.id]
             })
             setDataAlokasi(newDataAlokasi)
         }
@@ -217,6 +217,7 @@ export default function PenggunaanAnggaran() {
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
                                 <div onClick={() => {
                                     // headOffice('deleteAlokasiDana', dataSelected)
+                                    headOffice('deleteAnggaran', dataSelected)
                                     getData()
                                     setVisibleDelete(false)
                                 }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>

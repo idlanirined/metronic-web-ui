@@ -1,6 +1,6 @@
 import { createMuiTheme, Menu, TableCell, Typography } from '@mui/material'
 import MUIDataTable from "mui-datatables";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
@@ -10,6 +10,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
 import { useHistory } from 'react-router-dom';
+import Constant from '../../library/Constants';
+import { headOffice } from '../../library/Service';
 
 
 const ct = require("../../library/CustomTable");
@@ -28,6 +30,9 @@ export default function Quotation() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
+    const [dataQuotation, setDataQuotation] = useState([])
+    const [dataSelected, setDataSelected] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
         { name: "NO QUOTATION", options: { filterOptions: { fullWidth: true } } },
@@ -72,12 +77,20 @@ export default function Quotation() {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
-                                onClick={() => setVisibleEdit(true)}
+                                onClick={() => history.push({
+                                    pathname: '/edit-quotation',
+                                    state: {
+                                        dataQuotation: dataHeadOffice.quotation[tableMeta.rowIndex]
+                                        // dataHeadOffice: dataHeadOffice
+                                    }
+                                })}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleDelete(true)}
+                                onClick={() => {
+                                    setDataSelected(dataHeadOffice.quotation[tableMeta.rowIndex])
+                                    setVisibleDelete(true)}}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Delete</Typography>
                             </div>
@@ -108,6 +121,25 @@ export default function Quotation() {
         ["1", "JENIS BARANG A", "NAMA USER 1", "2021-11-01 12:00:00", "", "1"],
     ];
 
+    useEffect(() => {
+
+    }, [])
+
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice.quotation)
+        if (dataHeadOffice != null) {
+            let newDataQuotation = dataHeadOffice.quotation.map((item, index) => {
+                return [item.id, item.region.name, item.createdDate, item.status, item.active]
+            })
+            setDataHeadOffice(dataHeadOffice)
+            setDataQuotation(newDataQuotation)
+        }
+    }
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
@@ -141,7 +173,7 @@ export default function Quotation() {
                     <ThemeProvider theme={getMuiTheme()}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={data}
+                            data={dataQuotation}
                             columns={columns}
                             options={options}
                         />
@@ -190,7 +222,12 @@ export default function Quotation() {
                                 </div>
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
-                                <div style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <div onClick={() => {
+                                    // headOffice('deleteAlokasiDana', dataSelected)
+                                    headOffice('deleteQuotation', dataSelected)
+                                    getData()
+                                    setVisibleDelete(false)
+                                }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>HAPUS</Typography>
                                 </div>
                             </div>
