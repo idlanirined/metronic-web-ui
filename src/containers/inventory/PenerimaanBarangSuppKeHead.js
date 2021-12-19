@@ -9,12 +9,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
+import { useHistory } from 'react-router-dom';
 
 
 const ct = require("../../library/CustomTable");
 const getMuiTheme = () => createTheme(ct.customTable());
 
 export default function PenerimaanBarangSuppKeHead() {
+    const history = useHistory()
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("60vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -126,7 +128,9 @@ export default function PenerimaanBarangSuppKeHead() {
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleAdd(true)}
+                                onClick={() => history.push({
+                                    pathname: '/add-penerimaan-barang-supplier-head'
+                                })}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
                                 <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Add Material Receive</Typography>
                             </div>
