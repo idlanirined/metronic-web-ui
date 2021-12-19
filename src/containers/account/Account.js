@@ -136,7 +136,7 @@ export default function Account() {
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
-                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Akun Account</Typography>
+                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>GL / Buku Besar</Typography>
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', height: '83vh', borderRadius: 20 }}>
@@ -154,7 +154,7 @@ export default function Account() {
                             <div
                                 onClick={() => setVisibleAdd(true)}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
-                                <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Add Account</Typography>
+                                <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Add GL</Typography>
                             </div>
                         </div>
                     </div>

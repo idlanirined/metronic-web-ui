@@ -53,7 +53,7 @@ const theme = createTheme({
 });
 
 
-export default function AddDananNonRutin() {
+export default function AddQuotation() {
     const location = useLocation()
     const history = useHistory()
     const [responsive, setResponsive] = useState("vertical");
@@ -166,9 +166,9 @@ export default function AddDananNonRutin() {
     ]
 
     React.useEffect(() => {
-        getTahun()
-        getData()
-        setListAccount(location.state.dataHeadOffice.account)
+        // getTahun()
+        // getData()
+        // setListAccount(location.state.dataHeadOffice.account)
     }, [])
 
     const getData = () => {

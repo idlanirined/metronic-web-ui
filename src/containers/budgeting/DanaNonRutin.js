@@ -30,9 +30,11 @@ export default function DanaNonRutin() {
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
     const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    const [dataNonRutin, setDataNonRutin] = useState([])
+    const [access, setAccess] = useState("")
 
     const columns = [
-        { name: "NO PRAB", options: { filterOptions: { fullWidth: true } } },
+        "NO",
         "DANA PENGAJUAN (Rp)",
         "TAHUN",
         "REGION PENGAJU",
@@ -53,8 +55,8 @@ export default function DanaNonRutin() {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
                                 onClick={() => null}
-                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#05B721', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
-                                <Typography style={{ color: '#ffffff', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>draft</Typography>
+                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: val == 'draft' ? '#ff8c51' : '#05B721', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
+                                <Typography style={{ color: '#ffffff', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>{val}</Typography>
                             </div>
                         </div>
                     )
@@ -115,9 +117,16 @@ export default function DanaNonRutin() {
     useEffect(() => {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         if (dataHeadOffice != null) {
-            
             setDataHeadOffice(dataHeadOffice)
+            let dataNonRutins = dataHeadOffice.dana_non_rutin.map((item, index) => {
+                return [index + 1, String(item.totalNonRutin).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.tahun, item.region.name, item.createdDate, item.status, item.active]
+            })
+            setDataNonRutin(dataNonRutins)
+            console.log(dataHeadOffice.dana_non_rutin)
+
         }
+        let access = localStorage.getItem(Constant.ACCESS_TOKEN)
+        setAccess(access)
     }, [])
 
     return (
@@ -138,22 +147,22 @@ export default function DanaNonRutin() {
                             <div style={{ width: 120, height: 50, backgroundColor: '#D7EBFF', borderRadius: 10, marginRight: 20, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
-                            <div
-                                onClick={() => history.push({ 
+                            {access.includes('region') && <div
+                                onClick={() => history.push({
                                     pathname: '/tambah-non-rutin',
-                                    state:  {
+                                    state: {
                                         dataHeadOffice: dataHeadOffice
                                     }
                                 })}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
                                 <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Add Non Rutin</Typography>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                     <ThemeProvider theme={getMuiTheme()}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={data}
+                            data={dataNonRutin}
                             columns={columns}
                             options={options}
                         />
