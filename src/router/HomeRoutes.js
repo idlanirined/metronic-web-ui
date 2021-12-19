@@ -36,6 +36,9 @@ import EditAlokasiDana from "../containers/budgeting/EditAlokasiDana";
 import EditPenggunaanAnggaran from "../containers/budgeting/EditPenggunaanAnggaran";
 import EditDananNonRutin from "../containers/budgeting/EditDanaNonRutin";
 import EditQuotation from "../containers/inventory/editQuotation";
+import AddSuratJalan from "../containers/inventory/AddSuratJalan";
+import AddPenerimaanBarangSuppKeHead from "../containers/inventory/AddPenerimaanBarangSuppKeHead";
+import AddPenerimaanBarangHeadKeRegion from "../containers/inventory/AddPenerimaanBarangHeadKeRegion";
 
 const routes = [
     {
@@ -131,6 +134,10 @@ const routes = [
         main: SuratJalan
     },  
     {
+        path: "/add-surat-jalan",
+        main: AddSuratJalan
+    },  
+    {
         path: "/penerimaan-barang",
         main: PenerimaanBarang
     },  
@@ -139,8 +146,16 @@ const routes = [
         main: PenerimaanBarangSuppKeHead
     },  
     {
+        path: "/add-penerimaan-barang-supplier-head",
+        main: AddPenerimaanBarangSuppKeHead
+    },  
+    {
         path: "/penerimaan-barang-head-region",
         main: PenerimaanBarangHeadKeRegion
+    },  
+    {
+        path: "/add-penerimaan-barang-head-region",
+        main: AddPenerimaanBarangHeadKeRegion
     },  
     {
         path: "/retur-barang",
