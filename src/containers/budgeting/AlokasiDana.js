@@ -64,6 +64,13 @@ export default function AlokasiDana() {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
                                 onClick={() => {
+                                    history.push({
+                                        pathname: '/edit-alokasi-dana',
+                                        state: {
+                                            dataHeadOffice: dataHeadOffice,
+                                            selected: tableMeta.rowData
+                                        }
+                                    })
                                     // setDataSelected(dataHeadOffice.alokasi_dana[tableMeta.rowIndex])
                                     console.log(dataHeadOffice.alokasi_dana[tableMeta.rowIndex])
                                     // setVisibleEdit(true)
