@@ -88,12 +88,13 @@ export default function EditAlokasiDana() {
     const handleUpdate = (tableMeta) => {
         let total = 0
         dataShadow.map((item, index) => {
-            total += item[3]
+            total += item[4]
         })
         setGrandTotal(total)
     }
 
     const columns = [
+        { name: 'id', options: { display: false } },
         "NO",
         "NAMA GL/ Buku Besar",
         "Nomor GL",
@@ -145,7 +146,7 @@ export default function EditAlokasiDana() {
         tableBodyHeight,
         tableBodyMaxHeight,
         rowsPerPage: 100,
-        sortOrder: { name: 'NO', direction: 'asc' },
+        sortOrder: { name: 'id', direction: 'asc' },
         onTableChange: (action, state) => {
             // console.log(action);
             // console.dir(state);

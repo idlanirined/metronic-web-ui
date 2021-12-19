@@ -286,11 +286,11 @@ export default function EditPenggunaanAnggaran() {
             let child = 0
             dataHeadOffice.alokasi_dana[idx].dataAlokasi.map((item, index) => {
                 let char = ""
-                if (item[8] === 1) {
+                if (item[9] === 1) {
                     currentCode++;
                     char = `${String.fromCharCode(64 + currentCode).toLowerCase()}. `;
                     child = 0
-                } else if (item[8] === 2) {
+                } else if (item[9] === 2) {
                     currentCode = 0
                     char = ""
                     child++;
@@ -301,13 +301,13 @@ export default function EditPenggunaanAnggaran() {
                 dataTable.push([
                     item[0],
                     String(char).toLowerCase(),
-                    item[8] === 2 ? `${child}). ${item[1]}` : item[1],
                     item[2],
                     item[3],
+                    item[4],
                     0,
                     0,
-                    item[8],
-                    item[7]
+                    item[9],
+                    item[8]
                 ])
             })
             setDataAccount(dataTable)

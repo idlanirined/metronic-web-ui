@@ -108,7 +108,7 @@ export default function AddAlokasiDana() {
                 customBodyRender: (val, tableMeta, updateValue) => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex+1][9] !== 2) || tableMeta.rowData[9] === 2 ? (
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex + 1][9] !== 2) || tableMeta.rowData[9] === 2 ? (
                                 <NumberFormat
                                     value={val}
                                     key={tableMeta.rowData[0]}
@@ -120,7 +120,7 @@ export default function AddAlokasiDana() {
                                     onValueChange={({ value: v }) => handleValue(v, tableMeta.rowIndex, tableMeta.columnIndex, tableMeta, updateValue)}
                                     onBlur={() => handleUpdate(tableMeta)}
                                 />
-                            ): null}
+                            ) : null}
                         </div>
                     )
                 }
@@ -164,8 +164,11 @@ export default function AddAlokasiDana() {
             let dataTable = []
             let currentCode = 0
             let child = 0
+            let currentCode1 = 0
+            let child1 = 0
+            let char1 = ""
+            let char = ""
             let newDataAccount = dataHeadOffice.account.map((item, index) => {
-                let char = ""
                 if (item.level === 1) {
                     currentCode++;
                     char = `${String.fromCharCode(64 + currentCode).toLowerCase()}. `;
@@ -193,7 +196,31 @@ export default function AddAlokasiDana() {
                     0]
             })
             let newDataShadow = dataHeadOffice.account.map((item, index) => {
-                return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
+                if (item.level === 1) {
+                    currentCode++;
+                    char1 = `${String.fromCharCode(64 + currentCode).toLowerCase()}. `;
+                    child1 = 0
+                } else if (item.level === 2) {
+                    currentCode1 = 0
+                    char1 = ""
+                    child1++;
+                } else {
+                    char1 = ""
+                    currentCode1 = 0
+                }
+                return [
+                    index + 1,
+                    String(char1).toLowerCase(),
+                    item.level === 2 ? `${child1}). ${item.name}` : item.name,
+                    item.id,
+                    0,
+                    item.createdBy,
+                    item.createdDate,
+                    item.active,
+                    item.refID,
+                    item.level,
+                    0,
+                    0]
             })
             let listRegion = dataHeadOffice.region
             setDataHeadOffice(dataHeadOffice)
