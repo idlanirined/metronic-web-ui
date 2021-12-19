@@ -76,7 +76,13 @@ export default function PenggunaanAnggaran() {
                                     //     createdDate: tableMeta.rowData[6],
                                     //     createdDate: tableMeta.rowData[7],
                                     // })
-                                    setVisibleDelete(true)
+                                    history.push({
+                                        pathname: '/edit-penggunaan-anggaran',
+                                        state: {
+                                            dataHeadOffice,
+                                            selected: tableMeta.rowData
+                                        }
+                                    })
                                 }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>View</Typography>
