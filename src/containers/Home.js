@@ -406,9 +406,9 @@ export default function Home() {
           "reference": 1,
           "sub_menu": [
             {
-              "menu_id": 39,
-              "class_id": "penggunaan-anggaran",
-              "menu_name": "Penggunaan Anggaran",
+              "menu_id": 30,
+              "class_id": "alokasi-dana",
+              "menu_name": "Alokasi Dana",
               "type": "item",
               "icon": "master-data",
               "reference": 29,
@@ -419,9 +419,9 @@ export default function Home() {
               "updated": null
             },
             {
-              "menu_id": 30,
-              "class_id": "alokasi-dana",
-              "menu_name": "Alokasi Dana",
+              "menu_id": 39,
+              "class_id": "penggunaan-anggaran",
+              "menu_name": "Penggunaan Anggaran",
               "type": "item",
               "icon": "master-data",
               "reference": 29,
@@ -602,7 +602,7 @@ export default function Home() {
     // localStorage.clear()
     let access = localStorage.getItem(Constant.ACCESS_TOKEN)
     setAccess(access)
-    console.log(access)
+    // console.log(access)
     let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
     if (dataHeadOffice == null) {
       localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))

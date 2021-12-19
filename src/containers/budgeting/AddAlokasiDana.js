@@ -84,6 +84,7 @@ export default function AddAlokasiDana() {
 
     const handleUpdate = (tableMeta) => {
         let total = 0
+        console.log(dataShadow)
         dataShadow.map((item, index) => {
             total += item[4]
         })

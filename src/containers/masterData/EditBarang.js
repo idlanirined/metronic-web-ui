@@ -12,6 +12,7 @@ export default function EditBarang(props) {
     const [listJenis, setListJenis] = React.useState(props.dataHeadOffice.jenis_barang)
     const [pickJenis, setPickJenis] = useState(null)
     const [listAccount, setListAccount] = React.useState(props.dataHeadOffice.account)
+    const [account, setAccount] = React.useState(null)
 
     const [newData, setNewData] = useState({
         id: "",
@@ -36,6 +37,7 @@ export default function EditBarang(props) {
             satuan: data.satuan,
             golongan: data.golongan,
             merk: data.merk,
+            account: data.account,
             stok: data.stok,
             harga: data.harga,
             createdBy: data.createdBy,
@@ -55,6 +57,10 @@ export default function EditBarang(props) {
         let idxSatuan = listSatuan.findIndex((val) => val.name === data.satuan)
         if (idxSatuan > -1) {
             setPickSatuan(listSatuan[idxSatuan])
+        }
+        let idxAccount = listAccount.findIndex((val) => val.name === data.account)
+        if (idxAccount > -1) {
+            setAccount(listAccount[idxAccount])
         }
     }, [])
 
@@ -218,6 +224,7 @@ export default function EditBarang(props) {
                             disablePortal
                             id="combo-box-demo"
                             options={listAccount}
+                            value={account}
                             disabled
                             getOptionLabel={(option) => option.name}
                             sx={{ width: 'inherit' }}

@@ -41,6 +41,7 @@ export default function PenggunaanAnggaran() {
     const [dataAlokasi, setDataAlokasi] = useState([])
     const [dataSelected, setDataSelected] = useState(null)
     const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    const [lvlAccess, setLvlAccess] = useState("")
 
     const columns = [
         "NO",
@@ -130,9 +131,22 @@ export default function PenggunaanAnggaran() {
     const getData = () => {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         console.log(dataHeadOffice)
+        let access = localStorage.getItem(Constant.ACCESS_TOKEN)
+        let strAccess = ''
+        if (access == 'region1') {
+            strAccess = 'RG-1'
+        } else if (access == 'region2') {
+            strAccess = 'RG-2'
+        } else if (access == 'region3') {
+            strAccess = 'RG-3'
+        } else {
+            strAccess = 'HO-1'
+        }
         if (dataHeadOffice != null) {
-            let newDataAlokasi = dataHeadOffice.alokasi_dana.map((item, index) => {
-                return [index + 1, item.name, item.region.name, String(item.totalAlokasiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalTerpakai).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalSisa).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.createdDate, item.active, item.region.id]
+            let newDataAlokasi = []
+            console.log(strAccess)
+            dataHeadOffice.alokasi_dana.filter((val) => val.region.id == strAccess).map((item, index) => {
+                newDataAlokasi.push([index + 1, item.name, item.region.name, String(item.totalAlokasiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalTerpakai).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalSisa).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.createdDate, item.active, item.region.id])
             })
             setDataAlokasi(newDataAlokasi)
         }

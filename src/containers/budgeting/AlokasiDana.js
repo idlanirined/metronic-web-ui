@@ -122,7 +122,7 @@ export default function AlokasiDana() {
         console.log(dataHeadOffice)
         if (dataHeadOffice != null) {
             let newDataAlokasi = dataHeadOffice.alokasi_dana.map((item, index) => {
-                return [index + 1, String(item.totalAlokaiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.name, item.region.name, item.createdDate, item.active, item.region.id]
+                return [index + 1, item.totalAlokasiDana.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.name, item.region.name, item.createdDate, item.active, item.region.id]
             })
             setDataHeadOffice(dataHeadOffice)
             setDataAlokasi(newDataAlokasi)
