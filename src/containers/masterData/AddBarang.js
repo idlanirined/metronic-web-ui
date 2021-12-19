@@ -17,6 +17,7 @@ export default function AddBarang(props) {
     const [golongan, setGolongan] = React.useState("")
     const [account, setAccount] = React.useState("")
     const [stok, setStok] = React.useState(0)
+    const [harga, setHarga] = React.useState(0)
 
     const handleAddBarang = () => {
         let newData = {
@@ -27,7 +28,7 @@ export default function AddBarang(props) {
             golongan: golongan,
             merk: merk,
             stok: stok,
-            harga: 0,
+            harga: harga,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
             active: true
@@ -67,7 +68,7 @@ export default function AddBarang(props) {
                             inputProps={{
                                 style: {
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             size="medium"
@@ -89,7 +90,7 @@ export default function AddBarang(props) {
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}
@@ -106,7 +107,7 @@ export default function AddBarang(props) {
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}
@@ -123,7 +124,7 @@ export default function AddBarang(props) {
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}
@@ -140,7 +141,7 @@ export default function AddBarang(props) {
                             inputProps={{
                                 style: {
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             size="medium"
@@ -162,7 +163,7 @@ export default function AddBarang(props) {
                             sx={{ width: 'inherit' }}
                             style={{
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField {...params} />}
@@ -179,10 +180,33 @@ export default function AddBarang(props) {
                             inputProps={{
                                 style: {
                                     fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                                    backgroundColor: 'white'
                                 }
                             }}
                             disabled
+                            size="medium"
+                            type={"number"}
+                            InputLabelProps={{
+                                style: {
+                                    fontSize: 14,
+                                    color: '#7e8085',
+                                }
+                            }}
+                        />
+                    </div>
+                    <div className="column-2" style={{ display: 'flex' }}>
+                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 130 }}>Harga</Typography>
+                        <TextField
+                            style={{ width: '100%' }}
+                            variant="outlined"
+                            value={harga}
+                            onChange={(e) => setHarga(e.target.value)}
+                            inputProps={{
+                                style: {
+                                    fontSize: 14,
+                                    backgroundColor: 'white'
+                                }
+                            }}
                             size="medium"
                             type={"number"}
                             InputLabelProps={{

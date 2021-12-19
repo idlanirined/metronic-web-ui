@@ -258,7 +258,7 @@ export default function EditAnggaranRegional(props) {
                         <NumberFormat
                             value={totalAnggaranSisa}
                             customInput={TextField}
-                            style={{ width: '68%', backgroundColor: '#e5e5e5' }}
+                            style={{ width: '68%', backgroundColor: 'white' }}
                             prefix={'Rp. '}
                             type="text"
                             disabled

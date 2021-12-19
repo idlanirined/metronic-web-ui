@@ -270,7 +270,7 @@ export default function AddDananNonRutin() {
                             style={{
                                 width: 320,
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField
@@ -293,7 +293,7 @@ export default function AddDananNonRutin() {
                             style={{
                                 width: 320,
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField
@@ -307,7 +307,7 @@ export default function AddDananNonRutin() {
                     </div>
                     <div style={{ display: 'flex', marginTop: 20, width: '50%', justifyContent: 'space-between' }}>
                         <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '21.5%', alignSelf: 'center' }}>Upload File</Typography>
-                        <div style={{ width: 320, backgroundColor: '#e5e5e5', border: 'solid 1px gray', borderRadius: 3, display: 'flex', justifyContent: 'space-between', marginRight: '10%' }}>
+                        <div style={{ width: 320, backgroundColor: 'white', border: 'solid 1px gray', borderRadius: 3, display: 'flex', justifyContent: 'space-between', marginRight: '10%' }}>
                             <Typography maxWidth={'70%'} style={{ whiteSpace: 'nowrap', overflow: 'overlay' }}>{nameFile}</Typography>
                             <div
                                 onClick={() => {
@@ -364,7 +364,7 @@ export default function AddDananNonRutin() {
                                 inputProps={{
                                     style: {
                                         fontSize: 14,
-                                        backgroundColor: '#e5e5e5'
+                                        backgroundColor: 'white'
                                     }
                                 }}
                                 size="medium"
@@ -418,7 +418,7 @@ export default function AddDananNonRutin() {
                                     style={{
                                         width: '-webkit-fill-available',
                                         fontSize: 14,
-                                        backgroundColor: '#e5e5e5'
+                                        backgroundColor: 'white'
                                     }}
                                     renderInput={(params) =>
                                         <TextField {...params} />}
@@ -435,7 +435,7 @@ export default function AddDananNonRutin() {
                                     inputProps={{
                                         style: {
                                             fontSize: 14,
-                                            backgroundColor: '#e5e5e5'
+                                            backgroundColor: 'white'
                                         }
                                     }}
                                     size="medium"

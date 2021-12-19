@@ -258,7 +258,7 @@ export default function EditAlokasiDana() {
                             style={{
                                 width: 320,
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField
@@ -284,7 +284,7 @@ export default function EditAlokasiDana() {
                             style={{
                                 width: 320,
                                 fontSize: 14,
-                                backgroundColor: '#e5e5e5'
+                                backgroundColor: 'white'
                             }}
                             renderInput={(params) =>
                                 <TextField
@@ -339,7 +339,7 @@ export default function EditAlokasiDana() {
                                 inputProps={{
                                     style: {
                                         fontSize: 14,
-                                        backgroundColor: '#e5e5e5'
+                                        backgroundColor: 'white'
                                     }
                                 }}
                                 size="medium"
