@@ -29,6 +29,7 @@ export default function AddBarang(props) {
             merk: merk,
             stok: stok,
             harga: harga,
+            account: account,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
             active: true

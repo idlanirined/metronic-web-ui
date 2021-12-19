@@ -193,7 +193,7 @@ export default function AddAnggaranRegional(props) {
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
-                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tambah Alokasi Dana</Typography>
+                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Master Anggaran</Typography>
             </div>
             <div style={{ margin: '20px 20px', padding: '20px', borderRadius: 20, backgroundColor: '#FEFEFE' }}>
                 <div className="grid grid-2x grid-mobile-none gap-15px" style={{}}>

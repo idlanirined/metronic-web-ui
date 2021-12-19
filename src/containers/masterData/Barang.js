@@ -60,6 +60,7 @@ export default function Barang() {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
                                 onClick={() => {
+                                    // console.log(tableMeta.rowData)
                                     setDataSelected({
                                         id: tableMeta.rowData[0],
                                         name: tableMeta.rowData[1],
@@ -70,7 +71,8 @@ export default function Barang() {
                                         createdBy: tableMeta.rowData[6],
                                         createdDate: tableMeta.rowData[7],
                                         active: tableMeta.rowData[8],
-                                        harga: tableMeta.rowData[9]
+                                        harga: tableMeta.rowData[9],
+                                        account: tableMeta.rowData[10]
                                     })
                                     setVisibleEdit(true)
                                 }}
@@ -89,7 +91,8 @@ export default function Barang() {
                                         createdBy: tableMeta.rowData[6],
                                         createdDate: tableMeta.rowData[7],
                                         active: tableMeta.rowData[8],
-                                        harga: tableMeta.rowData[9]
+                                        harga: tableMeta.rowData[9],
+                                        account: tableMeta.rowData[10]
                                     })
                                     setVisibleDelete(true)
                                 }}
@@ -100,7 +103,9 @@ export default function Barang() {
                     )
                 }
             }
-        }, {name: '', options: {display: false}}
+        }, 
+        {name: '', options: {display: false}}, 
+        {name: '', options: {display: false}}
     ];
 
     const options = {
@@ -130,7 +135,7 @@ export default function Barang() {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         if (dataHeadOffice != null) {
             let newDataBarang = dataHeadOffice.barang.map((item, index) => {
-                return [item.id, item.name, item.jenis, item.satuan, item.golongan, item.merk, item.createdBy, item.createdDate, item.active, item.harga]
+                return [item.id, item.name, item.jenis, item.satuan, item.golongan, item.merk, item.createdBy, item.createdDate, item.active, item.harga, item.account]
             })
             setDataHeadOffice(dataHeadOffice)
             setDataBarang(newDataBarang) 

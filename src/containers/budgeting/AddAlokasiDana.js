@@ -84,6 +84,7 @@ export default function AddAlokasiDana() {
 
     const handleUpdate = (tableMeta) => {
         let total = 0
+        console.log(dataShadow)
         dataShadow.map((item, index) => {
             total += item[4]
         })
@@ -193,7 +194,32 @@ export default function AddAlokasiDana() {
                     0]
             })
             let newDataShadow = dataHeadOffice.account.map((item, index) => {
-                return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
+                let char = ""
+                if (item.level === 1) {
+                    currentCode++;
+                    char = `${String.fromCharCode(64 + currentCode).toLowerCase()}. `;
+                    child = 0
+                } else if (item.level === 2) {
+                    currentCode = 0
+                    char = ""
+                    child++;
+                } else {
+                    char = ""
+                    currentCode = 0
+                }
+                return [
+                    index + 1,
+                    String(char).toLowerCase(),
+                    item.level === 2 ? `${child}). ${item.name}` : item.name,
+                    item.id,
+                    0,
+                    item.createdBy,
+                    item.createdDate,
+                    item.active,
+                    item.refID,
+                    item.level,
+                    0,
+                    0]
             })
             let listRegion = dataHeadOffice.region
             setDataHeadOffice(dataHeadOffice)
