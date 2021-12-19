@@ -1,24 +1,32 @@
-import { createMuiTheme, Menu, TableCell, Typography } from '@mui/material'
+import { ThemeProvider, Menu, TableCell, Typography } from '@mui/material'
 import MUIDataTable from "mui-datatables";
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { ThemeProvider } from "@mui/styles";
 import { createTheme } from "@mui/material/styles";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
-import AddRegional from './AddRegional';
-import EditRegional from './EditRegional';
+import { useHistory } from 'react-router-dom';
 import Constant from '../../library/Constants';
 import { headOffice } from '../../library/Service';
 
+// const ct = require("../../library/CustomTable");
+// const getMuiTheme = () => createTheme(ct.customTable());
+const theme = createTheme({
+    components: {
+        // Name of the component
+        MuiPaper: {
+            styleOverrides: {
+                // Name of the slot
+                root: {
+                    // Some CSS
+                    boxShadow: 'none !important',
+                    // fontSize: '1rem',
+                },
+            },
+        },
+    },
+});
 
-const ct = require("../../library/CustomTable");
-const getMuiTheme = () => createTheme(ct.customTable());
-
-export default function Regional() {
+export default function PenggunaanAnggaran() {
+    const history = useHistory()
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("60vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
@@ -30,15 +38,17 @@ export default function Regional() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
-    const [dataRegion, setDataRegion] = useState([])
+    const [dataAlokasi, setDataAlokasi] = useState([])
     const [dataSelected, setDataSelected] = useState(null)
     const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
-        { name: "ID REG", options: { filterOptions: { fullWidth: true } } },
-        "NAMA REGIONAL",
-        // "WILAYAH",
-        "PEMBUAT",
+        "NO",
+        "TAHUN",
+        "NAMA",
+        "Total Alokasi (Rp)",
+        "Total Terpakai (Rp)",
+        "Total Sisa (Rp)",
         "TIMESTAMP",
         {
             name: "ACTION",
@@ -48,7 +58,7 @@ export default function Regional() {
                 filter: false,
                 customHeadRender: (columnMeta) => (
                     <TableCell key={columnMeta.index} style={{}}>
-                        <Typography style={{ color: '#2E84D6', fontSize: 14, fontWeight: 'bold', textAlign: 'center' }}>{columnMeta.label}</Typography>
+                        <Typography style={{ color: '#2a9c6c', fontSize: 14, fontWeight: 'bold', textAlign: 'center' }}>{columnMeta.label}</Typography>
                     </TableCell>
                 ),
                 customBodyRender: (val, tableMeta) => {
@@ -56,26 +66,26 @@ export default function Regional() {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
                                 onClick={() => {
-                                    setDataSelected({
-                                        id: tableMeta.rowData[0],
-                                        name: tableMeta.rowData[1],
-                                        createdBy: tableMeta.rowData[2],
-                                        createdDate: tableMeta.rowData[3],
-                                        active: tableMeta.rowData[4]
-                                    })
-                                    setVisibleEdit(true)
+                                    // setDataSelected({
+                                    //     id: tableMeta.rowData[0],
+                                    //     name: tableMeta.rowData[1],
+                                    //     jenis: tableMeta.rowData[2],
+                                    //     satuan: tableMeta.rowData[3],
+                                    //     golongan: tableMeta.rowData[4],
+                                    //     merk: tableMeta.rowData[5],
+                                    //     createdDate: tableMeta.rowData[6],
+                                    //     createdDate: tableMeta.rowData[7],
+                                    // })
+                                    setVisibleDelete(true)
                                 }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
-                                <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
+                                <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>View</Typography>
                             </div>
                             <div
                                 onClick={() => {
                                     setDataSelected({
-                                        id: tableMeta.rowData[0],
-                                        name: tableMeta.rowData[1],
-                                        createdBy: tableMeta.rowData[2],
-                                        createdDate: tableMeta.rowData[3],
-                                        active: tableMeta.rowData[4]
+                                        id: tableMeta.rowData[2],
+                                        regionID: tableMeta.rowData[6]
                                     })
                                     setVisibleDelete(true)
                                 }}
@@ -87,6 +97,7 @@ export default function Regional() {
                 }
             }
         },
+        { name: "", options: { display: false } }
     ];
 
     const options = {
@@ -97,6 +108,7 @@ export default function Regional() {
         filter: false,
         filterType: "dropdown",
         responsive,
+        selectableRows: true,
         tableBodyHeight,
         tableBodyMaxHeight,
         onTableChange: (action, state) => {
@@ -111,23 +123,19 @@ export default function Regional() {
 
     const getData = () => {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice)
         if (dataHeadOffice != null) {
-            let newDataRegion = []
-            dataHeadOffice.region.map((item, index) => {
-                if (item.id !== 'HO-1') {
-                    newDataRegion.push([item.id, item.name, item.createdBy, item.createdDate, item.active])
-                }
+            let newDataAlokasi = dataHeadOffice.alokasi_dana.map((item, index) => {
+                return [index + 1, item.name, item.region.name, String(item.totalAlokaiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalTerpakai).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalSisa).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.createdDate, item.active, item.region.id]
             })
-            setDataHeadOffice(dataHeadOffice)
-            setDataRegion(newDataRegion)
-            console.log(dataHeadOffice)
+            setDataAlokasi(newDataAlokasi)
         }
     }
 
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
-                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Regional</Typography>
+                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Pengunaan Anggaran Rutin</Typography>
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', height: '83vh', borderRadius: 20 }}>
@@ -142,17 +150,17 @@ export default function Regional() {
                             <div style={{ width: 120, height: 50, backgroundColor: '#D7EBFF', borderRadius: 10, marginRight: 20, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
-                            <div
-                                onClick={() => setVisibleAdd(true)}
+                            {/* <div
+                                onClick={() => history.push('/tambah-alokasi-dana')}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
-                                <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Tambah Regional</Typography>
-                            </div>
+                                <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Add Alokasi Dana</Typography>
+                            </div> */}
                         </div>
                     </div>
-                    <ThemeProvider theme={getMuiTheme()}>
+                    <ThemeProvider theme={theme}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={dataRegion}
+                            data={dataAlokasi}
                             columns={columns}
                             options={options}
                         />
@@ -160,23 +168,17 @@ export default function Regional() {
                 </div>
             </div>
 
-            {visibleAdd && (
-                <AddRegional
-                    dataRegion={dataRegion}
-                    dataHeadOffice={dataHeadOffice}
-                    getData={getData}
+            {/* {visibleAdd && (
+                <AddAccount
                     onClose={() => setVisibleAdd(false)}
                 />
             )}
 
             {visibleEdit && (
-                <EditRegional
-                    dataSelected={dataSelected}
-                    dataHeadOffice={dataHeadOffice}
-                    getData={getData}
+                <EditAccount
                     onClose={() => setVisibleEdit(false)}
                 />
-            )}
+            )} */}
 
             {visibleDelete && (
                 <div className="App app-popup-show">
@@ -184,7 +186,7 @@ export default function Regional() {
                         <div className="popup-panel grid grid-2x" style={{ height: 64 }}>
                             <div className="col-1" style={{ maxWidth: "inherit", display: 'flex', alignItems: 'center' }}>
                                 <div className="popup-title">
-                                    <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Hapus Regional</span>
+                                    <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Hapus Alokasi Dana</span>
                                 </div>
                             </div>
                             <div className="col-2 content-right" style={{ maxWidth: "inherit", alignSelf: 'center' }}>
@@ -208,7 +210,7 @@ export default function Regional() {
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
                                 <div onClick={() => {
-                                    headOffice('deleteRegion', dataSelected)
+                                    // headOffice('deleteAlokasiDana', dataSelected)
                                     getData()
                                     setVisibleDelete(false)
                                 }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>

@@ -161,8 +161,8 @@ export default function AddAnggaranRegional(props) {
         let region = dataHeadOffice.region
         let newDataAnggaran = []
         let dataAnggaranShadow = []
-        newDataAnggaran.push([newDataAnggaran.length + 1, "Head Office", 0])
-        dataAnggaranShadow.push([dataAnggaranShadow.length + 1, "Head Office", 0])
+        // newDataAnggaran.push([newDataAnggaran.length + 1, "Head Office", 0])
+        // dataAnggaranShadow.push([dataAnggaranShadow.length + 1, "Head Office", 0])
         region.map((item, index) => {
             newDataAnggaran.push([newDataAnggaran.length + 1, item.name, 0])
             dataAnggaranShadow.push([dataAnggaranShadow.length + 1, item.name, 0])

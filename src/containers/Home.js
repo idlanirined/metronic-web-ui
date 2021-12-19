@@ -406,6 +406,19 @@ export default function Home() {
           "reference": 1,
           "sub_menu": [
             {
+              "menu_id": 39,
+              "class_id": "penggunaan-anggaran",
+              "menu_name": "Penggunaan Anggaran",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 29,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
               "menu_id": 30,
               "class_id": "alokasi-dana",
               "menu_name": "Alokasi Dana",

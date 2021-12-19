@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { createTheme } from "@mui/material/styles";
 import CloseImage from '../../assets/ic_close.png';
 import { useHistory } from 'react-router-dom';
+import Constant from '../../library/Constants';
+import { headOffice } from '../../library/Service';
 
 // const ct = require("../../library/CustomTable");
 // const getMuiTheme = () => createTheme(ct.customTable());
@@ -36,37 +38,16 @@ export default function AlokasiDana() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
+    const [dataAlokasi, setDataAlokasi] = useState([])
+    const [dataSelected, setDataSelected] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
 
     const columns = [
-        { name: "NO PRAB", options: { filterOptions: { fullWidth: true } } },
-        "DANA PENGAJUAN (Rp)",
+        "NO",
+        "Total Alokasi (Rp)",
         "TAHUN",
-        "REGION PENGAJUAN",
-        "TANGGAL PENGAJUAN",
-        {
-            name: "STATUS",
-            label: "STATUS",
-            options: {
-                sort: false,
-                filter: false,
-                customHeadRender: (columnMeta) => (
-                    <TableCell key={columnMeta.index} style={{}}>
-                        <Typography style={{ color: '#2a9c6c', fontSize: 14, fontWeight: 'bold', textAlign: 'center' }}>{columnMeta.label}</Typography>
-                    </TableCell>
-                ),
-                customBodyRender: (val, tableMeta) => {
-                    return (
-                        <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div
-                                onClick={() => null}
-                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#05B721', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
-                                <Typography style={{ color: '#ffffff', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>draft</Typography>
-                            </div>
-                        </div>
-                    )
-                }
-            }
-        },
+        "NAMA",
+        "TIMESTAMP",
         {
             name: "ACTION",
             label: "ACTION",
@@ -82,12 +63,22 @@ export default function AlokasiDana() {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
-                                onClick={() => setVisibleEdit(true)}
+                                onClick={() => {
+                                    // setDataSelected(dataHeadOffice.alokasi_dana[tableMeta.rowIndex])
+                                    console.log(dataHeadOffice.alokasi_dana[tableMeta.rowIndex])
+                                    // setVisibleEdit(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleDelete(true)}
+                                onClick={() => {
+                                    setDataSelected({
+                                        id: tableMeta.rowData[2],
+                                        regionID: tableMeta.rowData[6]
+                                    })
+                                    setVisibleDelete(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Delete</Typography>
                             </div>
@@ -96,6 +87,7 @@ export default function AlokasiDana() {
                 }
             }
         },
+        { name: "", options: { display: false } }
     ];
 
     const options = {
@@ -114,9 +106,21 @@ export default function AlokasiDana() {
         }
     };
 
-    const data = [
-        ["1", "JENIS BARANG A", "NAMA USER 1", "2021-11-01 12:00:00", "", "1"],
-    ];
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice)
+        if (dataHeadOffice != null) {
+            let newDataAlokasi = dataHeadOffice.alokasi_dana.map((item, index) => {
+                return [index + 1, String(item.totalAlokaiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.name, item.region.name, item.createdDate, item.active, item.region.id]
+            })
+            setDataHeadOffice(dataHeadOffice)
+            setDataAlokasi(newDataAlokasi)
+        }
+    }
 
     return (
         <div>
@@ -146,7 +150,7 @@ export default function AlokasiDana() {
                     <ThemeProvider theme={theme}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={data}
+                            data={dataAlokasi}
                             columns={columns}
                             options={options}
                         />
@@ -195,7 +199,11 @@ export default function AlokasiDana() {
                                 </div>
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
-                                <div style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <div onClick={() => {
+                                    headOffice('deleteAlokasiDana', dataSelected)
+                                    getData()
+                                    setVisibleDelete(false)
+                                }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>HAPUS</Typography>
                                 </div>
                             </div>

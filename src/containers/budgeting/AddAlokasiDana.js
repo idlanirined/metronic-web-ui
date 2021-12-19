@@ -1,9 +1,15 @@
-import { TextField, Typography, ThemeProvider, Autocomplete } from '@mui/material'
+import { TextField, Typography, ThemeProvider, Autocomplete, TableCell, Switch } from '@mui/material'
 import React, { useState } from 'react'
 // import { ThemeProvider } from "@mui/styles";
 // import { createTheme } from "@mui/material/styles";
 import MUIDataTable from "mui-datatables";
 import { createTheme } from "@mui/material/styles";
+import Constant from '../../library/Constants';
+import NumberFormat from 'react-number-format';
+import { green, grey, lightBlue } from '@mui/material/colors';
+import { headOffice } from '../../library/Service';
+import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 const theme = createTheme({
     components: {
@@ -47,23 +53,76 @@ const theme = createTheme({
 
 
 export default function AddAlokasiDana() {
+    let history = useHistory()
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("40vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
-    const [listTahun, setListTahun] = useState([
-        { value: '2020' },
-        { value: '2021' },
-    ])
-    const [listRegion, setListRegion] = useState([
-        { value: 'Region 1' },
-        { value: 'Region 2' },
-    ])
+    const [listTahun, setListTahun] = useState([])
+    const [tahun, setTahun] = useState(null)
+    const [listRegion, setListRegion] = useState([])
+    const [region, setRegion] = useState(null)
+    const [dataAccount, setDataAccount] = useState([])
+    const [dataAnggaran, setDataAnggaran] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    const [yearNow, setYearNow] = useState(new Date().getFullYear())
+    const [dataShadow, setDataShadow] = useState([])
+    const [grandTotal, setGrandTotal] = useState(0)
+    const [batasMax, setBatasMax] = useState(0)
+    const [keterangan, setKeterangan] = useState("")
+    const [hideTable, setHideTable] = useState(false)
+
+    const handleValue = (value, row, column, tableMeta, updateValue) => {
+        dataShadow[row][column] = Number(value)
+        dataAccount[row][column] = Number(value)
+        updateValue(value)
+    }
+
+    const handleUpdate = (tableMeta) => {
+        let total = 0
+        dataShadow.map((item, index) => {
+            total += item[3]
+        })
+        setGrandTotal(total)
+    }
 
     const columns = [
         "NO",
         "NAMA GL/ Buku Besar",
         "Nomor GL",
-        "TOTAL",
+        {
+            nama: "Total",
+            options: {
+                sort: true,
+                filter: false,
+                customHeadRender: (columnMeta) => (
+                    <TableCell key={columnMeta.index} style={{ backgroundColor: '#3699ff', padding: '10px 20px', border: '3px solid #FFF', top: 0, zIndex: 102, }}>
+                        <Typography style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'left' }}>{"Total"}</Typography>
+                    </TableCell>
+                ),
+                customBodyRender: (val, tableMeta, updateValue) => {
+                    return (
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <NumberFormat
+                                value={val}
+                                key={tableMeta.rowData[0]}
+                                customInput={TextField}
+                                style={{ width: '100%' }}
+                                prefix={'Rp. '}
+                                type="text"
+                                thousandSeparator={true}
+                                onValueChange={({ value: v }) => handleValue(v, tableMeta.rowIndex, tableMeta.columnIndex, tableMeta, updateValue)}
+                                onBlur={() => handleUpdate(tableMeta)}
+                            />
+                        </div>
+                    )
+                }
+            }
+        },
+        { name: '', options: { display: false } },
+        { name: '', options: { display: false } },
+        { name: '', options: { display: false } },
+        { name: '', options: { display: false } },
+        { name: '', options: { display: false } },
     ];
 
     const options = {
@@ -77,15 +136,84 @@ export default function AddAlokasiDana() {
         responsive,
         tableBodyHeight,
         tableBodyMaxHeight,
+        rowsPerPage: 100,
+        sortOrder: { name: 'NO', direction: 'asc' },
         onTableChange: (action, state) => {
-            console.log(action);
-            console.dir(state);
+            // console.log(action);
+            // console.dir(state);
         }
     };
 
-    const data = [
-        "", ""
-    ]
+    React.useEffect(() => {
+        getTahun()
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice)
+        if (dataHeadOffice != null) {
+            let newDataAccount = dataHeadOffice.account.map((item, index) => {
+                return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
+            })
+            let newDataShadow = dataHeadOffice.account.map((item, index) => {
+                return [index + 1, item.name, item.id, 0, item.createdBy, item.createdDate, item.active, item.refID, item.level, 0, 0]
+            })
+            let listRegion = dataHeadOffice.region
+            setDataHeadOffice(dataHeadOffice)
+            setListRegion(listRegion)
+            setRegion(listRegion[0])
+            setDataAccount(newDataAccount.sort((a, b) => a[0] - b[0]))
+            setDataShadow(newDataShadow.sort((a, b) => a[0] - b[0]))
+            if (dataHeadOffice.anggaran.length > 0) {
+                // console.log(region)
+                getBatasMax(dataHeadOffice, listRegion[0])
+            }
+        }
+    }
+
+    const getBatasMax = (data, region) => {
+        // console.log(dataHeadOffice)
+        console.log('tot', region)
+        let indexID = data.anggaran.findIndex((val) => val.id == yearNow)
+        if (indexID != -1) {
+            let newAnggaran = data.anggaran[indexID]
+            setDataAnggaran(newAnggaran)
+            let indexAnggaran = newAnggaran.dataAnggaran.findIndex((val) => val[1] == region.name)
+            if (indexAnggaran != -1) {
+                setBatasMax(newAnggaran.dataAnggaran[indexAnggaran][2])
+            }
+        }
+    }
+
+    const getTahun = () => {
+        let arrayTahun = []
+        for (var i = 2000; i <= 2021; i++) {
+            arrayTahun.push({ value: i })
+            if (i == new Date().getFullYear()) {
+                setTahun({ value: i })
+            }
+        }
+        setListTahun(arrayTahun.reverse())
+    }
+
+    const handleAlokasiDana = () => {
+        let payload = {
+            id: tahun.value,
+            region: region,
+            tahun: tahun.value,
+            dataAlokasi: dataShadow,
+            totalAlokaiDana: grandTotal,
+            batasMax: batasMax,
+            keterangan: keterangan,
+            createdBy: "Head Office",
+            createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
+            active: true
+        }
+        headOffice('addAlokasiDana', payload)
+        console.log(payload)
+        history.goBack()
+    }
 
     return (
         <div>
@@ -100,7 +228,12 @@ export default function AddAlokasiDana() {
                             disablePortal
                             id="combo-box-demo"
                             options={listRegion}
-                            getOptionLabel={(option) => option.value}
+                            getOptionLabel={(option) => option.name}
+                            value={region}
+                            onChange={(event, newInputValue) => {
+                                setRegion(newInputValue)
+                                getBatasMax(dataHeadOffice, newInputValue)
+                            }}
                             sx={{ width: 'inherit' }}
                             style={{
                                 width: 320,
@@ -122,6 +255,11 @@ export default function AddAlokasiDana() {
                             id="combo-box-demo"
                             options={listTahun}
                             getOptionLabel={(option) => option.value}
+                            value={tahun}
+                            onChange={(event, newInputValue) => {
+                                setTahun(newInputValue)
+                                getBatasMax()
+                            }}
                             sx={{ width: 'inherit' }}
                             style={{
                                 width: 320,
@@ -141,18 +279,24 @@ export default function AddAlokasiDana() {
                 </div>
             </div>
             <div style={{ margin: '0px 20px', padding: '20px', borderRadius: 20, backgroundColor: '#FEFEFE' }}>
+                <div style={{ flexDirection: 'row', display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
+                    <Typography style={{ color: hideTable ? green[500] : grey[500], marginRight: 5, backgroundColor: hideTable ? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>Hide Table</Typography>
+                    <Switch inputProps={{ 'aria-label': 'ant design' }} checked={hideTable} onChange={(e) => {
+                        setHideTable(e.target.checked)
+                    }} />
+                </div>
                 <ThemeProvider theme={theme}>
-                    <MUIDataTable
+                    {!hideTable && <MUIDataTable
                         // title={"ACME Employee list"}
-                        data={data}
+                        data={dataAccount}
                         columns={columns}
                         options={options}
-                    />
+                    />}
                 </ThemeProvider>
                 <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '20px 20px 0px', }}>
                     <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Grand Total (Rp)</Typography>
                     <div style={{ backgroundColor: '#D8D8D8', padding: 10, borderRadius: 5 }}>
-                        <Typography>500.000.000</Typography>
+                        <Typography>{grandTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                     </div>
                 </div>
             </div>
@@ -161,16 +305,34 @@ export default function AddAlokasiDana() {
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Batas Maksimum</Typography>
                         <div style={{ width: '75%', backgroundColor: '#D8D8D8', padding: 10, borderRadius: 5 }}>
-                            <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: '500' }}>450.000.000</Typography>
+                            <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: '500' }}>{'Rp. ' + batasMax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Typography>
                         </div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
                         <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: 'bold' }}>Keterangan</Typography>
                         <div style={{ width: '75%', backgroundColor: '#D8D8D8', padding: 10, borderRadius: 5 }}>
-                            <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'black', fontWeight: '500' }}>lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et</Typography>
+                            <TextField
+                                style={{ width: '100%' }}
+                                variant="outlined"
+                                value={keterangan}
+                                onChange={(e) => setKeterangan(e.target.value)}
+                                inputProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        backgroundColor: '#e5e5e5'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
                         </div>
                     </div>
-                    <div style={{ marginTop: 20, backgroundColor: '#3699ff', width: '100%', padding: 15, borderRadius: 10 }}>
+                    <div onClick={() => handleAlokasiDana()} style={{ marginTop: 20, backgroundColor: '#3699ff', width: '100%', padding: 15, borderRadius: 10 }}>
                         <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SUBMIT</Typography>
                     </div>
                 </div>

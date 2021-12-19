@@ -28,6 +28,7 @@ import Dashboard from "../containers/Dashboard";
 import AddAlokasiDana from "../containers/budgeting/AddAlokasiDana";
 import AnggaranRegional from "../containers/masterAnggaran/AnggaranRegional";
 import AddAnggaranRegional from "../containers/masterAnggaran/AddAnggaranRegional";
+import PenggunaanAnggaran from "../containers/budgeting/PenggunaanAnggaran";
 
 const routes = [
     {
@@ -81,6 +82,10 @@ const routes = [
     {
         path: "/kategori-account",
         main: KategoriAccount
+    },
+    {
+        path: "/penggunaan-anggaran",
+        main: PenggunaanAnggaran
     },
     {
         path: "/alokasi-dana",

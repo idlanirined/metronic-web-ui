@@ -81,6 +81,13 @@ const database = {
     ],
     region: [
         {
+            id: `HO-1`,
+            name: 'Head Office',
+            createdBy: 'Head Office',
+            createdDate: `${moment(new Date()).format('DD MMM YYYY HH:mm:ss')}`,
+            active: true
+        },
+        {
             id: `RG-1`,
             name: 'Region Bekasi',
             createdBy: 'Head Office',
