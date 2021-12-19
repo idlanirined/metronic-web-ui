@@ -326,16 +326,16 @@ export default function Home() {
             // },
             {
               "menu_id": 28,
-              "class_id": "daftar-akun",
-              "menu_name": "Daftar Akun",
+              "class_id": "daftar-gl",
+              "menu_name": "Daftar GL",
               "type": "item",
               "icon": "setup",
               "reference": 3,
               "sub_menu": [
                 {
                   "menu_id": 29,
-                  "class_id": "account",
-                  "menu_name": "Account",
+                  "class_id": "gl-bukubesar",
+                  "menu_name": "GL / Buku Besar",
                   "type": "item ",
                   "icon": " ",
                   "reference": 28,
@@ -345,19 +345,19 @@ export default function Home() {
                   "created": "",
                   "updated": null
                 },
-                {
-                  "menu_id": 30,
-                  "class_id": "kategori-account",
-                  "menu_name": "Kategori Account",
-                  "type": "item",
-                  "icon": "",
-                  "reference": 28,
-                  "sub_menu": [],
-                  "collapse": false,
-                  "is_access": true,
-                  "created": "",
-                  "updated": null
-                }
+                // {
+                //   "menu_id": 30,
+                //   "class_id": "kategori-account",
+                //   "menu_name": "Kategori Account",
+                //   "type": "item",
+                //   "icon": "",
+                //   "reference": 28,
+                //   "sub_menu": [],
+                //   "collapse": false,
+                //   "is_access": true,
+                //   "created": "",
+                //   "updated": null
+                // }
               ],
               "collapse": false,
               "is_access": true,
@@ -510,19 +510,19 @@ export default function Home() {
               "created": "",
               "updated": null
             },
-            {
-              "menu_id": 35,
-              "class_id": "invoice-supplier",
-              "menu_name": "Invoice Supplier",
-              "type": "item",
-              "icon": "master-data",
-              "reference": 32,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
+            // {
+            //   "menu_id": 35,
+            //   "class_id": "invoice-supplier",
+            //   "menu_name": "Invoice Supplier",
+            //   "type": "item",
+            //   "icon": "master-data",
+            //   "reference": 32,
+            //   "sub_menu": [],
+            //   "collapse": false,
+            //   "is_access": true,
+            //   "created": "",
+            //   "updated": null
+            // },
             {
               "menu_id": 36,
               "class_id": "retur-barang",
@@ -536,19 +536,19 @@ export default function Home() {
               "created": "",
               "updated": null
             },
-            {
-              "menu_id": 37,
-              "class_id": "retur-service-barang",
-              "menu_name": "Retur/ Service Barang",
-              "type": "item",
-              "icon": "master-data",
-              "reference": 32,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            }
+            // {
+            //   "menu_id": 37,
+            //   "class_id": "retur-service-barang",
+            //   "menu_name": "Retur/ Service Barang",
+            //   "type": "item",
+            //   "icon": "master-data",
+            //   "reference": 32,
+            //   "sub_menu": [],
+            //   "collapse": false,
+            //   "is_access": true,
+            //   "created": "",
+            //   "updated": null
+            // }
           ],
           "collapse": false,
           "is_access": true,
@@ -559,6 +559,20 @@ export default function Home() {
           "menu_id": 38,
           "class_id": "reporting",
           "menu_name": "Reporting",
+          "type": "item",
+          "icon": "general",
+          "reference": 1,
+          "sub_menu": [
+          ],
+          "collapse": false,
+          "is_access": true,
+          "created": "",
+          "updated": null
+        },
+        {
+          "menu_id": 99,
+          "class_id": "logout",
+          "menu_name": "Logout",
           "type": "item",
           "icon": "general",
           "reference": 1,
@@ -587,6 +601,7 @@ export default function Home() {
     // localStorage.clear()
     let access = localStorage.getItem(Constant.ACCESS_TOKEN)
     setAccess(access)
+    console.log(access)
     let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
     if (dataHeadOffice == null) {
       localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
@@ -641,6 +656,10 @@ export default function Home() {
     setSelectSubPath("")
     setSelectedIndex(e.menu_name)
     setSelectedPath(e.class_id)
+    if (e.class_id == 'logout') {
+      localStorage.removeItem(Constant.ACCESS_TOKEN)
+      logout()
+    }
     // alert(e)
     // if (open === false) {
     // setOpen(true)
@@ -736,13 +755,13 @@ export default function Home() {
               </Typography> */}
             </div>
             {/* <Avatar sx={{ bgcolor: green[50] }} variant="square"> */}
-            <div style={{ flexDirection: 'row', display: 'flex', alignItems:'center'}}>
-              <Typography style={{color: !checked? green[500] : grey[500], marginRight: 5, backgroundColor: !checked? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>Head Office</Typography>
+            <div style={{ flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
+              <Typography style={{ color: !checked ? green[500] : grey[500], marginRight: 5, backgroundColor: !checked ? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>Head Office</Typography>
               <SwitchMui inputProps={{ 'aria-label': 'ant design' }} checked={checked} onChange={(e) => {
                 setChecked(e.target.checked)
                 localStorage.setItem('checked', checked)
-              }}/>
-              <Typography style={{color: checked? green[500] : grey[500], marginLeft: 5, backgroundColor: checked? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5}}>Region</Typography>
+              }} />
+              <Typography style={{ color: checked ? green[500] : grey[500], marginLeft: 5, backgroundColor: checked ? lightBlue[50] : 'white', paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>Region</Typography>
             </div>
             {/* <Typography style={{ color: green[500] }}>{access == 'region'? 'Region' : 'Head Office'}</Typography> */}
             {/* </Avatar> */}
@@ -780,7 +799,8 @@ export default function Home() {
         <Divider />
         <List>
           {data.array && data.array.map((item, index) => (
-            <div style={{ marginTop: index === 0 ? null : 5 }} >
+            (access.includes('region') && item.menu_name == 'Master Anggaran')
+            ? null : <div style={{ marginTop: index === 0 ? null : 5 }} >
               {item.sub_menu.length > 0 ?
                 <a data-tip={item.menu_name} data-for={item.menu_name}>
                   <div style={{ justifyContent: 'space-between', flexDirection: 'row', display: 'flex', paddingLeft: open ? 20 : 0, paddingRight: open ? 10 : 5, cursor: 'pointer' }} onClick={() => { handleCollapse(item) }}>
@@ -828,70 +848,82 @@ export default function Home() {
                     <List component="div" disablePadding>
                       {item.sub_menu.map((sub, indexs) => {
                         return (
-                          <div>
-                            {sub.sub_menu.length > 0 ?
-                              <a data-tip={sub.menu_name} data-for={sub.menu_name}>
-                                <div style={{ justifyContent: 'space-between', flexDirection: 'row', display: 'flex', paddingLeft: open ? 20 : 0, paddingRight: open ? 10 : 5, cursor: 'pointer' }} onClick={() => { handleCollapseSub(sub) }}>
-                                  <ListItem key={sub.menu_name} style={{ padding: '10px 0', marginLeft: 20 }}>
-                                    <ListItemIcon style={{ minWidth: open ? 40 : 56 }}>
-                                      <div style={{ backgroundColor: !open ? pathname === sub.class_id ? "white" : "transparent" : 'transparent', padding: 5, borderRadius: 10 }}>
-                                        {/* <img
+                          (access.includes('region') && sub.menu_name == 'Alokasi Dana') ||
+                            // (access.includes('admin') && sub.menu_name == 'Daftar Barang') || 
+                            (access.includes('region') && sub.menu_name == 'Daftar Regional') ||
+                            (access.includes('region') && sub.menu_name == 'Daftar User') ||
+                            (access.includes('region') && sub.menu_name == 'Daftar Akun') ||
+                            (access.includes('region') && sub.menu_name == 'PO') ||
+                            (access.includes('region') && sub.menu_name == 'Surat Jalan') ||
+                            (access.includes('head') && sub.menu_name == 'Quotation')
+                            ? null : <div>
+                              {sub.sub_menu.length > 0 ?
+                                <a data-tip={sub.menu_name} data-for={sub.menu_name}>
+                                  <div style={{ justifyContent: 'space-between', flexDirection: 'row', display: 'flex', paddingLeft: open ? 20 : 0, paddingRight: open ? 10 : 5, cursor: 'pointer' }} onClick={() => { handleCollapseSub(sub) }}>
+                                    <ListItem key={sub.menu_name} style={{ padding: '10px 0', marginLeft: 20 }}>
+                                      <ListItemIcon style={{ minWidth: open ? 40 : 56 }}>
+                                        <div style={{ backgroundColor: !open ? pathname === sub.class_id ? "white" : "transparent" : 'transparent', padding: 5, borderRadius: 10 }}>
+                                          {/* <img
                                           src={setting
                                           }
                                           style={{ width: 20, height: 20 }} /> */}
-                                      </div>
-                                    </ListItemIcon>
-                                    <Typography style={{ fontFamily: 'Poppins', color: '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
-                                  </ListItem>
-                                  {sub.sub_menu.length > 0 ? (sub.collapse ? <ExpandLess style={{ color: "#d5e0dc", alignSelf: 'center' }} /> : <ExpandMore style={{ color: "#d5e0dc", alignSelf: 'center' }} />) : null}
-                                  {/* {!open && (<ReactTooltip border={true} id={sub.menu_name} place="bottom" type="light" effect="solid" />)} */}
-                                </div>
-                              </a>
-                              :
-                              <Link to={`${url}${sub.class_id}`}>
-                                <div style={{ paddingLeft: open ? 20 : 0 }} className={pathname === sub.class_id ? "active" : ""}>
-                                  <a data-tip={sub.menu_name} data-for={sub.menu_name}>
-                                    <ListItem button key={sub.menu_name}
-                                      onClick={() => selectIndex(sub)}
-                                      style={{ padding: '10px 0', marginLeft: 20 }}>
-                                      <ListItemIcon style={{ minWidth: open ? 40 : 56 }}>
-                                        <div style={{ backgroundColor: !open ? pathname === sub.class_id ? "#white" : "transparent" : 'transparent', padding: 5, borderRadius: 10 }}>
-                                          {/* <img
+                                        </div>
+                                      </ListItemIcon>
+                                      <Typography style={{ fontFamily: 'Poppins', color: '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                                    </ListItem>
+                                    {sub.sub_menu.length > 0 ? (sub.collapse ? <ExpandLess style={{ color: "#d5e0dc", alignSelf: 'center' }} /> : <ExpandMore style={{ color: "#d5e0dc", alignSelf: 'center' }} />) : null}
+                                    {/* {!open && (<ReactTooltip border={true} id={sub.menu_name} place="bottom" type="light" effect="solid" />)} */}
+                                  </div>
+                                </a>
+                                :
+                                <Link to={`${url}${sub.class_id}`}>
+                                  <div style={{ paddingLeft: open ? 20 : 0 }} className={pathname === sub.class_id ? "active" : ""}>
+                                    <a data-tip={sub.menu_name} data-for={sub.menu_name}>
+                                      <ListItem button key={sub.menu_name}
+                                        onClick={() => selectIndex(sub)}
+                                        style={{ padding: '10px 0', marginLeft: 20 }}>
+                                        <ListItemIcon style={{ minWidth: open ? 40 : 56 }}>
+                                          <div style={{ backgroundColor: !open ? pathname === sub.class_id ? "#white" : "transparent" : 'transparent', padding: 5, borderRadius: 10 }}>
+                                            {/* <img
                                             src={
                                               setting
                                             }
                                             style={{ width: 20, height: 20 }} /> */}
-                                        </div>
-                                      </ListItemIcon>
-                                      <Typography style={{ fontFamily: 'Poppins', color: pathname === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
-                                    </ListItem>
-                                  </a>
-                                  {/* {!open && (<ReactTooltip border={true} id={item.menu_name} place="bottom" type="light" effect="solid" />)} */}
-                                </div>
-                              </Link>
-                            }
-                            {sub.sub_menu.length > 0 &&
-                              <Collapse in={sub.collapse} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                  {sub.sub_menu.map((subs, indexs) => {
-                                    return (
-                                      <Link to={subs.menu_name === "Logout" ? `/` : `${url}${subs.class_id}`}>
-                                        <a data-tip={subs.menu_name} data-for={subs.menu_name}>
-                                          <div
-                                            style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === subs.class_id ? "active" : ""}
-                                            onClick={() => subs.menu_name === "Logout" ? logout() : selectSub(sub)}>
-                                            <ListItem button style={{ padding: '10px 0', marginLeft: 40 }}>
-                                              <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === subs.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{subs.menu_name}</Typography>
-                                            </ListItem>
                                           </div>
-                                        </a>
-                                      </Link>
-                                    )
-                                  })}
-                                </List>
-                              </Collapse>
-                            }
-                          </div>
+                                        </ListItemIcon>
+                                        <Typography style={{ fontFamily: 'Poppins', color: pathname === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                                      </ListItem>
+                                    </a>
+                                    {/* {!open && (<ReactTooltip border={true} id={item.menu_name} place="bottom" type="light" effect="solid" />)} */}
+                                  </div>
+                                </Link>
+                              }
+                              {sub.sub_menu.length > 0 &&
+                                <Collapse in={sub.collapse} timeout="auto" unmountOnExit>
+                                  <List component="div" disablePadding>
+                                    {sub.sub_menu.map((subs, indexs) => {
+                                      return (
+                                          (access.includes('region') && subs.menu_name == 'Jenis Barang') ||
+                                          (access.includes('region') && subs.menu_name == 'Satuan Barang') ||
+                                          (access.includes('region') && subs.menu_name == 'Golongan Barang')
+                                          ? null :
+                                          <Link to={subs.menu_name === "Logout" ? `/` : `${url}${subs.class_id}`}>
+                                            <a data-tip={subs.menu_name} data-for={subs.menu_name}>
+                                              <div
+                                                style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === subs.class_id ? "active" : ""}
+                                                onClick={() => subs.menu_name === "Logout" ? logout() : selectSub(sub)}>
+                                                <ListItem button style={{ padding: '10px 0', marginLeft: 40 }}>
+                                                  <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === subs.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{subs.menu_name}</Typography>
+                                                </ListItem>
+                                              </div>
+                                            </a>
+                                          </Link>
+                                      )
+                                    })}
+                                  </List>
+                                </Collapse>
+                              }
+                            </div>
                         )
                         // return (
                         //   <Link to={sub.menu_name === "Logout" ? `/` : `${url}${sub.class_id}`}>

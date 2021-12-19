@@ -31,6 +31,7 @@ import AddAnggaranRegional from "../containers/masterAnggaran/AddAnggaranRegiona
 import PenggunaanAnggaran from "../containers/budgeting/PenggunaanAnggaran";
 import EditAnggaranRegional from "../containers/masterAnggaran/EditAnggaranRegional";
 import AddDananNonRutin from "../containers/budgeting/AddDanaNonRutin";
+import AddQuotation from "../containers/inventory/AddQuotation";
 
 const routes = [
     {
@@ -78,7 +79,7 @@ const routes = [
         main: JenisSupplier
     },
     {
-        path: "/account",
+        path: "/gl-bukubesar",
         main: Account
     },
     {
@@ -165,6 +166,10 @@ const routes = [
         path: "/tambah-non-rutin",
         main: AddDananNonRutin
     },  
+    {
+        path: "/tambah-quotation",
+        main: AddQuotation
+    },
 ]
 
 export default routes;

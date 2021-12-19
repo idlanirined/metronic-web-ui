@@ -397,6 +397,52 @@ export const headOffice = (type, value) => {
             alokasi_dana.splice(index, 1)
             dataHeadOffice = { ...dataHeadOffice, alokasi_dana }
         }
+    }  else if (type == 'addDanaNonRutin') {
+        let newData = {
+            id: value.id,
+            region: value.region,
+            files: null,
+            tahun: value.tahun,
+            dataNonRutin: value.dataNonRutin,
+            totalNonRutin: value.totalNonRutin,
+            batasMax: value.batasMax,
+            keterangan: value.keterangan,
+            status: 'draft',
+            createdBy: value.createdBy,
+            createdDate: value.createdDate,
+            active: value.active
+        }
+        let dana_non_rutin = dataHeadOffice.dana_non_rutin
+        dana_non_rutin.push(newData)
+        dataHeadOffice = { ...dataHeadOffice, dana_non_rutin }
+    } else if (type == 'editDanaNonRutin') {
+        let newData = {
+            id: value.id,
+            name: value.tahun,
+            region: value.region,
+            dataAlokasi: value.dataAlokasi,
+            totalAlokaiDana: value.totalAlokaiDana,
+            totalTerpakai: value.totalTerpakai,
+            totalSisa: value.totalSisa,
+            batasMax: value.batasMax,
+            keterangan: value.keterangan,
+            createdBy: value.createdBy,
+            createdDate: value.createdDate,
+            active: value.active
+        }
+        let alokasi_dana = dataHeadOffice.alokasi_dana
+        let index = alokasi_dana.findIndex((val) => val.id == newData.id)
+        if (index != -1) {
+            alokasi_dana[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, alokasi_dana }
+        }
+    } else if (type == 'deleteDanaNonRutin') {
+        let alokasi_dana = dataHeadOffice.alokasi_dana
+        let index = alokasi_dana.findIndex((val) => val.id == value.id && val.region.id == value.regionID)
+        if (index != -1) {
+            alokasi_dana.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, alokasi_dana }
+        }
     }
     localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(dataHeadOffice))
 }

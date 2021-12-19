@@ -33,7 +33,7 @@ export default function AddAccount(props) {
                 <div className="popup-panel grid grid-2x" style={{ height: 64 }}>
                     <div className="col-1" style={{ maxWidth: "inherit", display: 'flex', alignItems: 'center' }}>
                         <div className="popup-title">
-                            <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Tambah Account</span>
+                            <span style={{ color: 'black', fontSize: 18, fontWeight: 'bold' }}>Add GL</span>
                         </div>
                     </div>
                     <div className="col-2 content-right" style={{ maxWidth: "inherit", alignSelf: 'center' }}>
@@ -48,7 +48,7 @@ export default function AddAccount(props) {
                 </div>
                 <div style={{ padding: 20, paddingRight: 50, paddingLeft: 50 }}>
                     <div style={{ display: 'flex' }}>
-                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Nama Account</Typography>
+                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Nama GL</Typography>
                         <TextField
                             style={{ width: '100%' }}
                             variant="outlined"
@@ -70,7 +70,7 @@ export default function AddAccount(props) {
                         />
                     </div>
                     <div style={{ display: 'flex', marginTop: 20 }}>
-                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Kategori Account</Typography>
+                        <Typography style={{ textAlign: 'left', fontWeight: 'bold', alignSelf: 'center', width: 200 }}>Parent GL</Typography>
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"

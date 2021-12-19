@@ -1,7 +1,7 @@
 import moment from "moment";
 
 const database = {
-    access: ['headOffice', 'region'],
+    access: ['headOffice', 'region1', 'region2', 'region3'],
     barang: [],
     jenis_barang: [
         {
