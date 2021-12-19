@@ -33,6 +33,8 @@ import EditAnggaranRegional from "../containers/masterAnggaran/EditAnggaranRegio
 import AddDananNonRutin from "../containers/budgeting/AddDanaNonRutin";
 import AddQuotation from "../containers/inventory/AddQuotation";
 import EditAlokasiDana from "../containers/budgeting/EditAlokasiDana";
+import EditPenggunaanAnggaran from "../containers/budgeting/EditPenggunaanAnggaran";
+import EditDananNonRutin from "../containers/budgeting/EditDanaNonRutin";
 
 const routes = [
     {
@@ -90,6 +92,10 @@ const routes = [
     {
         path: "/penggunaan-anggaran",
         main: PenggunaanAnggaran
+    },
+    {
+        path: "/edit-penggunaan-anggaran",
+        main: EditPenggunaanAnggaran
     },
     {
         path: "/alokasi-dana",
@@ -170,6 +176,10 @@ const routes = [
     {
         path: "/tambah-non-rutin",
         main: AddDananNonRutin
+    }, 
+    {
+        path: "/edit-non-rutin",
+        main: EditDananNonRutin
     },  
     {
         path: "/tambah-quotation",

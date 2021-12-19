@@ -11,6 +11,7 @@ import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
 import { useHistory } from 'react-router-dom';
 import Constant from '../../library/Constants';
+import { headOffice } from '../../library/Service';
 
 
 const ct = require("../../library/CustomTable");
@@ -32,6 +33,7 @@ export default function DanaNonRutin() {
     const [dataHeadOffice, setDataHeadOffice] = useState(null)
     const [dataNonRutin, setDataNonRutin] = useState([])
     const [access, setAccess] = useState("")
+    const [dataSelected, setDataSelected] = useState(null)
 
     const columns = [
         "NO",
@@ -78,12 +80,26 @@ export default function DanaNonRutin() {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
-                                onClick={() => setVisibleEdit(true)}
+                                onClick={() => {
+                                    history.push({
+                                        pathname: '/edit-non-rutin',
+                                        state: {
+                                            selected: tableMeta.rowData,
+                                            dataHeadOffice
+                                        }
+                                    })
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleDelete(true)}
+                                 onClick={() => {
+                                    setDataSelected({
+                                        id: tableMeta.rowData[7],
+                                        regionID: tableMeta.rowData[8]
+                                    })
+                                    setVisibleDelete(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Delete</Typography>
                             </div>
@@ -92,6 +108,8 @@ export default function DanaNonRutin() {
                 }
             }
         },
+        { name: 'id', options: { display: false } },
+        { name: 'region_id', options: { display: false } },
     ];
 
     const options = {
@@ -115,11 +133,15 @@ export default function DanaNonRutin() {
     ];
 
     useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         if (dataHeadOffice != null) {
             setDataHeadOffice(dataHeadOffice)
             let dataNonRutins = dataHeadOffice.dana_non_rutin.map((item, index) => {
-                return [index + 1, String(item.totalNonRutin).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.tahun, item.region.name, item.createdDate, item.status, item.active]
+                return [index + 1, String(item.totalNonRutin).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.tahun, item.region.name, item.createdDate, item.status, item.active, item.id, item.region.id]
             })
             setDataNonRutin(dataNonRutins)
             console.log(dataHeadOffice.dana_non_rutin)
@@ -127,7 +149,7 @@ export default function DanaNonRutin() {
         }
         let access = localStorage.getItem(Constant.ACCESS_TOKEN)
         setAccess(access)
-    }, [])
+    }
 
     return (
         <div>
@@ -211,7 +233,13 @@ export default function DanaNonRutin() {
                                 </div>
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
-                                <div style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <div
+                                    onClick={() => {
+                                        headOffice('deleteDanaNonRutin', dataSelected)
+                                        getData()
+                                        setVisibleDelete(false)
+                                    }}
+                                    style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>HAPUS</Typography>
                                 </div>
                             </div>
