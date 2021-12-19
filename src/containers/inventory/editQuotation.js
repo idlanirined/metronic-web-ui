@@ -189,12 +189,22 @@ export default function EditQuotation() {
     }, [])
 
     const getData = () => {
+        console.log(location);
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         if (dataHeadOffice != null) {
+            let idx = dataHeadOffice.quotation.findIndex((val) => val.id === location.state.selected[0])
+            setDataTable(dataHeadOffice.quotation[idx].dataQuotation)
+            setNoMemo(dataHeadOffice.quotation[idx].id)
+            setNamaMemo(dataHeadOffice.quotation[idx].name)
+            setTglMemo(dataHeadOffice.quotation[idx].tglMemo)
+            setStatus(dataHeadOffice.quotation[idx].status)
+            setTglQuotation(dataHeadOffice.quotation[idx].tglQuotation)
             setDataHeadOffice(dataHeadOffice)
             setDataBarang(dataHeadOffice.barang) 
-            console.log(dataBarang)
+            setKeterangan(dataHeadOffice.quotation[idx].keterangan)
+            forceUpdate()
             console.log(dataHeadOffice)
+            console.log(dataBarang)
         }
     }
 
@@ -256,6 +266,7 @@ export default function EditQuotation() {
     }
 
     const handleSubmit = () => {
+        let nameRegion = localStorage.getItem(Constant.ACCESS_TOKEN)
         let payload = {
             id: noMemo,
             name: namaMemo,
@@ -266,11 +277,12 @@ export default function EditQuotation() {
             totalQuotation: grandTotal,
             keterangan: keterangan,
             createdBy: 'region',
+            region: nameRegion.includes("1")? dataHeadOffice.region[1] : (nameRegion.includes("2")? dataHeadOffice.region[2] : dataHeadOffice.region[3]),
             createdDate: `${moment(new Date()).format('DD MMM YYYY HH:mm:ss')}`,
             active: true
         }
         console.log(payload)
-        headOffice('addQuotation', payload)
+        headOffice('editQuotation', payload)
         history.goBack()
     }
 
@@ -384,6 +396,7 @@ export default function EditQuotation() {
                                     fontSize: 14,
                                     backgroundColor: 'white'
                                 }}
+                                value={status}
                                 renderInput={(params) =>
                                     <TextField {...params} />}
                                 onChange={(event, newInputValue) => setStatus(newInputValue)}

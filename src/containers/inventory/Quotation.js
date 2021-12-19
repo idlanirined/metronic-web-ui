@@ -80,7 +80,8 @@ export default function Quotation() {
                                 onClick={() => history.push({
                                     pathname: '/edit-quotation',
                                     state: {
-                                        dataQuotation: dataHeadOffice.quotation[tableMeta.rowIndex]
+                                        dataQuotation: dataHeadOffice.quotation[tableMeta.rowIndex],
+                                        selected: tableMeta.rowData
                                         // dataHeadOffice: dataHeadOffice
                                     }
                                 })}
@@ -134,7 +135,7 @@ export default function Quotation() {
         console.log(dataHeadOffice.quotation)
         if (dataHeadOffice != null) {
             let newDataQuotation = dataHeadOffice.quotation.map((item, index) => {
-                return [item.id, item.region.name, item.createdDate, item.status, item.active]
+                return [item.id, item.region && item.region.name, item.createdDate, item.status, item.active]
             })
             setDataHeadOffice(dataHeadOffice)
             setDataQuotation(newDataQuotation)
