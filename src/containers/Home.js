@@ -847,7 +847,7 @@ export default function Home() {
                             style={{ width: 20, height: 20 }} />
                         </div>
                       </ListItemIcon>
-                      <Typography style={{ fontFamily: 'Poppins', color: '#d5e0dc', fontSize: 12 }}>{item.menu_name}</Typography>
+                      <Typography style={{ fontFamily: 'Poppins', color: '#d5e0dc', fontSize: 13 }}>{item.menu_name}</Typography>
                     </ListItem>
                     {item.sub_menu.length > 0 ? (item.collapse ? <ExpandLess style={{ color: "#d5e0dc", alignSelf: 'center' }} /> : <ExpandMore style={{ color: "#d5e0dc", alignSelf: 'center' }} />) : null}
                     {/* {!open && (<ReactTooltip border={true} id={item.menu_name} place="bottom" type="light" effect="solid" />)} */}
@@ -869,7 +869,7 @@ export default function Home() {
                               style={{ width: 20, height: 20 }} />
                           </div>
                         </ListItemIcon>
-                        <Typography style={{ fontFamily: 'Poppins', color: pathname === item.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{item.menu_name}</Typography>
+                        <Typography style={{ fontFamily: 'Poppins', color: pathname === item.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 13 }}>{item.menu_name}</Typography>
                       </ListItem>
                     </a>
                     {/* {!open && (<ReactTooltip border={true} id={item.menu_name} place="bottom" type="light" effect="solid" />)} */}
@@ -904,7 +904,7 @@ export default function Home() {
                                           style={{ width: 20, height: 20 }} /> */}
                                         </div>
                                       </ListItemIcon>
-                                      <Typography style={{ fontFamily: 'Poppins', color: '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                                      <Typography style={{ fontFamily: 'Poppins', color: '#d5e0dc', fontSize: 13 }}>{sub.menu_name}</Typography>
                                     </ListItem>
                                     {sub.sub_menu.length > 0 ? (sub.collapse ? <ExpandLess style={{ color: "#d5e0dc", alignSelf: 'center' }} /> : <ExpandMore style={{ color: "#d5e0dc", alignSelf: 'center' }} />) : null}
                                     {/* {!open && (<ReactTooltip border={true} id={sub.menu_name} place="bottom" type="light" effect="solid" />)} */}
@@ -926,7 +926,7 @@ export default function Home() {
                                             style={{ width: 20, height: 20 }} /> */}
                                           </div>
                                         </ListItemIcon>
-                                        <Typography style={{ fontFamily: 'Poppins', color: pathname === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                                        <Typography style={{ fontFamily: 'Poppins', color: pathname === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 13 }}>{sub.menu_name}</Typography>
                                       </ListItem>
                                     </a>
                                     {/* {!open && (<ReactTooltip border={true} id={item.menu_name} place="bottom" type="light" effect="solid" />)} */}
@@ -948,7 +948,7 @@ export default function Home() {
                                                 style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === subs.class_id ? "active" : ""}
                                                 onClick={() => subs.menu_name === "Logout" ? logout() : selectSub(sub)}>
                                                 <ListItem button style={{ padding: '10px 0', marginLeft: 40 }}>
-                                                  <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === subs.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{subs.menu_name}</Typography>
+                                                  <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === subs.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 13 }}>{subs.menu_name}</Typography>
                                                 </ListItem>
                                               </div>
                                             </a>
@@ -967,7 +967,7 @@ export default function Home() {
                         //         style={{ paddingLeft: 60, borderTopLeftRadius: 20, borderBottomLeftRadius: 20, display: 'flex' }} className={selectedSubPath === sub.class_id ? "active" : ""}
                         //         onClick={() => sub.menu_name === "Logout" ? logout() : selectSub(sub)}>
                         //         <ListItem button style={{ padding: '10px 0', marginLeft: 20 }}>
-                        //           <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 12 }}>{sub.menu_name}</Typography>
+                        //           <Typography style={{ fontFamily: 'Poppins', color: selectedSubPath === sub.class_id ? '#2a9c6c' : '#d5e0dc', fontSize: 13 }}>{sub.menu_name}</Typography>
                         //         </ListItem>
                         //       </div> 
                         //     </a>

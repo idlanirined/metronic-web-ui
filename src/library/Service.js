@@ -434,7 +434,7 @@ export const headOffice = (type, value) => {
             active: value.active
         }
         let dana_non_rutin = dataHeadOffice.dana_non_rutin
-        let index = dana_non_rutin.findIndex((val) => val.id == newData.id)
+        let index = dana_non_rutin.findIndex((val) => val.id == newData.id&& val.region.id == value.region.id)
         if (index != -1) {
             dana_non_rutin[index] = newData
             dataHeadOffice = { ...dataHeadOffice, dana_non_rutin }

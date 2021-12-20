@@ -324,9 +324,11 @@ export default function EditPenggunaanAnggaran() {
             setDataShadow(dataTable)
             setGrandTotal(dataHeadOffice.alokasi_dana[idx].totalAlokasiDana)
             setSisaTotal(dataHeadOffice.alokasi_dana[idx].totalSisa)
+            setPenggunaanTotal(dataHeadOffice.alokasi_dana[idx].totalTerpakai)
             setDataHeadOffice(dataHeadOffice)
             setRegion(dataHeadOffice.alokasi_dana[idx].region)
-            handleUpdate()
+            setKeterangan(dataHeadOffice.alokasi_dana[idx].keterangan)
+            // handleUpdate()
         }
 
     }

@@ -83,6 +83,7 @@ export default function EditDananNonRutin() {
     const [result, setresult] = useState("")
     const [file, setFile] = useState(null)
     const [nameFile, setNameFile] = useState(null)
+    const [id, setId] = useState("")
     const [access, setAccess] = useState(location.state.access == 'HO-1' ? true : false)
 
     const forceUpdate = React.useReducer(bool => !bool)[1];
@@ -188,6 +189,7 @@ export default function EditDananNonRutin() {
         setBatasMax(dataHeadOffice.dana_non_rutin[idx].batasMax)
         setKeterangan(dataHeadOffice.dana_non_rutin[idx].keterangan)
         setGrandTotal(dataHeadOffice.dana_non_rutin[idx].totalNonRutin)
+        setId(dataHeadOffice.dana_non_rutin[idx].id)
         // let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         // console.log(dataHeadOffice)
         // if (dataHeadOffice != null) {
@@ -249,7 +251,7 @@ export default function EditDananNonRutin() {
 
     const handleSubmit = (status) => {
         let payload = {
-            id: 'DNR-01',
+            id: id,
             region: region,
             files: null,
             tahun: tahun.value,
@@ -265,9 +267,9 @@ export default function EditDananNonRutin() {
         console.log(payload)
         headOffice('editDanaNonRutin', payload)
 
-        if (status == 'approve') {
+        // if (status == 'approve') {
             
-        }
+        // }
 
         history.goBack()
     }
