@@ -105,9 +105,7 @@ export default function PenerimaanBarangHeadKeRegion() {
         }
     };
 
-    const data = [
-        ["1", "JENIS BARANG A", "NAMA USER 1", "2021-11-01 12:00:00", "", "1"],
-    ];
+    const data = [];
 
     return (
         <div>

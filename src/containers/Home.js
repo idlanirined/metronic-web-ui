@@ -499,7 +499,20 @@ export default function Home() {
             },
             {
               "menu_id": 35,
-              "class_id": "penerimaan-barang",
+              "class_id": "penerimaan-barang-spc-head",
+              "menu_name": "Penerimaan Barang",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 45,
+              "class_id": "penerimaan-barang-head-region",
               "menu_name": "Penerimaan Barang",
               "type": "item",
               "icon": "master-data",
@@ -890,6 +903,8 @@ export default function Home() {
                             (access.includes('region') && sub.menu_name == 'PO') ||
                             (access.includes('region') && sub.menu_name == 'Surat Jalan') ||
                             (access.includes('region') && sub.menu_name == 'Clear Data') ||
+                            (access.includes('region') && sub.class_id == 'penerimaan-barang-spc-head') ||
+                            (access.includes('head') && sub.class_id == 'penerimaan-barang-head-region') ||
                             (access.includes('head') && sub.menu_name == 'Quotation')
                             ? null : <div>
                               {sub.sub_menu.length > 0 ?
