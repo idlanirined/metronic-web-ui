@@ -40,11 +40,16 @@ import AddSuratJalan from "../containers/inventory/AddSuratJalan";
 import AddPenerimaanBarangSuppKeHead from "../containers/inventory/AddPenerimaanBarangSuppKeHead";
 import AddPenerimaanBarangHeadKeRegion from "../containers/inventory/AddPenerimaanBarangHeadKeRegion";
 import EditPO from "../containers/inventory/EditPO";
+import DashboardRegion from "../containers/DashboardRegion";
 
 const routes = [
     {
         path: "/dashboard",
         main: Dashboard
+    },
+    {
+        path: "/dashboard-region",
+        main: DashboardRegion
     },
     {
         path: "/barang",
