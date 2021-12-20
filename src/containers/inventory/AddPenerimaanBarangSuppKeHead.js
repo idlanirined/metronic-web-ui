@@ -1,8 +1,11 @@
-import { TableCell, TextField, Typography, ThemeProvider } from '@mui/material'
+import { TableCell, TextField, Typography, ThemeProvider, Autocomplete } from '@mui/material'
 import MUIDataTable from "mui-datatables";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { createTheme } from "@mui/material/styles";
+import Constant from '../../library/Constants';
+const ct = require("../../library/CustomTable");
+const getMuiTheme = () => createTheme(ct.customTable());
 
 const theme = createTheme({
     components: {
@@ -49,16 +52,161 @@ export default function AddPenerimaanBarangSuppKeHead() {
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("20vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
+    const [dataPo, setDataPo] = useState([])
+    const [Po, setPo] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    const [region, setRegion] = useState(null)
+    const [dataTable, setDataTable] = useState([])
+    const [tglPenerimaan, setTglPenerimaan] = useState("")
+    // const [noSJ, setNoSJ] = useState(`-${location.state.dataSJ.length}`)
+    const [penerima, setPenerima] = useState("")
 
     const columns = [
         "NO",
         "BARANG",
         "MERK",
-        "Cek Kondisi",
-        "Expired Date",
+        {
+            nama: "Cek Kondisi",
+            options: {
+                sort: false,
+                filter: false,
+                customHeadRender: (columnMeta) => (
+                    <TableCell key={columnMeta.index} style={{ backgroundColor: '#3699ff', padding: '10px 20px', border: '3px solid #FFF', position: 'sticky', top: 0, zIndex: 110 }}>
+                        <Typography style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'left' }}>{"Cek Kondisi"}</Typography>
+                    </TableCell>
+                ),
+                customBodyRender: (val, tableMeta, updateValue) => {
+                    return (
+                        <div style={{ display: 'flex' }}>
+                            <TextField
+                                style={{}}
+                                variant="outlined"
+                                inputProps={{
+                                    style: {
+                                        padding: 10,
+                                        fontSize: 14,
+                                        backgroundColor: '#e5e5e5'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                        </div>
+                    )
+                }
+            }
+        },
+        {
+            nama: "Expired Date",
+            options: {
+                sort: false,
+                filter: false,
+                customHeadRender: (columnMeta) => (
+                    <TableCell key={columnMeta.index} style={{ backgroundColor: '#3699ff', padding: '10px 20px', border: '3px solid #FFF', position: 'sticky', top: 0, zIndex: 110 }}>
+                        <Typography style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'left' }}>{"Expired Date"}</Typography>
+                    </TableCell>
+                ),
+                customBodyRender: (val, tableMeta, updateValue) => {
+                    return (
+                        <div style={{ display: 'flex' }}>
+                            <TextField
+                                variant="outlined"
+                                inputProps={{
+                                    style: {
+                                        padding: 10,
+                                        fontSize: 14,
+                                        backgroundColor: '#e5e5e5'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                        </div>
+                    )
+                }
+            }
+        },
         "Qty Pengajuan",
-        "Qty Diterima",
-        "Keterangan",
+        {
+            nama: "Qty Diterima",
+            options: {
+                sort: false,
+                filter: false,
+                customHeadRender: (columnMeta) => (
+                    <TableCell key={columnMeta.index} style={{ backgroundColor: '#3699ff', padding: '10px 20px', border: '3px solid #FFF', position: 'sticky', top: 0, zIndex: 110 }}>
+                        <Typography style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'left' }}>{"Qty Diterima"}</Typography>
+                    </TableCell>
+                ),
+                customBodyRender: (val, tableMeta, updateValue) => {
+                    return (
+                        <div style={{ display: 'flex' }}>
+                            <TextField
+                                variant="outlined"
+                                inputProps={{
+                                    style: {
+                                        padding: 10,
+                                        fontSize: 14,
+                                        backgroundColor: '#e5e5e5'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                        </div>
+                    )
+                }
+            }
+        },
+        {
+            nama: "Keterangan",
+            options: {
+                sort: false,
+                filter: false,
+                customHeadRender: (columnMeta) => (
+                    <TableCell key={columnMeta.index} style={{ backgroundColor: '#3699ff', padding: '10px 20px', border: '3px solid #FFF', position: 'sticky', top: 0, zIndex: 110 }}>
+                        <Typography style={{ color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'left' }}>{"Keterangan"}</Typography>
+                    </TableCell>
+                ),
+                customBodyRender: (val, tableMeta, updateValue) => {
+                    return (
+                        <div style={{ display: 'flex' }}>
+                            <TextField
+                                variant="outlined"
+                                inputProps={{
+                                    style: {
+                                        padding: 10,
+                                        fontSize: 14,
+                                        backgroundColor: '#e5e5e5'
+                                    }
+                                }}
+                                size="medium"
+                                InputLabelProps={{
+                                    style: {
+                                        fontSize: 14,
+                                        color: '#7e8085',
+                                    }
+                                }}
+                            />
+                        </div>
+                    )
+                }
+            }
+        },
     ];
 
     const options = {
@@ -79,9 +227,19 @@ export default function AddPenerimaanBarangSuppKeHead() {
         // }
     };
 
-    const data = [
-        ["1", "BARANG 1", "MERK A", "Approve", "", "10", "", "Lorem"],
-    ];
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice.pre_order)
+        if (dataHeadOffice != null) {
+            let newDataPO = dataHeadOffice.pre_order
+            setDataHeadOffice(dataHeadOffice)
+            setDataPo(newDataPO)
+        }
+    }
 
     return (
         <div>
@@ -96,7 +254,9 @@ export default function AddPenerimaanBarangSuppKeHead() {
                         <TextField
                             style={{ width: '30%', marginLeft: 37 }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            onChange={(e) => setTglPenerimaan(e.target.value)}
+                            val={tglPenerimaan}
+                            type={"date"}
                             inputProps={{
                                 style: {
                                     padding: 10,
@@ -116,7 +276,8 @@ export default function AddPenerimaanBarangSuppKeHead() {
                         <TextField
                             style={{ width: '30%', marginLeft: 37 }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            value={penerima}
+                            onChange={(e) => setPenerima(e.target.value)}
                             inputProps={{
                                 style: {
                                     padding: 10,
@@ -135,30 +296,35 @@ export default function AddPenerimaanBarangSuppKeHead() {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: 20 }}>
                         <Typography style={{ color: 'black', fontSize: 14, fontWeight: 'bold', width: '15%', alignSelf: 'center' }}>No PO</Typography>
-                        <TextField
-                            style={{ width: '30%', marginLeft: 37 }}
-                            variant="outlined"
-                            onChange={(e) => null}
-                            inputProps={{
-                                style: {
-                                    padding: 10,
-                                    fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={dataPo}
+                            getOptionLabel={(option) => option.id}
+                            onChange={(e, newInputValue) => {
+                                setPo(newInputValue)
+                                if (newInputValue != null) {
+                                    setDataTable(newInputValue.dataPo)
                                 }
+                                console.log(newInputValue)
                             }}
-                            size="medium"
-                            InputLabelProps={{
-                                style: {
-                                    fontSize: 14,
-                                    color: '#7e8085',
-                                }
+                            // onChange={(event, newInputValue) => newInputValue == null ? setReferance(null) : setReferance(newInputValue)}
+                            sx={{ width: 'inherit' }}
+                            style={{
+                                width: '-webkit-fill-available',
+                                fontSize: 14,
+                                backgroundColor: 'white', width: '30%', marginLeft: 37
                             }}
+                            renderInput={(params) =>
+                                <TextField {...params} />}
                         />
                         <Typography style={{ color: 'black', fontSize: 14, fontWeight: 'bold', width: '15%', alignSelf: 'center', marginLeft: 20 }}>SPC</Typography>
                         <TextField
                             style={{ width: '30%', marginLeft: 37 }}
                             variant="outlined"
                             onChange={(e) => null}
+                            value={'SPC'}
+                            disabled
                             inputProps={{
                                 style: {
                                     padding: 10,
@@ -205,17 +371,16 @@ export default function AddPenerimaanBarangSuppKeHead() {
                             </div>
                         </div>
                     </div>
-
-                    <div style={{ marginTop: 20 }}>
-                        <ThemeProvider theme={theme}>
-                            <MUIDataTable
-                                // title={"ACME Employee list"}
-                                data={data}
-                                columns={columns}
-                                options={options}
-                            />
-                        </ThemeProvider>
-                    </div>
+                </div>
+                <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20, marginTop: 20, minHeight: '60vh', display: 'grid' }}>
+                    <ThemeProvider theme={theme}>
+                        <MUIDataTable
+                            // title={"ACME Employee list"}
+                            data={dataTable}
+                            columns={columns}
+                            options={options}
+                        />
+                    </ThemeProvider>
                     <div style={{ display: 'flex', width: '100%', alignSelf: 'flex-end' }}>
                         <div
                             onClick={() => null}
@@ -223,6 +388,7 @@ export default function AddPenerimaanBarangSuppKeHead() {
                             <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>SAVE</Typography>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

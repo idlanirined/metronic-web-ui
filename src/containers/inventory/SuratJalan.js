@@ -10,6 +10,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
 import { useHistory } from 'react-router-dom';
+import Constant from '../../library/Constants';
+import { headOffice } from '../../library/Service';
 
 
 const ct = require("../../library/CustomTable");
@@ -26,8 +28,13 @@ export default function SuratJalan() {
     const [viewColumnBtn, setViewColumnBtn] = useState(true);
     const [filterBtn, setFilterBtn] = useState(true);
     const [visibleAdd, setVisibleAdd] = useState(false)
+    const [dataTable, setDataTable] = useState([])
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
+    const [dataSJ, setDataSJ] = useState([])
+    const [Po, setPo] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    const [dataSelected, setDataSelected] = useState(null)
 
     const columns = [
         { name: "NO SJ", options: { filterOptions: { fullWidth: true } } },
@@ -50,8 +57,8 @@ export default function SuratJalan() {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
                                 onClick={() => null}
-                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#ff8c51', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
-                                <Typography style={{ color: '#ffffff', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>on progress</Typography>
+                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ padding: 10, height: 40, backgroundColor: val == 'terkirim'? '#05B721':(val == 'retur'? '#D13647':'#ff8c51'), borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
+                                <Typography style={{ color: '#ffffff', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>{val}</Typography>
                             </div>
                         </div>
                     )
@@ -78,7 +85,10 @@ export default function SuratJalan() {
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
                             </div>
                             <div
-                                onClick={() => setVisibleDelete(true)}
+                                onClick={() => {
+                                    setDataSelected(dataHeadOffice.surat_jalan[tableMeta.rowIndex])
+                                    setVisibleDelete(true)
+                                }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Delete</Typography>
                             </div>
@@ -105,7 +115,27 @@ export default function SuratJalan() {
         }
     };
 
-    const data = [];
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice.surat_jalan)
+        if (dataHeadOffice != null) {
+            let newDataSJ = dataHeadOffice.surat_jalan.map((item,index) => {
+                let noQuo = ''
+                let nameReg = ''
+                if (item.po.quotation != null) {
+                    noQuo = item.po.quotation.id
+                    nameReg = item.po.quotation.region.name
+                }
+                return [item.id, noQuo, nameReg, item.tglSJ, item.status]
+            })
+            setDataHeadOffice(dataHeadOffice)
+            setDataSJ(newDataSJ)
+        }
+    }
 
     return (
         <div>
@@ -131,9 +161,7 @@ export default function SuratJalan() {
                             <div
                                 onClick={() => history.push({
                                     pathname: '/add-surat-jalan',
-                                    state: {
-
-                                    }
+                                    state: {dataSJ}
                                 })}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
                                 <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Add Surat Jalan</Typography>
@@ -143,7 +171,7 @@ export default function SuratJalan() {
                     <ThemeProvider theme={getMuiTheme()}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={data}
+                            data={dataSJ}
                             columns={columns}
                             options={options}
                         />
@@ -192,7 +220,11 @@ export default function SuratJalan() {
                                 </div>
                             </div>
                             <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
-                                <div style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <div onClick={() => {
+                                    headOffice('deleteSJ', dataSelected)
+                                    setVisibleDelete(false)
+                                    getData()
+                                }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>HAPUS</Typography>
                                 </div>
                             </div>

@@ -116,6 +116,7 @@ export default function EditPO() {
             setGrandTotal(dataHeadOffice.pre_order[idx].totalPo)
             setNoPo(dataHeadOffice.pre_order[idx].id)
             setTglPo(dataHeadOffice.pre_order[idx].tglPo)
+            setQuotation(dataHeadOffice.pre_order[idx].quotation)
             let newDataQuotation = dataHeadOffice.quotation
             //     setDataHeadOffice(dataHeadOffice)
             setDataBarang(dataHeadOffice.barang)
@@ -518,6 +519,7 @@ export default function EditPO() {
                                         id="combo-box-demo"
                                         options={dataQuotation}
                                         getOptionLabel={(option) => option.id}
+                                        value={quotation}
                                         onChange={(e, newInputValue) => {
                                             setQuotation(newInputValue)
                                             console.log(newInputValue)

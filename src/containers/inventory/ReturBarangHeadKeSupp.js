@@ -30,12 +30,11 @@ export default function ReturBarangHeadKeSupp() {
     const [visibleDelete, setVisibleDelete] = useState(false)
 
     const columns = [
-        { name: "NO RETUR PO", options: { filterOptions: { fullWidth: true } } },
-        "TGL INVOICE",
-        "NO INVOICE",
+        { name: "NO RETUR", options: { filterOptions: { fullWidth: true } } },
+        "TGL RETUR",
+        "NO PO",
         "NO PENERIMAAN",
-        "NAMA SUPPLIER",
-        "REGION PENGAJU",
+        // "REGION PENGAJU",
         {
             name: "STATUS",
             label: "STATUS",

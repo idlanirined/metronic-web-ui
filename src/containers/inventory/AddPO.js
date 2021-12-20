@@ -513,6 +513,7 @@ export default function AddPO() {
                                             setQuotation(newInputValue)
                                             console.log(newInputValue)
                                         }}
+                                        value={quotation}
                                         // onChange={(event, newInputValue) => newInputValue == null ? setReferance(null) : setReferance(newInputValue)}
                                         sx={{ width: 'inherit' }}
                                         style={{

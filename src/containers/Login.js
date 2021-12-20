@@ -44,7 +44,7 @@ export default function Login() {
             return;
         }
         localStorage.setItem(Constant.ACCESS_TOKEN, formValue.name)
-        history.push('/')
+        history.push({pathname: '/dashboard'})
         // console.log(formValue, 'Form Value');
     };
 

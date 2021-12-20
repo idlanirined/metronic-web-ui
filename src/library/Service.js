@@ -534,6 +534,124 @@ export const headOffice = (type, value) => {
             pre_order.splice(index, 1)
             dataHeadOffice = { ...dataHeadOffice, pre_order }
         }
+    } else if (type == 'addSJ') {
+        let newData = {
+            id: value.id,
+            tglSJ: value.tglSJ,
+            files: value.files,
+            po: value.po,
+            status: value.status,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let surat_jalan = dataHeadOffice.surat_jalan
+        surat_jalan.push(newData)
+        dataHeadOffice = { ...dataHeadOffice, surat_jalan }
+    } else if (type == 'editSJ') {
+        let newData = {
+            id: value.id,
+            tglSJ: value.tglSJ,
+            files: value.files,
+            po: value.po,
+            status: value.status,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let surat_jalan = dataHeadOffice.surat_jalan
+        let index = surat_jalan.findIndex((val) => val.id == newData.id)
+        if (index != -1) {
+            surat_jalan[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, surat_jalan }
+        }
+    } else if (type == 'deleteSJ') {
+        let surat_jalan = dataHeadOffice.surat_jalan
+        let index = surat_jalan.findIndex((val) => val.id == value.id)
+        if (index != -1) {
+            surat_jalan.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, surat_jalan }
+        }
+    } else if (type == 'addPenerimaan') {
+        let newData = {
+            id: value.id,
+            tglPo: value.tglPo,
+            preparedBy: value.preparedBy,
+            dataPo: value.dataPo,
+            quotation: value.quotation,
+            totalPo: value.totalPo,
+            status: value.status,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let penerimaan_barang = dataHeadOffice.penerimaan_barang
+        penerimaan_barang.push(newData)
+        dataHeadOffice = { ...dataHeadOffice, penerimaan_barang }
+    } else if (type == 'editPeneriman') {
+        let newData = {
+            id: value.id,
+            tglPo: value.tglPo,
+            preparedBy: value.preparedBy,
+            dataPo: value.dataPo,
+            quotation: value.quotation,
+            totalPo: value.totalPo,
+            status: value.status,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let penerimaan_barang = dataHeadOffice.penerimaan_barang
+        let index = penerimaan_barang.findIndex((val) => val.id == newData.id)
+        if (index != -1) {
+            penerimaan_barang[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, penerimaan_barang }
+        }
+    } else if (type == 'deletePeneriman') {
+        let penerimaan_barang = dataHeadOffice.penerimaan_barang
+        let index = penerimaan_barang.findIndex((val) => val.id == value.id)
+        if (index != -1) {
+            penerimaan_barang.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, penerimaan_barang }
+        }
+    } else if (type == 'addRetur') {
+        let newData = {
+            id: value.id,
+            noPo: value.noPo,
+            tglRetur: value.tglRetur,
+            preparedBy: value.preparedBy,
+            dataRetur: value.dataRetur,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let retur_barang = dataHeadOffice.retur_barang
+        retur_barang.push(newData)
+        dataHeadOffice = { ...dataHeadOffice, retur_barang }
+    } else if (type == 'editRetur') {
+        let newData = {
+            id: value.id,
+            noPo: value.noPo,
+            tglRetur: value.tglRetur,
+            preparedBy: value.preparedBy,
+            dataRetur: value.dataRetur,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let retur_barang = dataHeadOffice.retur_barang
+        let index = retur_barang.findIndex((val) => val.id == newData.id)
+        if (index != -1) {
+            retur_barang[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, retur_barang }
+        }
+    } else if (type == 'deleteRetur') {
+        let retur_barang = dataHeadOffice.retur_barang
+        let index = retur_barang.findIndex((val) => val.id == value.id)
+        if (index != -1) {
+            retur_barang.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, retur_barang }
+        }
     }
     localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(dataHeadOffice))
 }

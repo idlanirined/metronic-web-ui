@@ -485,19 +485,6 @@ export default function Home() {
               "updated": null
             },
             {
-              "menu_id": 37,
-              "class_id": "surat-jalan",
-              "menu_name": "Surat Jalan",
-              "type": "item",
-              "icon": "master-data",
-              "reference": 32,
-              "sub_menu": [],
-              "collapse": false,
-              "is_access": true,
-              "created": "",
-              "updated": null
-            },
-            {
               "menu_id": 35,
               "class_id": "penerimaan-barang-spc-head",
               "menu_name": "Penerimaan Barang",
@@ -523,6 +510,19 @@ export default function Home() {
               "created": "",
               "updated": null
             },
+            {
+              "menu_id": 37,
+              "class_id": "surat-jalan",
+              "menu_name": "Surat Jalan",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
             // {
             //   "menu_id": 35,
             //   "class_id": "invoice-supplier",
@@ -538,7 +538,20 @@ export default function Home() {
             // },
             {
               "menu_id": 36,
-              "class_id": "retur-barang",
+              "class_id": "retur-barang-head-spc",
+              "menu_name": "Retur Barang",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 45,
+              "class_id": "retur-barang-region-head",
               "menu_name": "Retur Barang",
               "type": "item",
               "icon": "master-data",
@@ -649,6 +662,7 @@ export default function Home() {
       localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
       setDataHeadOffice(dataHeadOffice)
     }
+    setMenuid("2")
     setPathname(path[1])
   })
 
@@ -904,7 +918,9 @@ export default function Home() {
                             (access.includes('region') && sub.menu_name == 'Surat Jalan') ||
                             (access.includes('region') && sub.menu_name == 'Clear Data') ||
                             (access.includes('region') && sub.class_id == 'penerimaan-barang-spc-head') ||
+                            (access.includes('region') && sub.class_id == 'retur-barang-head-spc') ||
                             (access.includes('head') && sub.class_id == 'penerimaan-barang-head-region') ||
+                            (access.includes('head') && sub.class_id == 'retur-barang-region-head') ||
                             (access.includes('head') && sub.menu_name == 'Quotation')
                             ? null : <div>
                               {sub.sub_menu.length > 0 ?

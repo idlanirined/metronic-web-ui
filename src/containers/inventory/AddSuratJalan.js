@@ -1,8 +1,13 @@
-import { TableCell, TextField, Typography, ThemeProvider } from '@mui/material'
+import { TableCell, TextField, Typography, ThemeProvider, Autocomplete } from '@mui/material'
 import MUIDataTable from "mui-datatables";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { createTheme } from "@mui/material/styles";
+import Constant from '../../library/Constants';
+import moment from 'moment';
+import { headOffice } from '../../library/Service';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const theme = createTheme({
     components: {
@@ -45,10 +50,19 @@ const theme = createTheme({
 });
 
 export default function AddSuratJalan() {
+    let history = useHistory()
+    let location = useLocation()
     const [visibleUpload, setVisibleUpload] = useState(false)
     const [responsive, setResponsive] = useState("vertical");
     const [tableBodyHeight, setTableBodyHeight] = useState("20vh");
     const [tableBodyMaxHeight, setTableBodyMaxHeight] = useState("");
+    const [dataPo, setDataPo] = useState([])
+    const [Po, setPo] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    const [region, setRegion] = useState(null)
+    const [dataTable, setDataTable] = useState([])
+    const [tglSJ, setTglSJ] = useState("")
+    const [noSJ, setNoSJ] = useState(`SJ-${location.state.dataSJ.length}`)
 
     const columns = [
         "NO",
@@ -75,9 +89,34 @@ export default function AddSuratJalan() {
         // }
     };
 
-    const data = [
-        ["1", "BARANG 1", "MERK A", "10"],
-    ];
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice.pre_order)
+        if (dataHeadOffice != null) {
+            let newDataPO = dataHeadOffice.pre_order
+            setDataHeadOffice(dataHeadOffice)
+            setDataPo(newDataPO)
+        }
+    }
+
+    const handleSubmit = () => {
+        let payload = {
+            id: noSJ,
+            po: Po,
+            files: null,
+            tglSJ: tglSJ,
+            status: 'on_progress',
+            createdBy: 'Head Office',
+            createdDate: `${moment(new Date()).format('DD MMM YYYY HH:mm:ss')}`,
+            active: true
+        }
+        headOffice('addSJ', payload)
+        history.goBack()
+    }
 
     return (
         <div>
@@ -88,31 +127,40 @@ export default function AddSuratJalan() {
 
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20, marginTop: 20 }}>
                     <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-                        <Typography style={{ color: 'black', fontSize: 14, fontWeight: 'bold', width: '15%', alignSelf: 'center' }}>No Data</Typography>
-                        <TextField
-                            style={{ width: '30%', marginLeft: 37 }}
-                            variant="outlined"
-                            onChange={(e) => null}
-                            inputProps={{
-                                style: {
-                                    padding: 10,
-                                    fontSize: 14,
-                                    backgroundColor: '#e5e5e5'
+                        <Typography style={{ color: 'black', fontSize: 14, fontWeight: 'bold', width: '15%', alignSelf: 'center' }}>No PO</Typography>
+                        <Autocomplete
+                            disablePortal
+                            id="combo-box-demo"
+                            options={dataPo}
+                            getOptionLabel={(option) => option.id}
+                            onChange={(e, newInputValue) => {
+                                setPo(newInputValue)
+                                if (newInputValue != null) {
+                                    if (newInputValue.quotation != null) {
+                                        setRegion(newInputValue.quotation.region)
+                                    } else {
+                                        setRegion(null)
+                                    }
+                                    setDataTable(newInputValue.dataPo)
                                 }
+                                console.log(newInputValue)
                             }}
-                            size="medium"
-                            InputLabelProps={{
-                                style: {
-                                    fontSize: 14,
-                                    color: '#7e8085',
-                                }
+                            // onChange={(event, newInputValue) => newInputValue == null ? setReferance(null) : setReferance(newInputValue)}
+                            sx={{ width: 'inherit' }}
+                            style={{
+                                width: '-webkit-fill-available',
+                                fontSize: 14,
+                                backgroundColor: 'white', width: '30%', marginLeft: 37
                             }}
+                            renderInput={(params) =>
+                                <TextField {...params} />}
                         />
                         <Typography style={{ color: 'black', fontSize: 14, fontWeight: 'bold', width: '15%', alignSelf: 'center', marginLeft: 20 }}>Tanggal</Typography>
                         <TextField
                             style={{ width: '30%', marginLeft: 37 }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            onChange={(e) => setTglSJ(e.target.value)}
+                            value={tglSJ}
                             inputProps={{
                                 style: {
                                     padding: 10,
@@ -120,6 +168,7 @@ export default function AddSuratJalan() {
                                     backgroundColor: '#e5e5e5'
                                 }
                             }}
+                            type={'date'}
                             size="medium"
                             InputLabelProps={{
                                 style: {
@@ -134,7 +183,9 @@ export default function AddSuratJalan() {
                         <TextField
                             style={{ width: '30%', marginLeft: 37 }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            // onChange={(e) => null}
+                            value={noSJ}
+                            disabled
                             inputProps={{
                                 style: {
                                     padding: 10,
@@ -154,7 +205,9 @@ export default function AddSuratJalan() {
                         <TextField
                             style={{ width: '30%', marginLeft: 37 }}
                             variant="outlined"
-                            onChange={(e) => null}
+                            // onChange={(e) => null}
+                            value={region == null ? '' : region.name}
+                            disabled
                             inputProps={{
                                 style: {
                                     padding: 10,
@@ -206,7 +259,7 @@ export default function AddSuratJalan() {
                         <ThemeProvider theme={theme}>
                             <MUIDataTable
                                 // title={"ACME Employee list"}
-                                data={data}
+                                data={dataTable}
                                 columns={columns}
                                 options={options}
                             />
@@ -214,7 +267,7 @@ export default function AddSuratJalan() {
                     </div>
                     <div style={{ display: 'flex', width: '100%', alignSelf: 'flex-end' }}>
                         <div
-                            onClick={() => null}
+                            onClick={() => handleSubmit()}
                             style={{ height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer', padding: '0 10px', width: '100%' }}>
                             <Typography style={{ color: 'white', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>SAVE</Typography>
                         </div>
