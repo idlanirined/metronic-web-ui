@@ -116,7 +116,10 @@ export default function SuratJalan() {
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', height: '83vh', borderRadius: 20 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: 20 }}>
+                    <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px', alignItems: 'center', justifyContent: 'center', height: '100%', display: 'flex' }}>
+                        <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Coming Soon</Typography>
+                    </div>
+                    {/* <div style={{ display: 'flex', justifyContent: 'space-between', padding: 20 }}>
                         <div style={{ width: 300, height: 50, backgroundColor: '#F5F5F5', borderRadius: 10 }}>
 
                         </div>
@@ -131,7 +134,7 @@ export default function SuratJalan() {
                                 onClick={() => history.push({
                                     pathname: '/add-surat-jalan',
                                     state: {
-                                        
+
                                     }
                                 })}
                                 style={{ width: 150, height: 50, backgroundColor: '#3699FF', borderRadius: 10, display: 'flex', justifyContent: 'center', cursor: 'pointer' }}>
@@ -146,7 +149,7 @@ export default function SuratJalan() {
                             columns={columns}
                             options={options}
                         />
-                    </ThemeProvider>
+                    </ThemeProvider> */}
                 </div>
             </div>
 

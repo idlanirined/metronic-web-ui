@@ -11,7 +11,7 @@ import Constant from "../library/Constants";
 
 export default function BasicExample() {
     return ( 
-            <Router basename={"/metronic"}>
+            <Router basename={"/inventory-mandiri"}>
                 <Switch>
                     <Route exact path="/">
                         <Redirect

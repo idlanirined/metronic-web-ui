@@ -45,7 +45,7 @@ export default function Login() {
         }
         localStorage.setItem(Constant.ACCESS_TOKEN, formValue.name)
         history.push('/')
-        console.log(formValue, 'Form Value');
+        // console.log(formValue, 'Form Value');
     };
 
     return (

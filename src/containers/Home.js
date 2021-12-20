@@ -570,19 +570,45 @@ export default function Home() {
           "updated": null
         },
         {
-          "menu_id": 99,
-          "class_id": "logout",
-          "menu_name": "Logout",
+          "menu_id": 97,
+          "class_id": "setting",
+          "menu_name": "Setting",
           "type": "item",
           "icon": "general",
           "reference": 1,
           "sub_menu": [
+            {
+              "menu_id": 98,
+              "class_id": "logout",
+              "menu_name": "Logout",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
+            {
+              "menu_id": 99,
+              "class_id": "clearCache",
+              "menu_name": "Clear Data",
+              "type": "item",
+              "icon": "master-data",
+              "reference": 32,
+              "sub_menu": [],
+              "collapse": false,
+              "is_access": true,
+              "created": "",
+              "updated": null
+            },
           ],
           "collapse": false,
           "is_access": true,
           "created": "",
           "updated": null
-        }
+        },
       ]
     })
   const [selectedSubIndex, setSelectSub] = React.useState([]);
@@ -600,8 +626,11 @@ export default function Home() {
   React.useEffect(() => {
     let path = String(location.pathname).split('/')
     // localStorage.clear()
-    let access = localStorage.getItem(Constant.ACCESS_TOKEN)
-    setAccess(access)
+    let accessx = localStorage.getItem(Constant.ACCESS_TOKEN)
+    if (accessx == 'head') {
+      console.log(accessx)
+    }
+    setAccess(accessx)
     let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
     if (dataHeadOffice == null) {
       localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
@@ -659,6 +688,10 @@ export default function Home() {
     setSelectedPath(e.class_id)
     if (e.class_id == 'logout') {
       localStorage.removeItem(Constant.ACCESS_TOKEN)
+      // logout()
+    } 
+    if (e.class_id == 'clearCache') {
+      localStorage.clear()
       // logout()
     }
     // alert(e)
