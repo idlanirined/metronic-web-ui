@@ -81,7 +81,8 @@ export default function PenggunaanAnggaran() {
                                         pathname: '/edit-penggunaan-anggaran',
                                         state: {
                                             dataHeadOffice,
-                                            selected: tableMeta.rowData
+                                            selected: tableMeta.rowData,
+                                            disabled: lvlAccess == tableMeta.rowData[8]? false : true
                                         }
                                     })
                                 }}
@@ -144,10 +145,10 @@ export default function PenggunaanAnggaran() {
         }
         if (dataHeadOffice != null) {
             let newDataAlokasi = []
-            console.log(strAccess)
-            dataHeadOffice.alokasi_dana.filter((val) => val.region.id == strAccess).map((item, index) => {
+            dataHeadOffice.alokasi_dana.filter((val) => strAccess == 'HO-1'? val.region.id !== 'XXX' : val.region.id === strAccess).map((item, index) => {
                 newDataAlokasi.push([index + 1, item.name, item.region.name, String(item.totalAlokasiDana).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalTerpakai).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), String(item.totalSisa).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), item.createdDate, item.active, item.region.id])
             })
+            setLvlAccess(strAccess)
             setDataAlokasi(newDataAlokasi)
         }
     }

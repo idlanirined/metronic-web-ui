@@ -85,12 +85,13 @@ export default function DanaNonRutin() {
                                         pathname: '/edit-non-rutin',
                                         state: {
                                             selected: tableMeta.rowData,
-                                            dataHeadOffice
+                                            dataHeadOffice,
+                                            access
                                         }
                                     })
                                 }}
                                 id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10 }}>
-                                <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Edit</Typography>
+                                <Typography style={{ color: '#1bc5bd', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>{access == 'HO-1'? 'Approval' : 'Edit'}</Typography>
                             </div>
                             <div
                                  onClick={() => {
@@ -148,7 +149,17 @@ export default function DanaNonRutin() {
 
         }
         let access = localStorage.getItem(Constant.ACCESS_TOKEN)
-        setAccess(access)
+        let strAccess = ''
+        if (access == 'region1') {
+            strAccess = 'RG-1'
+        } else if (access == 'region2') {
+            strAccess = 'RG-2'
+        } else if (access == 'region3') {
+            strAccess = 'RG-3'
+        } else {
+            strAccess = 'HO-1'
+        }
+        setAccess(strAccess)
     }
 
     return (
@@ -169,7 +180,7 @@ export default function DanaNonRutin() {
                             <div style={{ width: 120, height: 50, backgroundColor: '#D7EBFF', borderRadius: 10, marginRight: 20, display: 'flex', justifyContent: 'center' }}>
                                 <Typography style={{ color: '#009EF7', fontSize: 16, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Export</Typography>
                             </div>
-                            {access.includes('region') && <div
+                            {access.includes('RG') && <div
                                 onClick={() => history.push({
                                     pathname: '/tambah-non-rutin',
                                     state: {

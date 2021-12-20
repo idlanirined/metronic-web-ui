@@ -362,7 +362,7 @@ export const headOffice = (type, value) => {
             dataAlokasi: value.dataAlokasi,
             totalAlokasiDana: value.totalAlokasiDana,
             totalTerpakai: 0,
-            totalSisa: 0,
+            totalSisa: value.totalAlokasiDana,
             batasMax: value.batasMax,
             keterangan: value.keterangan,
             createdBy: value.createdBy,
@@ -428,7 +428,7 @@ export const headOffice = (type, value) => {
             totalNonRutin: value.totalNonRutin,
             batasMax: value.batasMax,
             keterangan: value.keterangan,
-            status: 'draft',
+            status: value.status,
             createdBy: value.createdBy,
             createdDate: value.createdDate,
             active: value.active

@@ -525,7 +525,7 @@ export default function AddQuotation() {
                                         value={qty}
                                         onChange={(e) => {
                                             let calc = barang.harga * e.target.value 
-                                            let calcTotal = calc - ((disc > 0? disc/100 : 1) * calc)
+                                            let calcTotal = calc - ((disc > 0? disc/100 : 0) * calc)
                                             // console.log(calc)
                                             setQty(e.target.value)
                                             setJumlah(calc)
@@ -579,7 +579,7 @@ export default function AddQuotation() {
                                         onChange={(e) => {
                                             setDisc(e.target.value)
                                             let calc = barang.harga * qty
-                                            let calcTotal = calc - ((e.target.value > 0? e.target.value/100 : 1) * calc)
+                                            let calcTotal = calc - ((e.target.value > 0? e.target.value/100 : 0) * calc)
                                             setJumlah(calc)
                                             setTotal(calcTotal)
                                         }}

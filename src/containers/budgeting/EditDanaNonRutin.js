@@ -83,6 +83,7 @@ export default function EditDananNonRutin() {
     const [result, setresult] = useState("")
     const [file, setFile] = useState(null)
     const [nameFile, setNameFile] = useState(null)
+    const [access, setAccess] = useState(location.state.access == 'HO-1' ? true : false)
 
     const forceUpdate = React.useReducer(bool => !bool)[1];
 
@@ -122,7 +123,7 @@ export default function EditDananNonRutin() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <div style={{ backgroundColor: 'red', width: '100%', padding: '10px 0', cursor: 'pointer' }}
+                            {!access && <div style={{ backgroundColor: 'red', width: '100%', padding: '10px 0', cursor: 'pointer' }}
                                 onClick={() => {
                                     dataTable.splice(tableMeta.rowIndex, 1)
                                     let totalz = 0
@@ -135,7 +136,7 @@ export default function EditDananNonRutin() {
                             >
                                 <Typography style={{ fontSize: 16, fontWeight: 'bold', textAlign: 'center', color: 'white' }}>{val}</Typography>
 
-                            </div>
+                            </div>}
                         </div>
                     )
                 }
@@ -169,7 +170,15 @@ export default function EditDananNonRutin() {
         console.log(location);
         getTahun()
         getData()
-        setListAccount(location.state.dataHeadOffice.account)
+        let account = location.state.dataHeadOffice.account
+        let newAcc = []
+        account.map((item, index) => {
+            let indexID = account.findIndex((val) => val.refID === item.id)
+            if (item.level != 0 && indexID == -1) {
+                newAcc.push(item)
+            }
+        })
+        setListAccount(newAcc)
     }, [])
 
     const getData = () => {
@@ -238,7 +247,7 @@ export default function EditDananNonRutin() {
         // let fileType = event.name.split(".")[length - 1]
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (status) => {
         let payload = {
             id: 'DNR-01',
             region: region,
@@ -248,19 +257,25 @@ export default function EditDananNonRutin() {
             totalNonRutin: grandTotal,
             batasMax: batasMax,
             keterangan: keterangan,
+            status: status,
             createdBy: region.name,
             createdDate: `${moment(new Date()).format('DD MMM YYYY HH:mm:ss')}`,
             active: true
         }
         console.log(payload)
         headOffice('editDanaNonRutin', payload)
+
+        if (status == 'approve') {
+            
+        }
+
         history.goBack()
     }
 
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
-                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tambah Dana Non Rutin</Typography>
+                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Detail Dana Non Rutin</Typography>
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20 }}>
@@ -276,6 +291,7 @@ export default function EditDananNonRutin() {
                                 setRegion(newInputValue)
                                 getBatasMax(dataHeadOffice, newInputValue)
                             }}
+                            disabled
                             sx={{ width: 'inherit' }}
                             style={{
                                 width: 320,
@@ -298,6 +314,7 @@ export default function EditDananNonRutin() {
                             options={listTahun}
                             getOptionLabel={(option) => option.value}
                             value={tahun}
+                            disabled={access}
                             onChange={(event, newInputValue) => setTahun(newInputValue)}
                             sx={{ width: 'inherit' }}
                             style={{
@@ -331,7 +348,7 @@ export default function EditDananNonRutin() {
                 </div>
             </div>
             <div style={{ margin: '0px 20px', padding: '20px', borderRadius: 20, backgroundColor: '#FEFEFE' }}>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', }}>
+                {!access && <div style={{ display: 'flex', justifyContent: 'flex-end', }}>
                     <div
                         onClick={() => {
                             setVisibleAdd(true)
@@ -339,7 +356,7 @@ export default function EditDananNonRutin() {
                         style={{ marginTop: 20, backgroundColor: '#3699ff', width: '20%', padding: 15, borderRadius: 10, cursor: 'pointer' }}>
                         <Typography style={{ alignSelf: 'center', fontSize: 18, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>Add GL</Typography>
                     </div>
-                </div>
+                </div>}
                 <ThemeProvider theme={theme}>
                     <MUIDataTable
                         // title={"ACME Employee list"}
@@ -369,6 +386,7 @@ export default function EditDananNonRutin() {
                             <TextField
                                 style={{ width: '100%' }}
                                 variant="outlined"
+                                disabled={access}
                                 value={keterangan}
                                 onChange={(e) => setKeterangan(e.target.value)}
                                 inputProps={{
@@ -387,9 +405,27 @@ export default function EditDananNonRutin() {
                             />
                         </div>
                     </div>
-                    <div onClick={() => handleSubmit()} style={{ marginTop: 20, backgroundColor: '#3699ff', width: '100%', padding: 15, borderRadius: 10 }}>
-                        <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SUBMIT</Typography>
+                    {access ? <div className="grid grid-2x grid-mobile-none gap-15px" style={{ padding: 20 }}>
+                        <div onClick={() => handleSubmit('approve')} style={{ justifySelf: 'flex-end', width: 'inherit' }}>
+                            <div style={{ height: 60, width: '100%', backgroundColor: '#05B721', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>{'APPROVE'}</Typography>
+                            </div>
+                        </div>
+                        <div style={{ justifySelf: 'flex-end', width: 'inherit' }}>
+                            <div onClick={() => {
+                                // headOffice('deleteAlokasiDana', dataSelected)
+                                // headOffice('deleteAnggaran', dataSelected)
+                                // getData()
+                                // setVisibleDelete(false)
+                            }} style={{ height: 60, width: '100%', backgroundColor: '#f64e60', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
+                                <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>{'REJECT'}</Typography>
+                            </div>
+                        </div>
                     </div>
+                        :
+                        <div onClick={() => handleSubmit('draft')} style={{ marginTop: 20, backgroundColor: '#3699ff', width: '100%', padding: 15, borderRadius: 10 }}>
+                            <Typography style={{ alignSelf: 'center', marginRight: 30, fontSize: 18, color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SUBMIT</Typography>
+                        </div>}
                 </div>
             </div>
 

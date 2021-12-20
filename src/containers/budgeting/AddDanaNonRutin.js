@@ -168,7 +168,16 @@ export default function AddDananNonRutin() {
     React.useEffect(() => {
         getTahun()
         getData()
-        setListAccount(location.state.dataHeadOffice.account)
+        console.log(location.state.dataHeadOffice.account)
+        let account = location.state.dataHeadOffice.account
+        let newAcc = []
+        account.map((item, index) => {
+            let indexID = account.findIndex((val) => val.refID === item.id)
+            if(item.level != 0 && indexID == -1){
+                newAcc.push(item)
+            }
+        })
+        setListAccount(newAcc)
     }, [])
 
     const getData = () => {
@@ -183,8 +192,18 @@ export default function AddDananNonRutin() {
                     newListRegion.push(item)
                 }
             })
+            let access = localStorage.getItem(Constant.ACCESS_TOKEN)
+            let strAccess = ''
+            if (access == 'region1') {
+                strAccess = 'RG-1'
+            } else if (access == 'region2') {
+                strAccess = 'RG-2'
+            } else if (access == 'region3') {
+                strAccess = 'RG-3'
+            }
+            setDataHeadOffice(dataHeadOffice)
+            setRegion(strAccess == 'RG-1'? newListRegion[0] : strAccess == 'RG-2'? newListRegion[1] : newListRegion[2])
             setListRegion(newListRegion)
-            setRegion(newListRegion[0])
             if (dataHeadOffice.anggaran.length > 0) {
                 getBatasMax(dataHeadOffice, newListRegion[0])
             }
@@ -262,6 +281,7 @@ export default function AddDananNonRutin() {
                             options={listRegion}
                             getOptionLabel={(option) => option.name}
                             value={region}
+                            disabled
                             onChange={(event, newInputValue) => {
                                 setRegion(newInputValue)
                                 getBatasMax(dataHeadOffice, newInputValue)

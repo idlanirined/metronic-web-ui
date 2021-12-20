@@ -602,7 +602,6 @@ export default function Home() {
     // localStorage.clear()
     let access = localStorage.getItem(Constant.ACCESS_TOKEN)
     setAccess(access)
-    // console.log(access)
     let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
     if (dataHeadOffice == null) {
       localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(database))
@@ -758,7 +757,7 @@ export default function Home() {
             </div>
             {/* <Avatar sx={{ bgcolor: green[50] }} variant="square"> */}
             <div style={{ flexDirection: 'row', display: 'flex', alignItems: 'center' }}>
-              <Typography style={{ color: green[500], marginRight: 5, backgroundColor: lightBlue[50], paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>{access.includes('Head') ? 'Head Office' : (access.includes('1') ? 'Region Jakarta' : (access.includes('2') ? 'Region Bekasi' : 'Region Bandung'))}</Typography>
+              <Typography style={{ color: green[500], marginRight: 5, backgroundColor: lightBlue[50], paddingTop: 5, paddingBottom: 5, paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>{access.includes('head') ? 'Head Office' : (access.includes('1') ? 'Region Bekasi' : (access.includes('2') ? 'Region Jakarta' : 'Region Bandung'))}</Typography>
               {/* <SwitchMui inputProps={{ 'aria-label': 'ant design' }} checked={checked} onChange={(e) => {
                 setChecked(e.target.checked)
                 localStorage.setItem('checked', checked)

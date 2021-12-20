@@ -111,17 +111,20 @@ export default function EditAlokasiDana() {
                 customBodyRender: (val, tableMeta, updateValue) => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <NumberFormat
-                                value={val}
-                                key={tableMeta.rowData[0]}
-                                customInput={TextField}
-                                style={{ width: '100%' }}
-                                prefix={'Rp. '}
-                                type="text"
-                                thousandSeparator={true}
-                                onValueChange={({ value: v }) => handleValue(v, tableMeta.rowIndex, tableMeta.columnIndex, tableMeta, updateValue)}
-                                onBlur={() => handleUpdate(tableMeta)}
-                            />
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex + 1][9] !== 2) || tableMeta.rowData[9] === 2 ? (<div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <NumberFormat
+                                    value={val}
+                                    key={tableMeta.rowData[0]}
+                                    customInput={TextField}
+                                    style={{ width: '100%' }}
+                                    prefix={'Rp. '}
+                                    type="text"
+                                    thousandSeparator={true}
+                                    onValueChange={({ value: v }) => handleValue(v, tableMeta.rowIndex, tableMeta.columnIndex, tableMeta, updateValue)}
+                                    onBlur={() => handleUpdate(tableMeta)}
+                                />
+                            </div>
+                            ) : null}
                         </div>
                     )
                 }
@@ -162,8 +165,9 @@ export default function EditAlokasiDana() {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         console.log(location)
         if (dataHeadOffice != null) {
-            let idx = dataHeadOffice.alokasi_dana.findIndex((val) => val.id === location.state.selected[2])
+            let idx = dataHeadOffice.alokasi_dana.findIndex((val) => val.id === location.state.selected[2] && val.region.id === location.state.selected[6])
             setDataAccount(dataHeadOffice.alokasi_dana[idx].dataAlokasi)
+            console.log(dataHeadOffice.alokasi_dana[idx].dataAlokasi)
             setDataShadow(dataHeadOffice.alokasi_dana[idx].dataAlokasi)
             let listRegion = dataHeadOffice.region
             setListRegion(listRegion)
@@ -223,7 +227,7 @@ export default function EditAlokasiDana() {
             tahun: tahun.value,
             dataAlokasi: dataShadow,
             totalAlokasiDana: grandTotal,
-            totalSisa: totalSisa,
+            totalSisa: grandTotal,
             totalTerpakai: totalTerpakai,
             batasMax: batasMax,
             keterangan: keterangan,
@@ -239,7 +243,7 @@ export default function EditAlokasiDana() {
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
-                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Tambah Alokasi Dana</Typography>
+                <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Edit Alokasi Dana</Typography>
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20 }}>

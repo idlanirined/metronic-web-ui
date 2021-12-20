@@ -193,6 +193,7 @@ export default function EditQuotation() {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
         if (dataHeadOffice != null) {
             let idx = dataHeadOffice.quotation.findIndex((val) => val.id === location.state.selected[0])
+            console.log(dataHeadOffice.quotation[idx])
             setDataTable(dataHeadOffice.quotation[idx].dataQuotation)
             setNoMemo(dataHeadOffice.quotation[idx].id)
             setNamaMemo(dataHeadOffice.quotation[idx].name)
@@ -202,6 +203,7 @@ export default function EditQuotation() {
             setDataHeadOffice(dataHeadOffice)
             setDataBarang(dataHeadOffice.barang) 
             setKeterangan(dataHeadOffice.quotation[idx].keterangan)
+            setGrandTotal(dataHeadOffice.quotation[idx].totalQuotation)
             forceUpdate()
             console.log(dataHeadOffice)
             console.log(dataBarang)
@@ -301,6 +303,7 @@ export default function EditQuotation() {
                                 variant="outlined"
                                 value={noMemo}
                                 onChange={(e) => setNoMemo(e.target.value)}
+                                disabled
                                 inputProps={{
                                     style: {
                                         fontSize: 14,
@@ -536,7 +539,7 @@ export default function EditQuotation() {
                                         value={qty}
                                         onChange={(e) => {
                                             let calc = barang.harga * e.target.value 
-                                            let calcTotal = calc - ((disc > 0? disc/100 : 1) * calc)
+                                            let calcTotal = calc - ((disc > 0? disc/100 : 0) * calc)
                                             // console.log(calc)
                                             setQty(e.target.value)
                                             setJumlah(calc)
@@ -590,7 +593,7 @@ export default function EditQuotation() {
                                         onChange={(e) => {
                                             setDisc(e.target.value)
                                             let calc = barang.harga * qty
-                                            let calcTotal = calc - ((e.target.value > 0? e.target.value/100 : 1) * calc)
+                                            let calcTotal = calc - ((e.target.value > 0? e.target.value/100 : 0) * calc)
                                             setJumlah(calc)
                                             setTotal(calcTotal)
                                         }}

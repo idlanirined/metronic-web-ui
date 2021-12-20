@@ -78,7 +78,9 @@ export default function AddAlokasiDana() {
 
     const handleValue = (value, row, column, tableMeta, updateValue) => {
         dataShadow[row][column] = Number(value)
+        dataShadow[row][11] = Number(value)
         dataAccount[row][column] = Number(value)
+        dataAccount[row][11] = Number(value)
         updateValue(value)
     }
 

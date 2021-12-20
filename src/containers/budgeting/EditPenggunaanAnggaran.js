@@ -84,6 +84,8 @@ export default function EditPenggunaanAnggaran() {
     const [penggunaan, setPenggunaan] = useState(null)
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [rowData, setRowData] = useState(null)
+    const [nama, setNama] = useState("")
+    const [disabled, setDisabled] = useState(location.state.disabled)
 
     const handleValue = (value, row, column, tableMeta, updateValue) => {
         dataShadow[row][column] = Number(value)
@@ -102,7 +104,7 @@ export default function EditPenggunaanAnggaran() {
         })
         setGrandTotal(gt)
         setPenggunaanTotal(penggunaan)
-        setSisaTotal(sisa)
+        setSisaTotal(gt-penggunaan)
     }
 
     const forceUpdate = React.useReducer(bool => !bool)[1];
@@ -228,20 +230,19 @@ export default function EditPenggunaanAnggaran() {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? (
                                 <div
-                                    onClick={() => {
+                                    onClick={disabled? () => null : () => {
                                         setVisibleAdd(true)
                                         setRowData(tableMeta.rowData)
                                         console.log(tableMeta.rowData);
                                     }}
-                                    id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10, padding: '0 10px' }}>
+                                    id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ height: 40, backgroundColor: disabled? '#e5e5e5' : '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', marginRight: 10, padding: '0 10px' }}>
                                     <Typography style={{ color: '#1bc5bd', fontSize: 12, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Penggunaan</Typography>
                                 </div>
 
                             ) : null}
                             {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? (
                                 <div
-
-                                    id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ height: 40, backgroundColor: '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
+                                    id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ height: 40, backgroundColor: disabled? '#e5e5e5' : '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
                                     <Typography style={{ color: '#1bc5bd', fontSize: 12, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Detail Upload</Typography>
                                 </div>
                             ) : null}
@@ -278,7 +279,7 @@ export default function EditPenggunaanAnggaran() {
 
     const getData = () => {
         let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
-        let idx = dataHeadOffice.alokasi_dana.findIndex((val) => val.id === location.state.selected[1])
+        let idx = dataHeadOffice.alokasi_dana.findIndex((val) => val.id === location.state.selected[1] && val.region.id === location.state.selected[8])
         console.log(dataHeadOffice, location);
         if (idx > -1) {
             let dataTable = []
@@ -304,14 +305,19 @@ export default function EditPenggunaanAnggaran() {
                     item[2],
                     item[3],
                     item[4],
-                    0,
-                    0,
+                    item[10],
+                    item[11],
                     item[9],
                     item[8]
                 ])
             })
+            setNama(dataHeadOffice.alokasi_dana[idx].region.name)
+            setBatasMax(dataHeadOffice.alokasi_dana[idx].batasMax)
             setDataAccount(dataTable)
             setDataShadow(dataTable)
+            setGrandTotal(dataHeadOffice.alokasi_dana[idx].totalAlokasiDana)
+            setSisaTotal(dataHeadOffice.alokasi_dana[idx].totalSisa)
+            // handleUpdate()
         }
 
     }
@@ -348,13 +354,15 @@ export default function EditPenggunaanAnggaran() {
             tahun: tahun.value,
             dataAlokasi: dataShadow,
             totalAlokasiDana: grandTotal,
+            totalSisa: sisaTotal,
+            totalTerpakai: penggunaanTotal,
             batasMax: batasMax,
             keterangan: keterangan,
             createdBy: "Head Office",
             createdDate: moment(new Date()).format('DD MMM YYYY HH:mm:ss'),
             active: true
         }
-        headOffice('addAlokasiDana', payload)
+        headOffice('editAlokasiDana', payload)
         console.log(payload)
         history.goBack()
     }
@@ -367,7 +375,7 @@ export default function EditPenggunaanAnggaran() {
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', borderRadius: 20, padding: 20 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '10%', alignSelf: 'center' }}>Head Office</Typography>
+                        {/* <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '10%', alignSelf: 'center' }}>Head Office</Typography>
                         <Autocomplete
                             disablePortal
                             id="combo-box-demo"
@@ -392,9 +400,29 @@ export default function EditPenggunaanAnggaran() {
                                         style: { padding: '0 39px 0 0' }
                                     }}
                                 />}
+                        /> */}
+                        <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '10%', alignSelf: 'center' }}>Name</Typography>
+                        <TextField
+                            style={{ width: 280 }}
+                            variant="outlined"
+                            value={nama}
+                            disabled
+                            onChange={(e) => setNama(e.target.value)}
+                            inputProps={{
+                                style: {
+                                    fontSize: 14,
+                                    backgroundColor: '#e5e5e5'
+                                }
+                            }}
+                            size="medium"
+                            InputLabelProps={{
+                                style: {
+                                    fontSize: 14,
+                                    color: '#7e8085',
+                                }
+                            }}
                         />
-                        <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '10%', alignSelf: 'center' }}>Region</Typography>
-                        <Autocomplete
+                        {/* <Autocomplete
                             disablePortal
                             id="combo-box-demo"
                             options={listRegion}
@@ -418,14 +446,35 @@ export default function EditPenggunaanAnggaran() {
                                         style: { padding: '0 39px 0 0' }
                                     }}
                                 />}
-                        />
+                        /> */}
                         <Typography style={{ color: 'black', fontSize: 18, fontWeight: 'bold', width: '10%', alignSelf: 'center' }}>Tahun</Typography>
-                        <Autocomplete
+                        <TextField
+                            style={{ width: 280 }}
+                            variant="outlined"
+                            value={tahun == null? '' : tahun.value}
+                            // onChange={(e) => setNama(e.target.value)}
+                            disabled
+                            inputProps={{
+                                style: {
+                                    fontSize: 14,
+                                    backgroundColor: '#e5e5e5'
+                                }
+                            }}
+                            size="medium"
+                            InputLabelProps={{
+                                style: {
+                                    fontSize: 14,
+                                    color: '#7e8085',
+                                }
+                            }}
+                        />
+                        {/* <Autocomplete
                             disablePortal
                             id="combo-box-demo"
                             options={listTahun}
                             getOptionLabel={(option) => option.value}
                             value={tahun}
+                            disabled
                             onChange={(event, newInputValue) => {
                                 setTahun(newInputValue)
                                 getBatasMax()
@@ -444,7 +493,7 @@ export default function EditPenggunaanAnggaran() {
                                         style: { padding: '0 39px 0 0' }
                                     }}
                                 />}
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>
