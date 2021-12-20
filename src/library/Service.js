@@ -388,7 +388,7 @@ export const headOffice = (type, value) => {
             active: value.active
         }
         let alokasi_dana = dataHeadOffice.alokasi_dana
-        let index = alokasi_dana.findIndex((val) => val.id == newData.id)
+        let index = alokasi_dana.findIndex((val) => val.id == newData.id && val.region.id == value.region.id)
         if (index != -1) {
             alokasi_dana[index] = newData
             dataHeadOffice = { ...dataHeadOffice, alokasi_dana }

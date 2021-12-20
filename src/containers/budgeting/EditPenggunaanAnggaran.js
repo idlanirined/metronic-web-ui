@@ -99,8 +99,8 @@ export default function EditPenggunaanAnggaran() {
         let sisa = 0
         dataShadow.map((item, index) => {
             gt += item[4]
-            penggunaan += Number(item[5])
-            sisa += Number(item[6])
+            penggunaan += Number(item[10])
+            sisa += Number(item[11])
         })
         setGrandTotal(gt)
         setPenggunaanTotal(penggunaan)
@@ -125,7 +125,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {tableMeta.rowData[7] === 1 || tableMeta.rowData[7] === 2 ?
+                            {tableMeta.rowData[9] === 1 || tableMeta.rowData[9] === 2 ?
                                 <Typography style={{}}>{val}</Typography>
                                 :
                                 <Typography style={{ fontWeight: 'bold', textAlign: 'left' }}>{val}</Typography>
@@ -148,7 +148,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex+1][9] !== 2) || tableMeta.rowData[9] === 2 ? tableMeta.rowData[3] : null}
                         </div>
                     )
                 }
@@ -168,7 +168,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex+1][9] !== 2) || tableMeta.rowData[9] === 2 ? tableMeta.rowData[4] : null}
                         </div>
                     )
                 }
@@ -188,7 +188,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex+1][9] !== 2) || tableMeta.rowData[9] === 2 ? tableMeta.rowData[10] : null}
                         </div>
                     )
                 }
@@ -208,7 +208,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex' }}>
-                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? val : null}
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex+1][9] !== 2) || tableMeta.rowData[9] === 2 ? tableMeta.rowData[11] : null}
                         </div>
                     )
                 }
@@ -228,7 +228,7 @@ export default function EditPenggunaanAnggaran() {
                 customBodyRender: (val, tableMeta) => {
                     return (
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? (
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex+1][9] !== 2) || tableMeta.rowData[9] === 2 ? (
                                 <div
                                     onClick={disabled? () => null : () => {
                                         setVisibleAdd(true)
@@ -240,7 +240,7 @@ export default function EditPenggunaanAnggaran() {
                                 </div>
 
                             ) : null}
-                            {(tableMeta.rowData[7] === 1 && dataAccount[tableMeta.rowIndex+1][7] !== 2) || tableMeta.rowData[7] === 2 ? (
+                            {(tableMeta.rowData[9] === 1 && dataAccount[tableMeta.rowIndex+1][9] !== 2) || tableMeta.rowData[9] === 2 ? (
                                 <div
                                     id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ height: 40, backgroundColor: disabled? '#e5e5e5' : '#C9F7F5', borderRadius: 10, display: 'flex', justifyContent: 'center', padding: '0 10px' }}>
                                     <Typography style={{ color: '#1bc5bd', fontSize: 12, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Detail Upload</Typography>
@@ -250,7 +250,11 @@ export default function EditPenggunaanAnggaran() {
                     )
                 }
             }
-        },
+        }, {name: "" , options: {display: false}},
+        {name: "" , options: {display: false}},
+        {name: "" , options: {display: false}},
+        {name: "" , options: {display: false}},
+        {name: "" , options: {display: false}},
     ];
 
     const options = {
@@ -305,10 +309,13 @@ export default function EditPenggunaanAnggaran() {
                     item[2],
                     item[3],
                     item[4],
+                    item[5],
+                    item[6],
+                    item[7],
+                    item[8],
+                    item[9],
                     item[10],
                     item[11],
-                    item[9],
-                    item[8]
                 ])
             })
             setNama(dataHeadOffice.alokasi_dana[idx].region.name)
@@ -317,7 +324,9 @@ export default function EditPenggunaanAnggaran() {
             setDataShadow(dataTable)
             setGrandTotal(dataHeadOffice.alokasi_dana[idx].totalAlokasiDana)
             setSisaTotal(dataHeadOffice.alokasi_dana[idx].totalSisa)
-            // handleUpdate()
+            setDataHeadOffice(dataHeadOffice)
+            setRegion(dataHeadOffice.alokasi_dana[idx].region)
+            handleUpdate()
         }
 
     }
@@ -363,7 +372,8 @@ export default function EditPenggunaanAnggaran() {
             active: true
         }
         headOffice('editAlokasiDana', payload)
-        console.log(payload)
+        // console.log(payload)
+        // console.log(dataHeadOffice.alokasi_dana)
         history.goBack()
     }
 
@@ -660,14 +670,15 @@ export default function EditPenggunaanAnggaran() {
                             <div style={{ marginTop: 50, justifySelf: 'flex-end' }}>
                                 <div onClick={() => {
                                     let idx = dataAccount.findIndex((val) => val[3] === rowData[3])
-                                    dataAccount[idx][5] = penggunaan
-                                    dataShadow[idx][5] = penggunaan
-                                    dataAccount[idx][6] = Number(dataShadow[idx][4]) - Number(penggunaan)
-                                    dataShadow[idx][6] = Number(dataShadow[idx][4]) - Number(penggunaan)
+                                    dataAccount[idx][10] = Number(penggunaan)
+                                    dataShadow[idx][10] = Number(penggunaan)
+                                    dataAccount[idx][11] = Number(dataShadow[idx][4]) - Number(penggunaan)
+                                    dataShadow[idx][11] = Number(dataShadow[idx][4]) - Number(penggunaan)
+                                    console.log(dataShadow)
                                     forceUpdate()
                                     setVisibleAdd(false)
-                                    setPenggunaan(null)
                                     handleUpdate()
+                                    setPenggunaan(null)
                                 }} style={{ height: 60, width: 250, backgroundColor: '#3699ff', display: 'flex', justifyContent: 'center', borderRadius: 10 }}>
                                     <Typography style={{ color: 'white', fontSize: 18, fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>TAMBAH</Typography>
                                 </div>

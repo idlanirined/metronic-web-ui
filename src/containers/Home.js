@@ -889,6 +889,7 @@ export default function Home() {
                             (access.includes('region') && sub.menu_name == 'Daftar GL') ||
                             (access.includes('region') && sub.menu_name == 'PO') ||
                             (access.includes('region') && sub.menu_name == 'Surat Jalan') ||
+                            (access.includes('region') && sub.menu_name == 'Clear Data') ||
                             (access.includes('head') && sub.menu_name == 'Quotation')
                             ? null : <div>
                               {sub.sub_menu.length > 0 ?

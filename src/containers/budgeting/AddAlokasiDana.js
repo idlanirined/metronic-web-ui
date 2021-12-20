@@ -223,7 +223,9 @@ export default function AddAlokasiDana() {
                     item.refID,
                     item.level,
                     0,
-                    0]
+                    0,
+                    []
+                ]
             })
             let listRegion = dataHeadOffice.region
             setDataHeadOffice(dataHeadOffice)
