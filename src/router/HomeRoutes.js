@@ -39,6 +39,7 @@ import EditQuotation from "../containers/inventory/editQuotation";
 import AddSuratJalan from "../containers/inventory/AddSuratJalan";
 import AddPenerimaanBarangSuppKeHead from "../containers/inventory/AddPenerimaanBarangSuppKeHead";
 import AddPenerimaanBarangHeadKeRegion from "../containers/inventory/AddPenerimaanBarangHeadKeRegion";
+import EditPO from "../containers/inventory/EditPO";
 
 const routes = [
     {
@@ -128,6 +129,10 @@ const routes = [
     {
         path: "/tambah-po",
         main: AddPO
+    },  
+    {
+        path: "/edit-po",
+        main: EditPO
     },  
     {
         path: "/surat-jalan",
