@@ -198,26 +198,6 @@ export default function AddQuotation() {
         }
     }
 
-    const getDatas = () => {
-        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
-        console.log(dataHeadOffice)
-        if (dataHeadOffice != null) {
-            let listRegion = dataHeadOffice.region
-            setDataHeadOffice(dataHeadOffice)
-            let newListRegion = []
-            listRegion.map((item, index) => {
-                if (item.id !== 'HO-1') {
-                    newListRegion.push(item)
-                }
-            })
-            setListRegion(newListRegion)
-            setRegion(newListRegion[0])
-            if (dataHeadOffice.anggaran.length > 0) {
-                getBatasMax(dataHeadOffice, newListRegion[0])
-            }
-        }
-    }
-
     const getBatasMax = (data, region) => {
         // console.log(dataHeadOffice)
         let indexID = data.anggaran.findIndex((val) => val.id == yearNow)
@@ -637,6 +617,7 @@ export default function AddQuotation() {
                                         barang.harga,
                                         total,
                                         "X",
+                                        barang.id,
                                     ])
                                     let totalz = 0
                                     dataTable.map((item, index) => {

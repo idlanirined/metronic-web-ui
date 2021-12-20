@@ -651,6 +651,7 @@ export default function EditQuotation() {
                                         barang.harga,
                                         total,
                                         "X",
+                                        barang.id
                                     ])
                                     let totalz = 0
                                     dataTable.map((item, index) => {

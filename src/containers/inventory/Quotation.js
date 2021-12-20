@@ -54,8 +54,8 @@ export default function Quotation() {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <div
                                 onClick={() => null}
-                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: '#ff8c51', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
-                                <Typography style={{ color: '#ffffff', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>Initial</Typography>
+                                id="basic-button" aria-haspopup="true" aria-controls="basic-menu" style={{ width: 90, height: 40, backgroundColor: val == 'draft' ? '#ff8c51' : '#05B721', borderRadius: 10, display: 'flex', justifyContent: 'center' }}>
+                                <Typography style={{ color: '#ffffff', fontSize: 14, fontWeight: '500', textAlign: 'center', alignSelf: 'center' }}>{val}</Typography>
                             </div>
                         </div>
                     )
@@ -135,7 +135,7 @@ export default function Quotation() {
         console.log(dataHeadOffice.quotation)
         if (dataHeadOffice != null) {
             let newDataQuotation = dataHeadOffice.quotation.map((item, index) => {
-                return [item.id, item.region && item.region.name, item.createdDate, item.status, item.active]
+                return [item.id, item.region.name, item.createdDate, item.status.value, item.active]
             })
             setDataHeadOffice(dataHeadOffice)
             setDataQuotation(newDataQuotation)

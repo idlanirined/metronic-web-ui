@@ -10,6 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CloseImage from '../../assets/ic_close.png';
 import { useHistory } from 'react-router-dom';
+import Constant from '../../library/Constants';
 
 const ct = require("../../library/CustomTable");
 const getMuiTheme = () => createTheme(ct.customTable());
@@ -27,13 +28,16 @@ export default function PO() {
     const [visibleAdd, setVisibleAdd] = useState(false)
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleDelete, setVisibleDelete] = useState(false)
-
+    const [dataPo, setDataPo] = useState([])
+    const [dataSelected, setDataSelected] = useState(null)
+    const [dataHeadOffice, setDataHeadOffice] = useState(null)
+    
     const columns = [
         { name: "NO PO", options: { filterOptions: { fullWidth: true } } },
-        "NAMA SUPPLIER",
+        // "NAMA SUPPLIER",
         "TOTAL (Rp)",
-        "REGION PENGAJUAN",
-        "TANGGAL PENGAJUAN",
+        // "REGION PENGAJUAN",
+        "TANGGAL PO",
         {
             name: "STATUS",
             label: "STATUS",
@@ -109,6 +113,22 @@ export default function PO() {
         ["1", "JENIS BARANG A", "NAMA USER 1", "2021-11-01 12:00:00", "", "1"],
     ];
 
+    React.useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = () => {
+        let dataHeadOffice = JSON.parse(localStorage.getItem(Constant.DATA_HEAD_OFFICE))
+        console.log(dataHeadOffice.pre_order)
+        if (dataHeadOffice != null) {
+            let newDataPO = dataHeadOffice.pre_order.map((item, index) => {
+                return [item.id, item.totalPo, item.tglPo, item.status, item.active]
+            })
+            setDataHeadOffice(dataHeadOffice)
+            setDataPo(newDataPO)
+        }
+    }
+
     return (
         <div>
             <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px' }}>
@@ -116,10 +136,10 @@ export default function PO() {
             </div>
             <div style={{ padding: 20, borderRadius: 20 }}>
                 <div style={{ backgroundColor: '#FFFFFF', height: '83vh', borderRadius: 20 }}>
-                    <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px', alignItems: 'center', justifyContent: 'center', height: '100%', display: 'flex'}}>
+                    {/* <div style={{ backgroundColor: '#FEFEFE', padding: '15px 20px', alignItems: 'center', justifyContent: 'center', height: '100%', display: 'flex'}}>
                         <Typography style={{ color: 'black', fontSize: 16, fontWeight: 'bold' }}>Coming Soon</Typography>
-                    </div>
-                    {/* <div style={{ display: 'flex', justifyContent: 'space-between', padding: 20 }}>
+                    </div> */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', padding: 20 }}>
                         <div style={{ width: 300, height: 50, backgroundColor: '#F5F5F5', borderRadius: 10 }}>
 
                         </div>
@@ -140,11 +160,11 @@ export default function PO() {
                     <ThemeProvider theme={getMuiTheme()}>
                         <MUIDataTable
                             // title={"ACME Employee list"}
-                            data={data}
+                            data={dataPo}
                             columns={columns}
                             options={options}
                         />
-                    </ThemeProvider> */}
+                    </ThemeProvider>
                 </div>
             </div>
 

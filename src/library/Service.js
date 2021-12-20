@@ -446,7 +446,7 @@ export const headOffice = (type, value) => {
             dana_non_rutin.splice(index, 1)
             dataHeadOffice = { ...dataHeadOffice, dana_non_rutin }
         }
-    }else if (type == 'addQuotation') {
+    } else if (type == 'addQuotation') {
         let newData = {
             id: value.id,
             name: value.name,
@@ -491,6 +491,48 @@ export const headOffice = (type, value) => {
         if (index != -1) {
             quotation.splice(index, 1)
             dataHeadOffice = { ...dataHeadOffice, quotation }
+        }
+    } else if (type == 'addPo') {
+        let newData = {
+            id: value.id,
+            tglPo: value.tglPo,
+            preparedBy: value.preparedBy,
+            dataPo: value.dataPo,
+            quotation: value.quotation,
+            totalPo: value.totalPo,
+            status: value.status,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let pre_order = dataHeadOffice.pre_order
+        pre_order.push(newData)
+        dataHeadOffice = { ...dataHeadOffice, pre_order }
+    } else if (type == 'editPo') {
+        let newData = {
+            id: value.id,
+            tglPo: value.tglPo,
+            preparedBy: value.preparedBy,
+            dataPo: value.dataPo,
+            quotation: value.quotation,
+            totalPo: value.totalPo,
+            status: value.status,
+            createdDate: value.createdDate,
+            createdBy: value.createdBy,
+            active: value.active
+        }
+        let pre_order = dataHeadOffice.pre_order
+        let index = pre_order.findIndex((val) => val.id == newData.id)
+        if (index != -1) {
+            pre_order[index] = newData
+            dataHeadOffice = { ...dataHeadOffice, pre_order }
+        }
+    } else if (type == 'deletePo') {
+        let pre_order = dataHeadOffice.pre_order
+        let index = pre_order.findIndex((val) => val.id == value.id)
+        if (index != -1) {
+            pre_order.splice(index, 1)
+            dataHeadOffice = { ...dataHeadOffice, pre_order }
         }
     }
     localStorage.setItem(Constant.DATA_HEAD_OFFICE, JSON.stringify(dataHeadOffice))
